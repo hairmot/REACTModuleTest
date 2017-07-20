@@ -15,8 +15,8 @@ export default class Module extends React.Component {
 		var savedStates = [...this.state.savedStates];
 		savedStates.splice(parseInt(ev.target.id), 1);
 		console.log(savedStates)
-		this.setState({ savedStates: savedStates })
-		var newLocalStorageState = { savedStates: savedStates, inputs: this.state.inputs }
+		this.setState({ savedStates: savedStates, visibleVersion: this.state.visibleVersion -1 })
+		var newLocalStorageState = { savedStates: savedStates, inputs: this.state.inputs, visibleVersion: this.state.visibleVersion -1 }
 		localStorage.setItem('reactState', JSON.stringify(newLocalStorageState));
 	}
 
