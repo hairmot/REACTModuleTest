@@ -27,7 +27,6 @@ export default class Module extends React.Component {
 			}
 			else {
 				var lastState= this.snapshots.pop();
-				console.log(lastState);
 				this.setState({inputs:lastState});
 				this.snapshots = [...this.snapshots];
 			}

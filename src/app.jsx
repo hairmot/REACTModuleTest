@@ -9,9 +9,8 @@ export default class App extends React.Component {
 
 
 			var ob = {
-			title: 'test',
+			title: 'This is the original data',
 			module_code:'',
-			petersName:'hi there',
 			level:'',
 			credits:'',
 			ects_credits_value:'',
