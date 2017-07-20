@@ -21,6 +21,5 @@ export default {
 					task_weighting:'20'
 
 				}
-			],
-			learning_resources_for_this_module: ''
+			]
 		}
