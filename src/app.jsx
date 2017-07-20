@@ -2,11 +2,12 @@ import React from 'react';
 import '../styles/index.scss';
 import Module from './Module';
 import defaultData from './defaultData';
+import currentTime from './currentTime';
 
 export default class App extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {inputs: defaultData, savedStates: []};
+		this.state = {inputs: defaultData, savedStates: [{time:currentTime(), inputs:defaultData}]};
 	}
 
 	componentWillMount() {

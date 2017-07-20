@@ -26,7 +26,7 @@ export default class Module extends React.Component {
 	save = () => {
 		var localStorageState = { savedStates: [...this.state.savedStates, { time: currentTime(), inputs: this.state.inputs }], inputs: this.state.inputs };
 		localStorage.setItem('reactState', JSON.stringify(localStorageState));
-		this.setState({ savedStates: [...this.state.savedStates, { time: currentTime(), inputs: this.state.inputs }] });
+		this.setState({ savedStates: [...this.state.savedStates, { time: currentTime(), inputs: this.state.inputs }], visibleVersion: this.state.savedStates.length });
 		this.saved = true;
 	}
 
@@ -92,7 +92,7 @@ export default class Module extends React.Component {
 							</p>
 						</div>
 						<div className="sv-col-md-8">
-							<input type="range" onChange={this.showVersion} min="0" max={this.state.savedStates.length} />
+							<input type="range" onChange={this.showVersion} value={this.state.visibleVersion} min="0" max={this.state.savedStates.length -1} />
 						</div>
 						<div className="sv-col-md-2">
 							<p>
