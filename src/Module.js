@@ -89,8 +89,8 @@ export default class Module extends React.Component {
 
 		return (
 			<div>
-				<div className="sv-col-md-6">
-					<div className="sv-col-md-12">
+				<div className="sv-col-lg-6">
+					<div className="">
 						<div className="sv-panel sv-panel-primary">
 							<div className="sv-panel-heading">
 								Module Info
@@ -107,7 +107,7 @@ export default class Module extends React.Component {
 								</div>
 							</div></div>
 					</div>
-					<hr />
+
 				</div>
 				<div className="sv-col-md-6">
 
