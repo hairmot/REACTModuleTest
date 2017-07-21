@@ -3,12 +3,15 @@ import TextInput from './TextInput'
 import Assessment from './Assessment'
 import currentTime from './currentTime';
 import PreviousVersions from './previousVersions';
+import persistState from './persistState';
 
 export default class Module extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = { inputs: this.props.inputs, savedStates: this.props.savedStates, visibleVersion: this.props.savedStates.length -1}
+
+
 		this.snapshots = [this.props.inputs];
 		this.saved = true;
 	}
@@ -18,9 +21,11 @@ export default class Module extends React.Component {
 
 			var savedStates = [...this.state.savedStates];
 			savedStates.splice(parseInt(ev.target.id), 1);
-			this.setState({ savedStates: savedStates, visibleVersion: this.state.visibleVersion - 1 })
-			var newLocalStorageState = { savedStates: savedStates, inputs: this.state.inputs, visibleVersion: this.state.visibleVersion - 1 }
-			localStorage.setItem('reactState', JSON.stringify(newLocalStorageState));
+			this.setState({ savedStates: savedStates, visibleVersion: this.state.visibleVersion - 1 }, function() {
+				this.props.saveState();
+			});
+			// var newLocalStorageState = { savedStates: savedStates, inputs: this.state.inputs, visibleVersion: this.state.visibleVersion - 1 }
+			// localStorage.setItem('reactState', JSON.stringify(newLocalStorageState));
 		}
 	}
 
@@ -28,9 +33,11 @@ export default class Module extends React.Component {
 		this.setState({ inputs: this.state.savedStates[ev.target.value || ev.target.name].inputs, visibleVersion: ev.target.value || ev.target.name })
 
 	save = () => {
-		var localStorageState = { savedStates: [...this.state.savedStates, { time: currentTime(), inputs: this.state.inputs }], inputs: this.state.inputs };
-		localStorage.setItem('reactState', JSON.stringify(localStorageState));
-		this.setState({ savedStates: [...this.state.savedStates, { time: currentTime(), inputs: this.state.inputs }], visibleVersion: this.state.savedStates.length });
+	//	var localStorageState = { savedStates: [...this.state.savedStates, { time: currentTime(), inputs: this.state.inputs }], inputs: this.state.inputs };
+	//	localStorage.setItem('reactState', JSON.stringify(localStorageState));
+		this.setState({ savedStates: [...this.state.savedStates, { time: currentTime(), inputs: this.state.inputs }], visibleVersion: this.state.savedStates.length },function() {
+			this.props.saveState(this.state);
+		});
 		this.saved = true;
 	}
 
@@ -96,7 +103,7 @@ export default class Module extends React.Component {
 				<hr />
 
 				<hr />
-	<PreviousVersions versions={versions} showVersion={this.showVersion} visibleVersion={this.state.visibleVersion} savedStates={this.state.savedStates}/>
+					<PreviousVersions versions={versions} showVersion={this.showVersion} visibleVersion={this.state.visibleVersion} savedStates={this.state.savedStates}/>
 
 			</div>
 
