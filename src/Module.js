@@ -1,6 +1,5 @@
 import React from 'react';
 import TextInput from './TextInput'
-import Assessment from './Assessment'
 import currentTime from './currentTime';
 import PreviousVersions from './previousVersions';
 import persistState from './persistState';
@@ -9,7 +8,7 @@ export default class Module extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.state = { inputs: this.props.inputs, savedStates: this.props.savedStates, visibleVersion: this.props.savedStates.length -1}
+		this.state = { inputs: this.props.inputs, savedStates: this.props.savedStates, visibleVersion: this.props.savedStates.length - 1 }
 
 
 		this.snapshots = [this.props.inputs];
@@ -21,8 +20,8 @@ export default class Module extends React.Component {
 
 			var savedStates = [...this.state.savedStates];
 			savedStates.splice(parseInt(ev.target.id), 1);
-			this.setState({ savedStates: savedStates, visibleVersion: this.state.visibleVersion - 1 }, function() {
-				this.props.saveState();
+			this.setState({ savedStates: savedStates, visibleVersion: this.state.visibleVersion - 1 }, function () {
+				this.props.saveState(this.state);
 			});
 			// var newLocalStorageState = { savedStates: savedStates, inputs: this.state.inputs, visibleVersion: this.state.visibleVersion - 1 }
 			// localStorage.setItem('reactState', JSON.stringify(newLocalStorageState));
@@ -33,9 +32,9 @@ export default class Module extends React.Component {
 		this.setState({ inputs: this.state.savedStates[ev.target.value || ev.target.name].inputs, visibleVersion: ev.target.value || ev.target.name })
 
 	save = () => {
-	//	var localStorageState = { savedStates: [...this.state.savedStates, { time: currentTime(), inputs: this.state.inputs }], inputs: this.state.inputs };
-	//	localStorage.setItem('reactState', JSON.stringify(localStorageState));
-		this.setState({ savedStates: [...this.state.savedStates, { time: currentTime(), inputs: this.state.inputs }], visibleVersion: this.state.savedStates.length },function() {
+		//	var localStorageState = { savedStates: [...this.state.savedStates, { time: currentTime(), inputs: this.state.inputs }], inputs: this.state.inputs };
+		//	localStorage.setItem('reactState', JSON.stringify(localStorageState));
+		this.setState({ savedStates: [...this.state.savedStates, { time: currentTime(), inputs: this.state.inputs }], visibleVersion: this.state.savedStates.length }, function () {
 			this.props.saveState(this.state);
 		});
 		this.saved = true;
@@ -79,7 +78,7 @@ export default class Module extends React.Component {
 		var versions = this.state.savedStates.map((a, b) => {
 			var col = b == this.state.visibleVersion ? 'sv-alert-info' : ' sv-btn-default';
 			return (
-				<tr>
+				<tr key={b}>
 					<td><button className={col + ' sv-btn sv-btn-block'} name={b} onClick={this.showVersion}>{a.time}</button></td>
 					<td><button onClick={this.deleteVersion} id={b} className={b != 0 ? 'sv-btn sv-btn-block sv-alert-danger' : 'sv-btn sv-btn-block'} style={b != 0 ? { cursor: 'pointer' } : { cursor: 'arrow', color: 'lightgrey' }}>Delete</button></td>
 				</tr>
@@ -89,22 +88,32 @@ export default class Module extends React.Component {
 
 
 		return (
-			<div className="sv-col-md-12">
-
-				<div className="sv-row">
-			<div>{inputs}</div>
-					<div className="sv-col-md-2 sv-col-md-offset-4">
-						<button onClick={this.undo} className="sv-btn sv-btn-default sv-btn-block" disabled={this.snapshots.length === 1}>Undo</button>
+			<div>
+				<div className="sv-col-md-6">
+					<div className="sv-col-md-12">
+						<div className="sv-panel sv-panel-primary">
+							<div className="sv-panel-heading">
+								Module Info
+							</div>
+							<div className="sv-panel-body">
+								<div className="">
+									<div>{inputs}</div>
+									<div className="sv-col-md-2 sv-col-md-offset-4">
+										<button onClick={this.undo} className="sv-btn sv-btn-default sv-btn-block" disabled={this.snapshots.length === 1}>Undo</button>
+									</div>
+									<div className="sv-col-md-2">
+										<button onClick={this.save} className="sv-btn sv-btn-primary sv-btn-block" disabled={this.saved}>Save</button>
+									</div>
+								</div>
+							</div></div>
 					</div>
-					<div className="sv-col-md-2">
-						<button onClick={this.save} className="sv-btn sv-btn-primary sv-btn-block" disabled={this.saved}>Save</button>
-					</div>
+					<hr />
 				</div>
-				<hr />
+				<div className="sv-col-md-6">
 
-				<hr />
-					<PreviousVersions versions={versions} showVersion={this.showVersion} visibleVersion={this.state.visibleVersion} savedStates={this.state.savedStates}/>
+					<PreviousVersions versions={versions} showVersion={this.showVersion} visibleVersion={this.state.visibleVersion} savedStates={this.state.savedStates} />
 
+				</div>
 			</div>
 
 

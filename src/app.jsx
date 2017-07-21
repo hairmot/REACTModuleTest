@@ -9,21 +9,18 @@ import persistState from './persistState';
 export default class App extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {inputs : defaultData.inputs, savedStates: defaultData.savedStates, assessments: defaultData.assessments}
+		this.state = { inputs: defaultData.inputs, savedStates: defaultData.savedStates, assessments: defaultData.assessments }
 	}
 
 	componentWillMount() {
-		if(localStorage.getItem('reactState')) {
+		if (localStorage.getItem('reactState')) {
 			var newState = JSON.parse(localStorage.reactState);
-			this.setState({inputs:newState.inputs, savedStates:newState.savedStates, assessments: newState.assessments});
-		}
-		else {
-
+			this.setState({ inputs: newState.inputs, savedStates: newState.savedStates, assessments: newState.assessments });
 		}
 	}
 
 	saveAssessments = (ass) => {
-		this.setState({assessments:ass}, function() {
+		this.setState({ assessments: ass }, function () {
 			persistState(this.state);
 		});
 	}
@@ -32,25 +29,29 @@ export default class App extends React.Component {
 		persistState(Object.assign(this.state, state));
 	}
 
-  render() {
+	render() {
 		var modules = '';
-
-		if(this.state.savedStates) {
-			modules = 	<Module saveState={this.saveState} inputs={this.state.inputs} savedStates={this.state.savedStates}/>;
+		if (this.state.savedStates) {
+			modules = <Module saveState={this.saveState} inputs={this.state.inputs} savedStates={this.state.savedStates} />;
 		}
 
-    return (
-      <div className="sv-container"><br/>
-				<div className="sv-panel sv-panel-primary">
-					<div className="sv-panel-heading">
-						Example form
-						</div>
-					<div className="sv-panel-body">
+		return (
+			<div>
+				<br/>
+
 							{modules}
-						<Assessments saveAssessments={this.saveAssessments} removeAssessment={this.removeAssessment} addAssessment={this.addAssessment} assessments={this.state.assessments} />
-				 	</div>
-				 </div>
-      </div>
-    )
-  }
+
+				<div className="sv-col-md-6">
+					<div className="sv-panel sv-panel-primary">
+						<div className="sv-panel-heading">
+							Assessments
+							</div>
+						<div className="sv-panel-body">
+							<Assessments key={1} saveAssessments={this.saveAssessments} removeAssessment={this.removeAssessment} addAssessment={this.addAssessment} assessments={this.state.assessments} />
+						</div>
+					</div>
+				</div>
+			</div>
+		)
+	}
 }

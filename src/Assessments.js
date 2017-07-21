@@ -47,7 +47,7 @@ export default class Module extends React.Component {
 		if (this.state.assessments) {
 			assessments = this.state.assessments.map((a,b) => {
 				return (
-					<Assessment updateVal={this.updateVal} removeAssessment={this.removeAssessment} index={b} values={a} />
+					<Assessment key={b} updateVal={this.updateVal} removeAssessment={this.removeAssessment} index={b} values={a} />
 				)
 			})
 		}
