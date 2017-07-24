@@ -22,7 +22,7 @@ export default class Assessment extends React.Component {
 			<tr>
 				{inputs}
 				<td>
-					<button onClick={this.props.removeAssessment} id={this.props.index} className="sv-btn sv-btn-warning">Delete</button>
+					<button onClick={this.props.removeAssessment} id={this.props.index} className="sv-btn sv-alert-danger">Delete</button>
 				</td>
 			</tr>
 		)

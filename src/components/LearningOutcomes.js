@@ -36,7 +36,7 @@ export default class LearningOutcomes extends React.Component {
 							<input className="sv-form-control" onChange={(e) => this.update(e, b, 'outcome')} type="text" value={a.outcome} />
 						</td>
 						<td>
-							<button className="sv-btn sv-btn-warning" name={b} onClick={this.delete}>Delete</button>
+							<button className="sv-btn sv-alert-danger" name={b} onClick={this.delete}>Delete</button>
 						</td>
 					</tr>
 				)

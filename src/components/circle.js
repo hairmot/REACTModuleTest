@@ -17,14 +17,14 @@ class Circle extends Component {
 			setTimeout(() => {
 				this.setState({ value: val + 1 });
 				this.updateStatus(val + 1);
-			}, 20);
+			}, 12);
 		}
 		else if (val > this.props.amount) {
 
 			setTimeout(() => {
 				this.setState({ value: val -1  });
 				this.updateStatus(val -1 );
-			}, 20);
+			}, 12);
 		}
 
 	}
@@ -43,10 +43,10 @@ class Circle extends Component {
 			<div className="progress-circle">
 				<div className="radial-progress">
 					<div className="circle">
-						<div className="mask full" style={{ "transform": "rotate(" + amount + "deg)" }}>
+						<div className="mask full" style={this.state.value == '100' ? {backgroundColor:'rgb(161, 232, 125)', "transform": "rotate(" + amount + "deg)"} : {"transform": "rotate(" + amount + "deg)"}}>
 							<div className="fill" style={{ "transform": "rotate(" + amount + "deg)", "backgroundColor": 'hsl(' + this.state.value + ', 70%, 70%)' }}></div>
 						</div>
-						<div className="mask half">
+						<div className="mask half" style={this.state.value == '100' ? {backgroundColor:'rgb(161, 232, 125)'} : {}}>
 							<div className="fill" style={{ "transform": "rotate(" + amount + "deg)", "backgroundColor": 'hsl(' + this.state.value + ', 70%, 70%)' }}></div>
 							<div className="fill fix" style={{ "transform": "rotate(" + (amount * 2) + "deg)", "backgroundColor": 'hsl(' + this.state.value + ', 70%, 70%)' }}></div>
 						</div>

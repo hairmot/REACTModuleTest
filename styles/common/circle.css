@@ -22,9 +22,7 @@
   position: absolute;
   border-radius: 50%;
 }
-.radial-progress .circle .shadow {
-  box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.2) inset;
-}
+
 
 .radial-progress .circle .mask {
   clip: rect(0px, 120px, 120px, 60px);
@@ -40,6 +38,6 @@
   margin-top: 15px;
   background-color: #fbfbfb;
   border-radius: 50%;
-  box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.2);
+ 
 }
 .progressGraph .radial-progress {margin-left:auto;margin-right:auto;}

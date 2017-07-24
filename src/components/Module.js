@@ -26,8 +26,11 @@ export default class Module extends React.Component {
 		}
 	}
 
-	showVersion = ev =>
-		this.setState({ inputs: this.state.savedStates[ev.target.value || ev.target.name].inputs, visibleVersion: ev.target.value || ev.target.name })
+	showVersion = ev => {
+		this.setState({ inputs: this.state.savedStates[ev.target.value || ev.target.name].inputs, visibleVersion: ev.target.value || ev.target.name },
+		() => {
+		this.props.updateModuleProgress(this.state.inputs)});
+	}
 
 	save = () => {
 		//	var localStorageState = { savedStates: [...this.state.savedStates, { time: currentTime(), inputs: this.state.inputs }], inputs: this.state.inputs };
