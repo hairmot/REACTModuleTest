@@ -10,7 +10,7 @@ export default class Assessment extends React.Component {
 		return (
 			<div >
 				<div className="sv-col-md-6 progress-circle-text">
-					<div>
+					<div className={output === 0 ? 'sv-alert-danger' : 'sv-alert-success'}>
 						{output}
 					</div>
 					<div style={{ fontSize: '12px' }}>
@@ -18,7 +18,7 @@ export default class Assessment extends React.Component {
 					</div>
 				</div>
 				<div className="sv-col-md-6 progress-circle-text">
-					<div>
+					<div className={this.props.assessments.length - output === 0 ? 'sv-alert-warning' : 'sv-alert-danger'}>
 						{this.props.assessments.length - output}
 					</div>
 					<div style={{ fontSize: '12px' }}>
