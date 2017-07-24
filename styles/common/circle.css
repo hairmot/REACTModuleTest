@@ -1,31 +1,19 @@
-.redBg {
-  background-color: red;
-  border-radius: 51px;
-  color: white;
-  padding: 5px;
-}
-
 .progress-circle {
-  display: inline-block;
+    display:inline-block;
 }
-
 .progress-circle-text {
-  text-align: center;
-  font-weight: bold;
-  font-size: 30px;
-}
+    text-align:center;
+    font-weight:bold;
+    font-size:30px;
 
-.inset {
-  line-height: 3;
 }
-
+.inset{ line-height:3;}
 .radial-progress {
   width: 120px;
   height: 120px;
   background-color: #d6dadc;
   border-radius: 50%;
 }
-
 .radial-progress .circle .mask,
 .radial-progress .circle .fill,
 .radial-progress .circle .shadow {
@@ -34,7 +22,6 @@
   position: absolute;
   border-radius: 50%;
 }
-
 .radial-progress .circle .shadow {
   box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.2) inset;
 }
@@ -42,11 +29,9 @@
 .radial-progress .circle .mask {
   clip: rect(0px, 120px, 120px, 60px);
 }
-
 .radial-progress .circle .mask .fill {
   clip: rect(0px, 60px, 120px, 0px);
 }
-
 .radial-progress .inset {
   width: 90px;
   height: 90px;
@@ -57,8 +42,4 @@
   border-radius: 50%;
   box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.2);
 }
-
-.progressGraph .radial-progress {
-  margin-left: auto;
-  margin-right: auto;
-}
+.progressGraph .radial-progress {margin-left:auto;margin-right:auto;}

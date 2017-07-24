@@ -8,7 +8,7 @@ export default class TextInput extends React.Component {
 					<div className="sv-col-md-4">
 						<label className="">{this.props.name}</label>
 					</div>
-					<div className="sv-col-md-4">
+					<div className="sv-col-md-8">
 						<input className="sv-form-control" type="text" onChange={this.props.update} name={this.props.propertyname} value={this.props.value} />
 					</div>
 				</div>

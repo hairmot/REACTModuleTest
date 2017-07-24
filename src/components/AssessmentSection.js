@@ -3,7 +3,7 @@ import Assessment from './Assessment';
 import update from 'immutability-helper'
 
 
-export default class Module extends React.Component {
+export default class AssessmentSection extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {assessments: this.props.assessments}
@@ -19,11 +19,9 @@ export default class Module extends React.Component {
 
 	removeAssessment = (event) => {
 			const newAssess = this.state.assessments.slice(0)
-			console.log(newAssess[event.target.id])
 			newAssess.splice(parseInt(event.target.id), 1);
-			console.log(newAssess.length)
-			this.setState({assessments:newAssess})
-
+			this.setState({assessments:newAssess},  () => this.props.saveAssessments(this.state.assessments))
+			this.props.updateAssessments(newAssess);
 	}
 
 	addAssessment = () => {
@@ -40,6 +38,7 @@ export default class Module extends React.Component {
 				}]});
 
 		this.setState({assessments: newAssessState});
+		this.props.updateAssessments(newAssessState);
 	}
 
 	render() {

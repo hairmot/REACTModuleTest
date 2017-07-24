@@ -1,16 +1,14 @@
 import React from 'react';
 import TextInput from './TextInput'
-import currentTime from './currentTime';
+import currentTime from '../util/currentTime';
 import PreviousVersions from './previousVersions';
-import persistState from './persistState';
+import persistState from '../util/persistState';
 
 export default class Module extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = { inputs: this.props.inputs, savedStates: this.props.savedStates, visibleVersion: this.props.savedStates.length - 1 }
-
-
 		this.snapshots = [this.props.inputs];
 		this.saved = true;
 	}
@@ -58,6 +56,7 @@ export default class Module extends React.Component {
 		this.saved = false;
 		var newInputs = Object.assign({}, this.state.inputs);
 		newInputs[event.target.name] = event.target.value;
+		this.props.updateModuleProgress(newInputs);
 		this.snapshots.push(this.state.inputs);
 		this.setState({ inputs: newInputs });
 	}
@@ -89,7 +88,7 @@ export default class Module extends React.Component {
 
 		return (
 			<div>
-				<div className="sv-col-lg-6">
+				<div className="sv-col-md-5">
 					<div className="">
 						<div className="sv-panel sv-panel-primary">
 							<div className="sv-panel-heading">
@@ -109,9 +108,9 @@ export default class Module extends React.Component {
 					</div>
 
 				</div>
-				<div className="sv-col-md-6">
+				<div className="sv-col-md-5">
 
-					<PreviousVersions versions={versions} showVersion={this.showVersion} visibleVersion={this.state.visibleVersion} savedStates={this.state.savedStates} />
+					<PreviousVersions versions={versions.reverse()} showVersion={this.showVersion} visibleVersion={this.state.visibleVersion} savedStates={this.state.savedStates} />
 
 				</div>
 			</div>
