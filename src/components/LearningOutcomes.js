@@ -44,7 +44,7 @@ export default class LearningOutcomes extends React.Component {
 		}
 
 		return (
-			<div className="sv-col-md-5">
+			<div className="">
 				<div className="sv-panel sv-panel-primary">
 					<div className="sv-panel-heading">
 						Learning Outcomes

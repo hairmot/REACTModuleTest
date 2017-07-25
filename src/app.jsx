@@ -5,10 +5,9 @@ import defaultData from './data/defaultData';
 import AssessmentSection from './components/AssessmentSection';
 import update from 'immutability-helper'
 import persistState from './util/persistState';
-import Circle from './components/circle';
-import AssessmentOverview from './components/AssessmentOverview'
-import LearningOutcomesOverview from './components/LearningOutcomesOverview'
+import SavePanel from './components/savePanel';
 import LearningOutcomes from './components/LearningOutcomes'
+import OverviewPanel from './components/overviewPanel'
 
 export default class App extends React.Component {
 	constructor(props) {
@@ -60,63 +59,26 @@ export default class App extends React.Component {
 
 	saveState = (state = {}) => {
 		persistState(Object.assign(this.state, state));
+
 	}
 
 	render() {
 
 
-		var modules = '';
+		var moduleElement = '';
 		if (this.state.savedStates) {
-			modules = <Module updateModuleProgress={this.updateModuleProgress} saveState={this.saveState} inputs={this.state.inputs} savedStates={this.state.savedStates} />;
+			moduleElement = <Module updateModuleProgress={this.updateModuleProgress} saveState={this.saveState} inputs={this.state.inputs} savedStates={this.state.savedStates} />;
 		}
 
 		return (
 			<div>
 				<br />
 				<div className="sv-col-md-2">
-					<div className="sv-panel sv-panel-primary">
-						<div className="sv-panel-heading">
-							Progress Overview
-						</div>
-						<div className="sv-panel-body" className="">
-							<table className="sv-table-striped sv-table" style={{ marginBottom: '0' }}>
-								<tbody>
-									<tr>
-										<th className="sv-text-center">
-											Module Info
-									</th>
-									</tr>
-									<tr>
-										<td className="sv-text-center">
-											<Circle amount={this.state.moduleProgress} /></td>
-									</tr>
+					<OverviewPanel moduleProgress={this.state.moduleProgress} assessments={this.state.assessments} learningOutcomes={this.state.learningOutcomes} />
+					<SavePanel />
 
-									<tr>
-										<th className="sv-text-center">
-											Assessments
-									</th>
-									</tr>
-									<tr>
-										<td className="sv-text-center">
-											<AssessmentOverview assessments={this.state.assessments} />
-										</td>
-									</tr>
-									<tr>
-										<th className="sv-text-center">
-											Learning Outcomes
-									</th>
-									</tr>
-									<tr>
-										<td className="sv-text-center">
-
-											<LearningOutcomesOverview learningOutcomes={this.state.learningOutcomes}/></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
 				</div>
-				{modules}
+				{moduleElement}
 
 
 				<div className="sv-col-md-5">
@@ -128,9 +90,10 @@ export default class App extends React.Component {
 							<AssessmentSection updateAssessments={this.updateAssessments} key={1} saveAssessments={this.saveAssessments} removeAssessment={this.removeAssessment} addAssessment={this.addAssessment} assessments={this.state.assessments} />
 						</div>
 					</div>
+					<LearningOutcomes updateLearningOutcomes={this.updateLearningOutcomes} learningOutcomes={this.state.learningOutcomes} />
 				</div>
 
-				<LearningOutcomes updateLearningOutcomes={this.updateLearningOutcomes} learningOutcomes={this.state.learningOutcomes} />
+
 			</div>
 		)
 	}
