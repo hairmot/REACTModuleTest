@@ -39,7 +39,7 @@ export default class PreviousVersions extends React.Component {
 
 
 						<hr />
-						<div className="sv-panel sv-panel-default">
+						<div className="sv-panel sv-panel-info">
 							<div className="sv-panel-heading" onClick={this.toggleAssessments} style={{cursor:'pointer'}}>
 								Version History (click to expand)
 								</div>
