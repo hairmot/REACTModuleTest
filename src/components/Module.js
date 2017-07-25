@@ -21,8 +21,6 @@ export default class Module extends React.Component {
 			this.setState({ savedStates: savedStates, visibleVersion: this.state.visibleVersion - 1 }, function () {
 				this.props.saveState(this.state);
 			});
-			// var newLocalStorageState = { savedStates: savedStates, inputs: this.state.inputs, visibleVersion: this.state.visibleVersion - 1 }
-			// localStorage.setItem('reactState', JSON.stringify(newLocalStorageState));
 		}
 	}
 
@@ -33,8 +31,6 @@ export default class Module extends React.Component {
 	}
 
 	save = () => {
-		//	var localStorageState = { savedStates: [...this.state.savedStates, { time: currentTime(), inputs: this.state.inputs }], inputs: this.state.inputs };
-		//	localStorage.setItem('reactState', JSON.stringify(localStorageState));
 		this.setState({ savedStates: [...this.state.savedStates, { time: currentTime(), inputs: this.state.inputs }], visibleVersion: this.state.savedStates.length }, function () {
 			this.props.saveState(this.state);
 		});
@@ -81,8 +77,8 @@ export default class Module extends React.Component {
 			var col = b == this.state.visibleVersion ? 'sv-alert-info' : ' sv-btn-default';
 			return (
 				<tr key={b}>
-					<td><button className={col + ' sv-btn sv-btn-block'} name={b} onClick={this.showVersion}>{a.time}</button></td>
-					<td><button onClick={this.deleteVersion} id={b} className={b != 0 ? 'sv-btn sv-btn-block sv-alert-danger' : 'sv-btn sv-btn-block'} style={b != 0 ? { cursor: 'pointer' } : { cursor: 'arrow', color: 'lightgrey' }}>Delete</button></td>
+					<td><button type="button" className={col + ' sv-btn sv-btn-block'} name={b} onClick={this.showVersion}>{a.time}</button></td>
+					<td><button type="button" onClick={this.deleteVersion} id={b} className={b != 0 ? 'sv-btn sv-btn-block sv-alert-danger' : 'sv-btn sv-btn-block'} style={b != 0 ? { cursor: 'pointer' } : { cursor: 'arrow', color: 'lightgrey' }}>Delete</button></td>
 				</tr>
 			)
 		})
