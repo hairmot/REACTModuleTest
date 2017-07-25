@@ -23,8 +23,9 @@ export default class App extends React.Component {
 	}
 
 	componentWillMount() {
-		if (localStorage.getItem('reactState')) {
-			var newState = JSON.parse(document.querySelector('[data-ajax]').value);
+		var newState = JSON.parse(document.querySelector('[data-ajax]').value);
+		if (newState != '') {
+
 			this.setState({
 				inputs: newState.inputs,
 				savedStates: newState.savedStates,
