@@ -5,35 +5,32 @@ import defaultData from './data/defaultData';
 import AssessmentSection from './components/AssessmentSection';
 import update from 'immutability-helper'
 import persistState from './util/persistState';
-import SavePanel from './components/savePanel';
+import SavePanel from './components/SavePanel';
 import LearningOutcomes from './components/LearningOutcomes'
-import OverviewPanel from './components/overviewPanel'
+import OverviewPanel from './components/OverviewPanel'
+import retrieveState from './util/retrieveState';
 
 export default class App extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			inputs: defaultData.inputs,
-			savedStates: defaultData.savedStates,
-			assessments: defaultData.assessments,
-			moduleProgress: 0,
-			learningOutcomes: defaultData.learningOutcomes
-		}
-
+		this.state = defaultData;
+		this.valid = false;
 	}
 
 	componentWillMount() {
-		var data = document.querySelector('[data-ajax]').value;
-		if (data != '') {
-			var newState = JSON.parse(data)
+		if (retrieveState()) {
+			var newState = JSON.parse(retrieveState());
 			this.setState({
 				inputs: newState.inputs,
 				savedStates: newState.savedStates,
 				assessments: newState.assessments,
 				moduleProgress: newState.moduleProgress,
 				learningOutcomes: newState.learningOutcomes
+			}, () => {
+					this.updateModuleProgress(this.state.inputs);
 			});
 		}
+
 	}
 
 	updateModuleProgress = (inputs) => {
@@ -48,8 +45,10 @@ export default class App extends React.Component {
 		this.setState({ assessments: assessments });
 	}
 
-	updateLearningOutcomes =(lo) => {
-		this.setState({ learningOutcomes: lo }, () => {persistState(this.state)});
+	updateLearningOutcomes = (lo) => {
+		this.setState({ learningOutcomes: lo }, () => {
+			persistState(this.state)
+		});
 	}
 
 	saveAssessments = (ass) => {
@@ -61,6 +60,10 @@ export default class App extends React.Component {
 	saveState = (state = {}) => {
 		persistState(Object.assign(this.state, state));
 
+	}
+
+	numberOfValid = (arr) => {
+		return arr.length > 0 && arr.filter(a => Object.keys(a).map(b => a[b]).filter(a => a === '').length).length === 0;
 	}
 
 	render() {
@@ -76,7 +79,7 @@ export default class App extends React.Component {
 				<br />
 				<div className="sv-col-md-2">
 					<OverviewPanel moduleProgress={this.state.moduleProgress} assessments={this.state.assessments} learningOutcomes={this.state.learningOutcomes} />
-					<SavePanel />
+					<SavePanel valid={this.state.moduleProgress === 100 && this.numberOfValid(this.state.assessments) && this.numberOfValid(this.state.learningOutcomes) } />
 
 				</div>
 				{moduleElement}

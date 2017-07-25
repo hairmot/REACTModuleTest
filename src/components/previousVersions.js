@@ -40,7 +40,7 @@ export default class PreviousVersions extends React.Component {
 
 						<hr />
 						<div className="sv-panel sv-panel-info">
-							<div className="sv-panel-heading" tabindex="0" onKeyDown={(e) => {if(e.which==13) { this.toggleAssessments}}} onClick={this.toggleAssessments} style={{cursor:'pointer'}}>
+							<div className="sv-panel-heading" tabIndex="0" onKeyDown={(e) => {if(e.which==13) { this.toggleAssessments}}} onClick={this.toggleAssessments} style={{cursor:'pointer'}}>
 								Version History (click to expand)
 								</div>
 							<div className="sv-panel-body" style={this.state.assessmentsCollapse ? { display: 'none' } : { display: 'block'}}>

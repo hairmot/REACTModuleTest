@@ -2,7 +2,7 @@ import React from 'react'
 import Circle from './circle';
 import RecordsOverview from './RecordsOverview'
 
-export default class LearningOutcomes extends React.Component {
+export default class OverviewPanel extends React.Component {
 	render() {
 		return (
 			<div className="sv-panel sv-panel-primary">

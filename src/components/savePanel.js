@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class Assessment extends React.Component {
+export default class SavePanel extends React.Component {
 	render() {
 		return (
 			<div className="sv-panel sv-panel-primary">
@@ -8,7 +8,7 @@ export default class Assessment extends React.Component {
 					Save Module
 						</div>
 				<div className="sv-panel-body">
-					<button className="sv-btn sv-btn-block sv-alert-default" disabled>Save</button>
+					<button className={this.props.valid ? "sv-btn sv-btn-block sv-alert-success" : "sv-btn sv-btn-block sv-alert-default"} disabled={!this.props.valid}>Save</button>
 				</div>
 			</div>
 		)

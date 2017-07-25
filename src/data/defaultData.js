@@ -5,7 +5,7 @@ export default {
 		{
 			time: currentTime(),
 			inputs: {
-				title: 'This is the original data',
+				title: '',
 				module_code: '',
 				level: '',
 				credits: '',
@@ -38,7 +38,8 @@ export default {
 	],
 	learningOutcomes: [
 
-	]
+	],
+	moduleProgress: 0
 }
 
 
