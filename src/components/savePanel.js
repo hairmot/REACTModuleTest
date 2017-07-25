@@ -8,7 +8,7 @@ export default class SavePanel extends React.Component {
 					Save Module
 						</div>
 				<div className="sv-panel-body">
-					<button className={this.props.valid ? "sv-btn sv-btn-block sv-alert-success" : "sv-btn sv-btn-block sv-alert-default"} disabled={!this.props.valid}>Save</button>
+					<button type="button" className={this.props.valid ? "sv-btn sv-btn-block sv-alert-success" : "sv-btn sv-btn-block sv-alert-default"} disabled={!this.props.valid}>Save</button>
 				</div>
 			</div>
 		)
