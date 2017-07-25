@@ -97,10 +97,10 @@ export default class Module extends React.Component {
 								<div className="">
 									<div>{inputs}</div>
 									<div className="sv-col-md-2 sv-col-md-offset-4">
-										<button onClick={this.undo} className="sv-btn sv-btn-default sv-btn-block" disabled={this.snapshots.length === 1}>Undo</button>
+										<button type="button" onClick={this.undo} className="sv-btn sv-btn-default sv-btn-block" disabled={this.snapshots.length === 1}>Undo</button>
 									</div>
 									<div className="sv-col-md-2">
-										<button onClick={this.save} className="sv-btn sv-btn-primary sv-btn-block" disabled={this.saved}>Save</button>
+										<button type="button" onClick={this.save} className="sv-btn sv-btn-primary sv-btn-block" disabled={this.saved}>Save</button>
 									</div>
 								</div>
 							</div></div>
