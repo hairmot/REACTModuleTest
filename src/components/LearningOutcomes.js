@@ -62,7 +62,7 @@ export default class LearningOutcomes extends React.Component {
 								{outcomes}
 								<tr>
 
-									<td colSpan="3"><button onClick={this.addLearningOutcome} className="sv-btn sv-btn-default sv-btn-block">Add Learning Outcome</button></td>
+									<td colSpan="3"><button type="button" onClick={this.addLearningOutcome} className="sv-btn sv-btn-default sv-btn-block">Add Learning Outcome</button></td>
 								</tr>
 							</tbody>
 						</table>
