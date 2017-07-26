@@ -1,76 +1,86 @@
 import React from 'react';
 import Assessment from './Assessment';
 import update from 'immutability-helper'
+import ValidTick from './validTick';
 
 
 export default class AssessmentSection extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {assessments: this.props.assessments}
+		this.state = { assessments: this.props.assessments }
 	}
 
 	updateVal = (ev) => {
 		const newAssess = this.state.assessments.slice(0)
-		var newObj = Object.assign({},newAssess[ev.target.id]);
+		var newObj = Object.assign({}, newAssess[ev.target.id]);
 		newObj[ev.target.name] = ev.target.value;
 		newAssess[ev.target.id] = newObj;
-		this.setState({assessments:newAssess}, () => this.props.saveAssessments(this.state.assessments));
+		this.setState({ assessments: newAssess }, () => this.props.saveAssessments(this.state.assessments));
 	}
 
 	removeAssessment = (event) => {
-			const newAssess = this.state.assessments.slice(0)
-			newAssess.splice(parseInt(event.target.id), 1);
-			this.setState({assessments:newAssess},  () => this.props.saveAssessments(this.state.assessments))
-			this.props.updateAssessments(newAssess);
+		const newAssess = this.state.assessments.slice(0)
+		newAssess.splice(parseInt(event.target.id), 1);
+		this.setState({ assessments: newAssess }, () => this.props.saveAssessments(this.state.assessments))
+		this.props.updateAssessments(newAssess);
 	}
 
 	addAssessment = () => {
 		const newAssess = this.state.assessments;
-		const newAssessState = update(newAssess, {$push:
+		const newAssessState = update(newAssess, {
+			$push:
 			[{
-					task_no: '',
-					LO_Ref:'',
-					description: '',
-					Assessment_Task_Type: '',
-					word_count :'',
-					task_weighting:''
+				task_no: '',
+				LO_Ref: '',
+				description: '',
+				Assessment_Task_Type: '',
+				word_count: '',
+				task_weighting: ''
 
-				}]});
+			}]
+		});
 
-		this.setState({assessments: newAssessState});
+		this.setState({ assessments: newAssessState });
 		this.props.updateAssessments(newAssessState);
 	}
 
 	render() {
 		var assessments = '';
 		if (this.state.assessments) {
-			assessments = this.state.assessments.map((a,b) => {
+			assessments = this.state.assessments.map((a, b) => {
 				return (
-					<Assessment key={b} updateVal={this.updateVal} removeAssessment={this.removeAssessment} index={b} values={a} />
+					<Assessment learningOutcomes={this.props.learningOutcomes} key={b} updateVal={this.updateVal} removeAssessment={this.removeAssessment} index={b} values={a} />
 				)
 			})
 		}
 
 		return (
-			<table className="sv-table sv-table-striped sv-table-bordered">
-				<thead>
-					<tr>
-						<th>Task No</th>
-						<th>Title</th>
-						<th>Something</th>
-						<th>Type</th>
-						<th>Length</th>
-						<th>Weighting</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					{assessments}
-					<tr>
-						<td colSpan="7"><button type="button" onClick={this.addAssessment} className="sv-btn sv-btn-default sv-btn-block">Add New Module</button></td>
-					</tr>
-				</tbody>
-			</table>
+			<div className="sv-panel sv-panel-default">
+				<div className="sv-panel-heading">
+					Assessments <ValidTick valid={this.props.valid}/>
+							</div>
+				<div className="sv-panel-body">
+					<table className="sv-table sv-table-striped sv-table-bordered">
+						<thead>
+							<tr>
+								<th>Task No</th>
+								<th>Learning Outcome</th>
+								<th>Description</th>
+								<th>Type</th>
+								<th>Length</th>
+								<th>Weighting</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							{assessments}
+							<tr>
+								<td colSpan="7"><button type="button" onClick={this.addAssessment} className="sv-btn sv-btn-default sv-btn-block">Add New Module</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		)
 	}
 }

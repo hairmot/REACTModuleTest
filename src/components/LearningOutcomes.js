@@ -1,32 +1,33 @@
 import React from 'react'
+import ValidTick from './validTick';
 
 export default class LearningOutcomes extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {learningOutcomes : this.props.learningOutcomes}
+		this.state = { learningOutcomes: this.props.learningOutcomes }
 	}
 
 	addLearningOutcome = () => {
 		var newLO = [...this.state.learningOutcomes, { ID: '', outcome: '' }];
-			this.setState({learningOutcomes: newLO}, this.props.updateLearningOutcomes(newLO));
+		this.setState({ learningOutcomes: newLO }, this.props.updateLearningOutcomes(newLO));
 	}
 
 	delete = (ev) => {
 		var newLO = [...this.state.learningOutcomes];
 		newLO.splice(ev.target.name, 1);
-		this.setState({learningOutcomes: newLO}, this.props.updateLearningOutcomes(newLO));
+		this.setState({ learningOutcomes: newLO }, this.props.updateLearningOutcomes(newLO));
 	}
 
 	update = (ev, index, field) => {
-		 var newLO = [...this.state.learningOutcomes];
-		 newLO[index][field] = ev.target.value;
-		 this.setState({learningOutcomes: newLO}, this.props.updateLearningOutcomes(newLO));
+		var newLO = [...this.state.learningOutcomes];
+		newLO[index][field] = ev.target.value;
+		this.setState({ learningOutcomes: newLO }, this.props.updateLearningOutcomes(newLO));
 	}
 
 	render() {
 		var outcomes = <tr></tr>;
 		if (this.state.learningOutcomes) {
-			outcomes = this.state.learningOutcomes.map((a,b) => {
+			outcomes = this.state.learningOutcomes.map((a, b) => {
 				return (
 					<tr key={b}>
 						<td className="sv-col-md-2">
@@ -45,9 +46,9 @@ export default class LearningOutcomes extends React.Component {
 
 		return (
 			<div className="">
-				<div className="sv-panel sv-panel-primary">
+				<div className="sv-panel sv-panel-default">
 					<div className="sv-panel-heading">
-						Learning Outcomes
+						Learning Outcomes <ValidTick valid={this.props.valid} />
 					</div>
 					<div className="sv-panel-body">
 						<table className="sv-table sv-table-striped sv-table-bordered">

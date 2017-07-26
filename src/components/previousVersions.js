@@ -14,7 +14,7 @@ export default class PreviousVersions extends React.Component {
 	render() {
 		return (
 			<div className="">
-				<div className="sv-panel sv-panel-primary"  >
+				<div className="sv-panel sv-panel-default">
 					<div className="sv-panel-heading" >
 						Edit Timeline
 						</div>
@@ -39,22 +39,22 @@ export default class PreviousVersions extends React.Component {
 
 
 						<hr />
-						<div className="sv-panel sv-panel-info">
-							<div className="sv-panel-heading" tabIndex="0" onKeyDown={(e) => {if(e.which==13) { this.toggleAssessments()}}} onClick={this.toggleAssessments} style={{cursor:'pointer'}}>
+						<div className="sv-panel sv-panel-default">
+							<div className="sv-panel-heading" tabIndex="0" onKeyDown={(e) => { if (e.which == 13) { this.toggleAssessments() } }} onClick={this.toggleAssessments} style={{ cursor: 'pointer' }}>
 								Version History (click to expand)
 								</div>
-							<div className="sv-panel-body" style={this.state.assessmentsCollapse ? { display: 'none' } : { display: 'block'}}>
+							<div className="sv-panel-body" style={this.state.assessmentsCollapse ? { display: 'none' } : { display: 'block' }}>
 								<table className="sv-table sv-table-striped sv-table-bordered">
-								<thead>
-									<tr>
-										<th>Time</th>
-										<th> </th>
-									</tr>
-								</thead>
-								<tbody>
-									{this.props.versions}
-								</tbody>
-							</table>
+									<thead>
+										<tr>
+											<th>Time</th>
+											<th> </th>
+										</tr>
+									</thead>
+									<tbody>
+										{this.props.versions}
+									</tbody>
+								</table>
 							</div>
 						</div>
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/index.scss';
 import Module from './components/Module';
-import defaultData, {inputsTemplate} from './data/defaultData';
+import defaultData, { inputsTemplate } from './data/defaultData';
 import AssessmentSection from './components/AssessmentSection';
 import update from 'immutability-helper'
 import persistState from './util/persistState';
@@ -27,7 +27,7 @@ export default class App extends React.Component {
 				moduleProgress: newState.moduleProgress,
 				learningOutcomes: newState.learningOutcomes
 			}, () => {
-					this.updateModuleProgress(this.state.inputs);
+				this.updateModuleProgress(this.state.inputs);
 			});
 		}
 
@@ -37,11 +37,11 @@ export default class App extends React.Component {
 		var inputArray = Object.keys(inputs);
 
 		var mod = Math.floor(
-			(100 / inputArray	.filter(a => !inputsTemplate
-													.find(b => b.fieldName === a)
-													.omitFromProgress)
-												.length) * inputArray	.filter(a => inputs[a] !== '')
-																							.length);
+			(100 / inputArray.filter(a => !inputsTemplate
+				.find(b => b.fieldName === a)
+				.omitFromProgress)
+				.length) * inputArray.filter(a => inputs[a] !== '')
+				.length);
 
 		this.setState({ moduleProgress: mod })
 	}
@@ -76,30 +76,24 @@ export default class App extends React.Component {
 
 		var moduleElement = '';
 		if (this.state.savedStates) {
-			moduleElement = <Module updateModuleProgress={this.updateModuleProgress} saveState={this.saveState} inputs={this.state.inputs} savedStates={this.state.savedStates} />;
+			moduleElement = <Module moduleProgress={this.state.moduleProgress} updateModuleProgress={this.updateModuleProgress} saveState={this.saveState} inputs={this.state.inputs} savedStates={this.state.savedStates} />;
 		}
+		var overallValid = this.state.moduleProgress === 100 && this.numberOfValid(this.state.assessments) && this.numberOfValid(this.state.learningOutcomes);
 
 		return (
 			<div>
 				<br />
 				<div className="sv-col-md-2">
-					<OverviewPanel moduleProgress={this.state.moduleProgress} assessments={this.state.assessments} learningOutcomes={this.state.learningOutcomes} />
-					<SavePanel valid={this.state.moduleProgress === 100 && this.numberOfValid(this.state.assessments) && this.numberOfValid(this.state.learningOutcomes) } />
+					<OverviewPanel valid={overallValid} moduleProgress={this.state.moduleProgress} assessments={this.state.assessments} learningOutcomes={this.state.learningOutcomes} />
+					<SavePanel valid={overallValid} />
 
 				</div>
 				{moduleElement}
 
 
 				<div className="sv-col-md-5">
-					<div className="sv-panel sv-panel-primary">
-						<div className="sv-panel-heading">
-							Assessments
-							</div>
-						<div className="sv-panel-body">
-							<AssessmentSection updateAssessments={this.updateAssessments} key={1} saveAssessments={this.saveAssessments} removeAssessment={this.removeAssessment} addAssessment={this.addAssessment} assessments={this.state.assessments} />
-						</div>
-					</div>
-					<LearningOutcomes updateLearningOutcomes={this.updateLearningOutcomes} learningOutcomes={this.state.learningOutcomes} />
+					<AssessmentSection learningOutcomes={this.state.learningOutcomes} valid={this.numberOfValid(this.state.assessments)} updateAssessments={this.updateAssessments} key={1} saveAssessments={this.saveAssessments} removeAssessment={this.removeAssessment} addAssessment={this.addAssessment} assessments={this.state.assessments} />
+					<LearningOutcomes valid={this.numberOfValid(this.state.learningOutcomes)} updateLearningOutcomes={this.updateLearningOutcomes} learningOutcomes={this.state.learningOutcomes} />
 				</div>
 
 

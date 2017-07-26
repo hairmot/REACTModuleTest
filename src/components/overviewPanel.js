@@ -5,7 +5,7 @@ import RecordsOverview from './RecordsOverview'
 export default class OverviewPanel extends React.Component {
 	render() {
 		return (
-			<div className="sv-panel sv-panel-primary">
+			<div className="sv-panel sv-panel-default">
 				<div className="sv-panel-heading">
 					Progress Overview
 						</div>

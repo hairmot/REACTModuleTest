@@ -1,3 +1,7 @@
+body {
+  background-color: #efefef;
+}
+
 .redBg {
   background-color: red;
   border-radius: 51px;

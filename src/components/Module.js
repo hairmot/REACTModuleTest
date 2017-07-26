@@ -4,6 +4,7 @@ import currentTime from '../util/currentTime';
 import PreviousVersions from './previousVersions';
 import persistState from '../util/persistState';
 import {inputsTemplate} from '../data/defaultData';
+import ValidTick from './validTick';
 
 export default class Module extends React.Component {
 	constructor(props) {
@@ -102,9 +103,9 @@ export default class Module extends React.Component {
 			<div>
 				<div className="sv-col-md-5">
 					<div className="">
-						<div className="sv-panel sv-panel-primary">
+						<div className="sv-panel sv-panel-default">
 							<div className="sv-panel-heading">
-								Module Info
+								Module Info <ValidTick valid={this.props.moduleProgress == 100} />
 							</div>
 							<div className="sv-panel-body">
 								<div className="">
@@ -125,7 +126,7 @@ export default class Module extends React.Component {
 				</div>
 				<div className="sv-col-md-5">
 
-					<PreviousVersions versions={versions.reverse()} showVersion={this.showVersion} visibleVersion={this.state.visibleVersion} savedStates={this.state.savedStates} />
+					<PreviousVersions valid={this.props.moduleProgress === 100} versions={versions.reverse()} showVersion={this.showVersion} visibleVersion={this.state.visibleVersion} savedStates={this.state.savedStates} />
 
 				</div>
 			</div>
