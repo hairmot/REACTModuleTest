@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/index.scss';
 import Module from './components/Module';
-import defaultData from './data/defaultData';
+import defaultData, {inputsTemplate} from './data/defaultData';
 import AssessmentSection from './components/AssessmentSection';
 import update from 'immutability-helper'
 import persistState from './util/persistState';
@@ -36,7 +36,12 @@ export default class App extends React.Component {
 	updateModuleProgress = (inputs) => {
 		var inputArray = Object.keys(inputs);
 
-		var mod = Math.floor((100 / inputArray.length) * inputArray.filter(a => inputs[a] !== '').length);
+		var mod = Math.floor(
+			(100 / inputArray	.filter(a => !inputsTemplate
+													.find(b => b.fieldName === a)
+													.omitFromProgress)
+												.length) * inputArray	.filter(a => inputs[a] !== '')
+																							.length);
 
 		this.setState({ moduleProgress: mod })
 	}

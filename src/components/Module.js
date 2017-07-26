@@ -3,6 +3,7 @@ import TextInput from './TextInput'
 import currentTime from '../util/currentTime';
 import PreviousVersions from './previousVersions';
 import persistState from '../util/persistState';
+import {inputsTemplate} from '../data/defaultData';
 
 export default class Module extends React.Component {
 	constructor(props) {
@@ -79,8 +80,9 @@ export default class Module extends React.Component {
 		var inputs = Object.keys(this.state.inputs).filter(a => typeof (this.state.inputs[a]) === 'string').map(a => {
 			var name = a.replace(/_/g, ' ').replace(/(\w)(\w*)/g, (_, i, r) => i.toUpperCase() + (r != null ? r : ""));
 			var value = this.state.inputs[a];
+			var templateItem = inputsTemplate.find(b=> b.fieldName === a);
 			return (
-				<TextInput key={a} update={this.updateValue} propertyname={a} name={name} value={value} />
+				<TextInput key={a} update={this.updateValue} propertyname={a} name={name} value={templateItem.relatedField ? this.state.inputs[templateItem.relatedField] : value} />
 			)
 		});
 
