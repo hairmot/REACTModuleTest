@@ -3,7 +3,7 @@ import TextInput from './TextInput'
 import currentTime from '../util/currentTime';
 import PreviousVersions from './previousVersions';
 import persistState from '../util/persistState';
-import {inputsTemplate} from '../data/defaultData';
+import { inputsTemplate } from '../data/defaultData';
 import ValidTick from './validTick';
 
 export default class Module extends React.Component {
@@ -60,7 +60,7 @@ export default class Module extends React.Component {
 		this.snapshots.push(this.state.inputs);
 		var newInputs = Object.assign({}, this.state.inputs);
 		Object.keys(newInputs).map(a => newInputs[a] = '');
-		this.setState({inputs:newInputs});
+		this.setState({ inputs: newInputs });
 		this.props.updateModuleProgress(newInputs);
 	}
 
@@ -81,7 +81,7 @@ export default class Module extends React.Component {
 		var inputs = Object.keys(this.state.inputs).filter(a => typeof (this.state.inputs[a]) === 'string').map(a => {
 			var name = a.replace(/_/g, ' ').replace(/(\w)(\w*)/g, (_, i, r) => i.toUpperCase() + (r != null ? r : ""));
 			var value = this.state.inputs[a];
-			var templateItem = inputsTemplate.find(b=> b.fieldName === a);
+			var templateItem = inputsTemplate.find(b => b.fieldName === a);
 			return (
 				<TextInput key={a} update={this.updateValue} propertyname={a} name={name} value={templateItem.relatedField ? this.state.inputs[templateItem.relatedField] : value} />
 			)
@@ -109,15 +109,17 @@ export default class Module extends React.Component {
 							</div>
 							<div className="sv-panel-body">
 								<div className="">
-									<div>{inputs}</div>
-									<div className="sv-col-md-2 sv-col-md-offset-4">
-										<button type="button" onClick={this.clear} className="sv-btn sv-btn-default sv-btn-block" disabled={Object.keys(this.state.inputs).filter(a => this.state.inputs[a] !== '').length === 0}>Clear</button>
-									</div>
-									<div className="sv-col-md-2">
-										<button type="button" onClick={this.undo} className="sv-btn sv-btn-default sv-btn-block" disabled={this.snapshots.length === 1}>Undo</button>
-									</div>
-									<div className="sv-col-md-2">
-										<button type="button" onClick={this.save} className="sv-btn sv-btn-primary sv-btn-block" disabled={this.saved}>Save</button>
+									<div >{inputs}</div>
+									<div >
+										<div className="sv-col-md-2 sv-col-md-offset-4">
+											<button type="button" onClick={this.clear} className="sv-btn sv-btn-default sv-btn-block" disabled={Object.keys(this.state.inputs).filter(a => this.state.inputs[a] !== '').length === 0}>Clear</button>
+										</div>
+										<div className="sv-col-md-2">
+											<button type="button" onClick={this.undo} className="sv-btn sv-btn-default sv-btn-block" disabled={this.snapshots.length === 1}>Undo</button>
+										</div>
+										<div className="sv-col-md-2">
+											<button type="button" onClick={this.save} className="sv-btn sv-btn-primary sv-btn-block" disabled={this.saved}>Save</button>
+										</div>
 									</div>
 								</div>
 							</div></div>

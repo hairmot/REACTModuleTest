@@ -37,8 +37,8 @@ export default class TextInput extends React.Component {
 						{
 						templateItem.type !== 'link' ?
 							value.toString().length >= (templateItem.minLength || 1) && value.toString().length <= (templateItem.maxLength || 9999)?
-							<span className="sv-input-group-addon sv-alert-success">✔</span>:
-							< span className="sv-input-group-addon sv-alert-danger">✘</span>
+							<span className="sv-input-group-addon sv-alert-success" style={{cursor:'default'}}>✔</span>:
+							<span className="sv-input-group-addon sv-alert-danger"  style={{cursor:'default'}}>✘</span>
 						:''
 
 					}
