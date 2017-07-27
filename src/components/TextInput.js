@@ -19,7 +19,7 @@ export default class TextInput extends React.Component {
 				input = <input className="sv-form-control" type="number" onChange={this.props.update} name={this.props.propertyname} value={value} disabled={templateItem.readOnly ? 'disabled' : ''} />
 				break;
 			case 'link':
-				input = <a href={templateItem.formatting ? templateItem.formatting(this.props.value) : this.props.value}>{value}</a>
+				input = <a href={templateItem.formatting ? templateItem.formatting(this.props.value) : this.props.value} style={{wordBreak:'break-all'}}>{value}</a>
 				break;
 		}
 
