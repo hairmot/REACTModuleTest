@@ -38,6 +38,7 @@ export var inputsTemplate = [
 	{
 		fieldName: 'faculty',
 		type: 'text',
+		validation: ['Computing', 'Business'],
 		maxLength: 6
 	},
 	{

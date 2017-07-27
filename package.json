@@ -21,6 +21,8 @@
     "node-sass": "^4.3.0",
     "react": "^15.6.1",
     "react-dom": "15.4.2",
+    "react-redux": "^5.0.5",
+    "redux": "^3.7.2",
     "sass-loader": "^6.0.2",
     "serve": "^6.0.2"
   },

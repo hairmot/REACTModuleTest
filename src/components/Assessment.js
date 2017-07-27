@@ -9,9 +9,7 @@ export default class Assessment extends React.Component {
 		this.state = { complete: true, values: this.props.values }
 	}
 
-	componentWillReceiveProps = (a, b) => {
-		//this.setState({ values: a.values });
-	}
+
 
 	componentDidMount() {
 		this.setState({ complete: this.isComplete(), saved: this.isComplete() })
@@ -69,7 +67,13 @@ export default class Assessment extends React.Component {
 				<label className="sv-col-md-4">{translateName(a)}</label>
 				<div className="sv-col-md-8">
 					<div className="sv-input-group">
+						{name === 'LO Ref' ?
+							(<select id={this.props.index} name={a} onChange={(e) => this.updateVal(e, template.formatting)} value={this.state.values[a]} className="sv-form-control">
+								<option>Please select</option>{this.props.learningOutcomes.map(c => <option>{c.ID}</option>)}
+							</select> )
+						:
 						<input type="text" onChange={(e) => this.updateVal(e, template.formatting)} className={'sv-form-control'} id={this.props.index} name={a} value={this.state.values[a]} />
+						}
 						{mandatory || this.state.values[a] == '' ?
 						<span className="sv-input-group-addon sv-alert-danger" style={{ cursor: 'default' }}>✘</span>:
 						<span className="sv-input-group-addon sv-alert-success" style={{ cursor: 'default' }}>✔</span>

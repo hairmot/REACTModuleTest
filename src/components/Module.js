@@ -35,6 +35,7 @@ export default class Module extends React.Component {
 	}
 
 	save = () => {
+		console.log(this.props);
 		this.setState({ savedStates: [...this.state.savedStates, { time: currentTime(), inputs: this.state.inputs }], visibleVersion: this.state.savedStates.length }, function () {
 			this.props.saveState(this.state);
 			this.props.updateModuleProgress(this.state.inputs);
