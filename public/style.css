@@ -2,6 +2,10 @@ body {
   background-color: #efefef;
 }
 
+.progress-circle-text > div {
+  transition: background-color 1s;
+}
+
 .redBg {
   background-color: red;
   border-radius: 51px;

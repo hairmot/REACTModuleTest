@@ -5,6 +5,7 @@ import PreviousVersions from './previousVersions';
 import persistState from '../util/persistState';
 import { inputsTemplate } from '../data/defaultData';
 import ValidTick from './validTick';
+import translateName from '../util/translateName';
 
 export default class Module extends React.Component {
 	constructor(props) {
@@ -79,7 +80,7 @@ export default class Module extends React.Component {
 
 	render() {
 		var inputs = Object.keys(this.state.inputs).filter(a => typeof (this.state.inputs[a]) === 'string').map(a => {
-			var name = a.replace(/_/g, ' ').replace(/(\w)(\w*)/g, (_, i, r) => i.toUpperCase() + (r != null ? r : ""));
+			var name = translateName(a);
 			var value = this.state.inputs[a];
 			var templateItem = inputsTemplate.find(b => b.fieldName === a);
 			return (

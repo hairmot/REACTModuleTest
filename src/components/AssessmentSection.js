@@ -10,11 +10,9 @@ export default class AssessmentSection extends React.Component {
 		this.state = { assessments: this.props.assessments }
 	}
 
-	updateVal = (ev) => {
-		const newAssess = this.state.assessments.slice(0)
-		var newObj = Object.assign({}, newAssess[ev.target.id]);
-		newObj[ev.target.name] = ev.target.value;
-		newAssess[ev.target.id] = newObj;
+	updateVal = (ev, assessment) => {
+		let newAssess =this.state.assessments.slice(0);
+		newAssess[ev.target.id] = assessment;
 		this.setState({ assessments: newAssess }, () => this.props.saveAssessments(this.state.assessments));
 	}
 
@@ -22,7 +20,6 @@ export default class AssessmentSection extends React.Component {
 		const newAssess = this.state.assessments.slice(0)
 		newAssess.splice(parseInt(event.target.id), 1);
 		this.setState({ assessments: newAssess }, () => this.props.saveAssessments(this.state.assessments))
-		this.props.updateAssessments(newAssess);
 	}
 
 	addAssessment = () => {
@@ -63,12 +60,7 @@ export default class AssessmentSection extends React.Component {
 					<table className="sv-table sv-table-striped sv-table-bordered">
 						<thead>
 							<tr>
-								<th>Task No</th>
-								<th>Learning Outcome</th>
-								<th>Description</th>
-								<th>Type</th>
-								<th>Length</th>
-								<th>Weighting</th>
+								<th>Info</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
