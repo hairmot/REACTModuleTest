@@ -10,7 +10,7 @@ export default class Assessment extends React.Component {
 	}
 
 	componentWillReceiveProps = (a, b) => {
-		this.setState({ values: a.values });
+		//this.setState({ values: a.values });
 	}
 
 	componentDidMount() {
