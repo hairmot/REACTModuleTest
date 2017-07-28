@@ -8,57 +8,67 @@ import persistState from './util/persistState';
 import SavePanel from './components/SavePanel';
 import LearningOutcomes from './components/LearningOutcomes'
 import OverviewPanel from './components/OverviewPanel'
-import { connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import * as actionCreators from './Actions/ActionCreators.js';
+import LearningHours from './components/LearningHours';
+import { numberOfValid, numberOfValidObj, countValidInObj } from './util/countFunctions';
 
 class App extends React.Component {
 
-	numberOfValid = (arr) => {
-		return arr.length > 0 && arr.filter(a => Object.keys(a).map(b => a[b]).filter(a => a === '').length).length === 0;
-	}
 
 	render() {
 		var moduleElement = '';
 		if (this.props.savedStates) {
 			moduleElement = <Module saveState={this.props.actions.saveState} moduleProgress={this.props.moduleProgress} updateModuleProgress={this.props.actions.updateModuleProgress} inputs={this.props.inputs} savedStates={this.props.savedStates} />;
 		}
-		var overallValid = this.props.moduleProgress === 100 && this.numberOfValid(this.props.assessments) && this.numberOfValid(this.props.learningOutcomes);
+
+		var learningHoursLength = Object.keys(this.props.learningHours).length;
+		var learningHoursPercentage = (100 / learningHoursLength) * (learningHoursLength - countValidInObj(this.props.learningHours));
+
+		var overallValid = this.props.moduleProgress === 100 && numberOfValid(this.props.assessments) && numberOfValid(this.props.learningOutcomes) && numberOfValidObj(this.props.learningHours);
+
+		var overallPercentage =
+			(numberOfValid(this.props.learningOutcomes) ? 10 : 0) +
+			(numberOfValid(this.props.assessments) ? 10 : 0) +
+			(Math.floor(learningHoursPercentage * .25)) +
+		  (Math.floor(this.props.moduleProgress * .55));
+
+
 
 		return (
 			<div>
-				<br />
 				<div className="sv-col-md-2">
-					<OverviewPanel valid={overallValid} moduleProgress={this.props.moduleProgress} assessments={this.props.assessments} learningOutcomes={this.props.learningOutcomes} />
-					<SavePanel valid={overallValid} />
+					<OverviewPanel valid={overallValid} moduleProgress={this.props.moduleProgress} learningHours={learningHoursPercentage} assessments={this.props.assessments} learningOutcomes={this.props.learningOutcomes} />
+					<SavePanel validPerc={Math.ceil(overallPercentage)} valid={overallValid} />
 
 				</div>
 				{moduleElement}
 
 
 				<div className="sv-col-md-5">
-					<AssessmentSection learningOutcomes={this.props.learningOutcomes} valid={this.numberOfValid(this.props.assessments)} updateAssessments={this.props.actions.updateAssessments} key={1} saveAssessments={this.props.actions.updateAssessments} removeAssessment={this.removeAssessment} addAssessment={this.addAssessment} assessments={this.props.assessments} />
-					<LearningOutcomes valid={this.numberOfValid(this.props.learningOutcomes)} updateLearningOutcomes={this.props.actions.updateLearningOutcomes} learningOutcomes={this.props.learningOutcomes} />
+					<LearningHours valid={numberOfValidObj(this.props.learningHours)} update={this.props.actions.updateLearningHours} learningHours={this.props.learningHours}></LearningHours>
+					<LearningOutcomes valid={numberOfValid(this.props.learningOutcomes)} updateLearningOutcomes={this.props.actions.updateLearningOutcomes} learningOutcomes={this.props.learningOutcomes} />
+					<AssessmentSection learningOutcomes={this.props.learningOutcomes} valid={numberOfValid(this.props.assessments)} updateAssessments={this.props.actions.updateAssessments} key={1} saveAssessments={this.props.actions.updateAssessments} removeAssessment={this.removeAssessment} addAssessment={this.addAssessment} assessments={this.props.assessments} />
 				</div>
-
-
 			</div>
 		)
 	}
 }
 
-const mapDispatchToProps = function(dispatch, ownProps) {
-   return { actions: bindActionCreators(actionCreators, dispatch) }
+const mapDispatchToProps = function (dispatch, ownProps) {
+	return { actions: bindActionCreators(actionCreators, dispatch) }
 }
 
-const mapStateToProps = function(store, ownProps) {
-  return {
-    assessments: store.assessments,
-    learningOutcomes: store.learningOutcomes,
+const mapStateToProps = function (store, ownProps) {
+	return {
+		assessments: store.assessments,
+		learningOutcomes: store.learningOutcomes,
 		moduleProgress: store.moduleProgress,
 		inputs: store.inputs,
-		savedStates:store.savedStates
-  };
+		savedStates: store.savedStates,
+		learningHours: store.learningHours
+	};
 }
 
- export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

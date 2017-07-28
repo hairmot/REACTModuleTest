@@ -2,6 +2,10 @@
   transition: background-color 1s;
 }
 
+.sv-panel-danger .sv-panel-heading:hover {
+  cursor: pointer;
+}
+
 .redBg {
   background-color: red;
   border-radius: 51px;

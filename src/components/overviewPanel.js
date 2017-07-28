@@ -24,6 +24,16 @@ export default class OverviewPanel extends React.Component {
 
 							<tr>
 								<th className="sv-text-center">
+									Learning Hours
+									</th>
+							</tr>
+							<tr>
+								<td className="sv-text-center">
+									<Circle amount={this.props.learningHours} /></td>
+							</tr>
+
+							<tr>
+								<th className="sv-text-center">
 									Assessments
 									</th>
 							</tr>

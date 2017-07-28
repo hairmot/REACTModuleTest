@@ -1,112 +1,160 @@
 import currentTime from '../util/currentTime';
 
+var validate = (value, item) => {
+
+	var templateItem = inputsTemplate.concat(learningHoursTemplate).find(b => b.fieldName === item);
+	return value.length >= (templateItem.hasOwnProperty('minLength') ? templateItem.minLength : 0) && value.length <= (templateItem.hasOwnProperty('maxLength') ? templateItem.maxLength : 9999) && value != '';
+}
+
 export var inputsTemplate = [
 	{
 		fieldName: 'title',
 		type: 'text',
 		maxLength: 100,
-		minLength: 1
+		minLength: 1,
+		validate
 	},
 	{
 		fieldName: 'module_code',
 		type: 'text',
 		maxLength: 12,
-		minLength: 1
+		minLength: 1,
+		validate
 	},
 	{
 		fieldName: 'level',
 		type: 'text',
 		maxLength: 6,
-		minLength: 1
+		minLength: 1,
+		validate
 	},
 	{
 		fieldName: 'credits',
 		type: 'number',
 		maxLength: 6,
-		minLength: 1
-	},
-	{
-		fieldName: 'ects_credits_value',
-		type: 'text',
-		maxLength: 6,
 		minLength: 1,
-		readOnly: true,
-		formatting: (val) => { var res = Math.floor(val / 2); return res === 0 ? '' : res },
-		relatedField: 'credits',
-		omitFromProgress: true,
+		validate
 	},
+	// {
+	// 	fieldName: 'ects_credits_value',
+	// 	type: 'text',
+	// 	maxLength: 6,
+	// 	minLength: 1,
+	// 	readOnly: true,
+	// 	formatting: (val) => { var res = Math.floor(val / 2); return res === 0 ? '' : res },
+	// 	relatedField: 'credits',
+	// 	omitFromProgress: true,
+	// 	validate
+	// },
 	{
 		fieldName: 'faculty',
 		type: 'text',
 		validation: ['Computing', 'Business'],
-		maxLength: 6
+		maxLength: 6,
+		validate
 	},
 	{
 		fieldName: 'department',
 		type: 'text',
-		maxLength: 12
+		maxLength: 12,
+		validate
 	},
 	{
 		fieldName: 'subject_group',
 		type: 'text',
-		maxLength: 100
-	},
-	{
-		fieldName: 'total_number_of_notational_study_hours_for_this_module',
 		maxLength: 100,
-		type: 'number'
-	},
-	{
-		fieldName: 'total_number_of_scheduled_learning_and_teaching_activities_for_this_module',
-		maxLength: 100,
-		type: 'number'
+		validate
 	},
 	{
 		fieldName: 'module_summary',
 		type: 'textarea',
-		maxLength: 500
+		maxLength: 500,
+		validate
 	},
 	{
 		fieldName: 'learning_teaching_and_assessment_summary',
 		type: 'textarea',
-		maxLength: 400
-	},
-	{
-		fieldName: 'learning_resources',
-		type: 'link',
-		relatedField: 'module_code',
-		formatting: a => 'https://shu.rl.talis.com/modules/' + a + '/lists/20172018-Academic-Year.html',
-		maxLength: 100,
-		omitFromProgress: true
+		maxLength: 400,
+		validate
 	}
+	// {
+	// 	fieldName: 'learning_resources',
+	// 	type: 'link',
+	// 	relatedField: 'module_code',
+	// 	formatting: a => 'https://shu.rl.talis.com/modules/' + a + '/lists/20172018-Academic-Year.html',
+	// 	maxLength: 100,
+	// 	omitFromProgress: true,
+	// 	validate
+	// }
 ]
 
 export var assessmentsTemplate = [
 	{
-		fieldName: 'task_no'
+		fieldName: 'task_no',
+		validate
 	},
 	{
 		fieldName: 'LO_Ref',
-		formatting: (a,b) => {
+		formatting: (a, b) => {
 
-			return 	b.find(d => d.ID === a);
-		}
+			return b.find(d => d.ID === a);
+		},
+		validate
 	},
 	{
-		fieldName: 'description'
+		fieldName: 'description',
+		validate
 	},
 	{
-		fieldName: 'Assessment_Task_Type'
+		fieldName: 'Assessment_Task_Type',
+		validate
 	},
 	{
-		fieldName: 'word_count'
+		fieldName: 'word_count',
+		validate
 	},
 	{
-		fieldName: 'task_weighting'
+		fieldName: 'task_weighting',
+		validate
 	}
 ]
 
+export var learningHoursTemplate = [
+	{
+		fieldName: 'total_number_of_notational_study_hours',
+		maxLength: 4,
+		minLength: 1,
+		type: 'number',
+		validate
+	},
+	{
+		fieldName: 'total_number_of_scheduled_learning_and_teaching_activities',
+		maxLength: 4,
+		minLength: 1,
+		type: 'number',
+		validate
+	},
+	{
+		fieldName: 'typical_number_of_scheduled_learning_and_teaching_activities_per_week',
+		maxLength: 4,
+		minLength: 1,
+		type: 'number',
+		validate
+	},
+	{
+		fieldName: 'total_number_of_independent_learning_hours',
+		maxLength: 4,
+		minLength: 1,
+		type: 'number',
+		validate
+	}
+]
+
+
+
 var newInputs = inputsTemplate.reduce((a, b, i) => { a[inputsTemplate[i].fieldName] = ''; return a }, {});
+
+var newLearningHours = learningHoursTemplate.reduce((a, b, i) => { a[learningHoursTemplate[i].fieldName] = ''; return a }, {});
 
 
 export default {
@@ -121,7 +169,8 @@ export default {
 	],
 	learningOutcomes: [
 	],
-	moduleProgress: 0
+	moduleProgress: 0,
+	learningHours: newLearningHours
 }
 
 

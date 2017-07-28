@@ -8,10 +8,6 @@ import persistState from './util/persistState';
 
 let store = createStore(Reducer);
 
-store.subscribe(function() {
-	persistState(store.getState());
-});
-
 render(
 	<Provider store={store}>
 		<App />
