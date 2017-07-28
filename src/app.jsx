@@ -5,7 +5,6 @@ import defaultData, { inputsTemplate } from './data/defaultData';
 import AssessmentSection from './components/AssessmentSection';
 import update from 'immutability-helper'
 import persistState from './util/persistState';
-import SavePanel from './components/SavePanel';
 import LearningOutcomes from './components/LearningOutcomes'
 import OverviewPanel from './components/OverviewPanel'
 import { connect } from 'react-redux';
@@ -39,17 +38,17 @@ class App extends React.Component {
 		return (
 			<div>
 				<div className="sv-col-md-2">
-					<OverviewPanel valid={overallValid} moduleProgress={this.props.moduleProgress} learningHours={learningHoursPercentage} assessments={this.props.assessments} learningOutcomes={this.props.learningOutcomes} />
-					<SavePanel validPerc={Math.ceil(overallPercentage)} valid={overallValid} />
+					<OverviewPanel overallPercentage={Math.ceil(overallPercentage)} overallValid={overallValid} valid={overallValid} moduleProgress={this.props.moduleProgress} learningHours={learningHoursPercentage} assessments={this.props.assessments} learningOutcomes={this.props.learningOutcomes} />
+
 
 				</div>
 				{moduleElement}
 
 
 				<div className="sv-col-md-5">
+					<AssessmentSection learningOutcomes={this.props.learningOutcomes} valid={numberOfValid(this.props.assessments)} updateAssessments={this.props.actions.updateAssessments} key={1} saveAssessments={this.props.actions.updateAssessments} removeAssessment={this.removeAssessment} addAssessment={this.addAssessment} assessments={this.props.assessments} />
 					<LearningHours valid={numberOfValidObj(this.props.learningHours)} update={this.props.actions.updateLearningHours} learningHours={this.props.learningHours}></LearningHours>
 					<LearningOutcomes valid={numberOfValid(this.props.learningOutcomes)} updateLearningOutcomes={this.props.actions.updateLearningOutcomes} learningOutcomes={this.props.learningOutcomes} />
-					<AssessmentSection learningOutcomes={this.props.learningOutcomes} valid={numberOfValid(this.props.assessments)} updateAssessments={this.props.actions.updateAssessments} key={1} saveAssessments={this.props.actions.updateAssessments} removeAssessment={this.removeAssessment} addAssessment={this.addAssessment} assessments={this.props.assessments} />
 				</div>
 			</div>
 		)
