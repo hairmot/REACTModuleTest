@@ -1,6 +1,6 @@
 export default function () {
-	if (document.querySelector('[data-ajax]') && document.querySelector('[data-ajax]').value !== '') {
-		return document.querySelector('[data-ajax]').value;
+	if (document.querySelector('[data-id]') && document.querySelector('[data-id]').value !== '') {
+		return document.querySelector('[data-id]').value;
 	}
 	else if (localStorage.getItem('reactState')){
 		return localStorage.getItem('reactState');

@@ -4,7 +4,7 @@ import ValidTick from './validTick';
 export default class LearningOutcomes extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { learningOutcomes: this.props.learningOutcomes }
+		this.state = { learningOutcomes: this.props.learningOutcomes, expanded:false }
 	}
 
 	addLearningOutcome = () => {
@@ -49,11 +49,11 @@ export default class LearningOutcomes extends React.Component {
 
 		return (
 			<div className="">
-				<div className="sv-panel sv-panel-default">
-					<div className="sv-panel-heading">
-						Learning Outcomes <ValidTick valid={this.props.valid} />
+				<div className={this.props.valid ? 'sv-panel sv-panel-default' : 'sv-panel sv-panel-danger'}>
+					<div className="sv-panel-heading" onClick={() => this.setState({expanded: !this.state.expanded})}>
+						Learning Outcomes {!this.state.expanded ? '(click to expand)' : ''} <ValidTick valid={this.props.valid} />
 					</div>
-					<div className="sv-panel-body">
+					<div className="sv-panel-body" style={this.state.expanded ? {display:'block'} : {display:'none'}}>
 						<table className="sv-table sv-table-striped sv-table-bordered">
 							<thead>
 								<tr>

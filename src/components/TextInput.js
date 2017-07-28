@@ -1,10 +1,9 @@
 import React from 'react';
-import { inputsTemplate } from '../data/defaultData';
 
 export default class TextInput extends React.Component {
 
 	render() {
-		var templateItem = inputsTemplate.find(a => a.fieldName === this.props.propertyname);
+		var templateItem = this.props.inputsTemplate.find(a => a.fieldName === this.props.propertyname);
 
 		var input = '';
 		var value = templateItem.formatting ? templateItem.formatting(this.props.value) : this.props.value;
@@ -31,10 +30,10 @@ export default class TextInput extends React.Component {
 
 		return (
 			<div className="sv-form-group sv-col-md-12">
-				<div className="sv-col-md-4">
+				<div className={this.props.biglabels ? 'sv-col-md-9' : 'sv-col-md-4'}>
 					<label className="">{this.props.name}</label>
 				</div>
-				<div className="sv-col-md-8">
+				<div  className={this.props.biglabels ? 'sv-col-md-3' : 'sv-col-md-8'}>
 
 					<div className="sv-input-group">
 						{
@@ -42,7 +41,8 @@ export default class TextInput extends React.Component {
 						}
 						{
 						templateItem.type !== 'link' ?
-							value.toString().length >= (templateItem.minLength || 1) && value.toString().length <= (templateItem.maxLength || 9999)?
+							//value.toString().length >= (templateItem.minLength || 1) && value.toString().length <= (templateItem.maxLength || 9999)?
+							templateItem.validate(value.toString(), templateItem.fieldName) ?
 							<span className="sv-input-group-addon sv-alert-success" style={{cursor:'default'}}>✔</span>:
 							<span className="sv-input-group-addon sv-alert-danger"  style={{cursor:'default'}}>✘</span>
 						:''

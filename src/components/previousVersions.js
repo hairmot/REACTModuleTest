@@ -3,7 +3,7 @@ import React from 'react';
 export default class PreviousVersions extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { assessmentsCollapse: true }
+		this.state = { assessmentsCollapse: true, expanded:false }
 	}
 
 	toggleAssessments = () => {
@@ -15,10 +15,10 @@ export default class PreviousVersions extends React.Component {
 		return (
 			<div className="">
 				<div className="sv-panel sv-panel-default">
-					<div className="sv-panel-heading" >
-						Edit Timeline
+					<div className="sv-panel-heading" onClick={() => this.setState({expanded: !this.state.expanded})}>
+						Edit Timeline  {!this.state.expanded ? '(click to expand)' : ''}
 						</div>
-					<div className="sv-panel-body" >
+					<div className="sv-panel-body" style={this.state.expanded ? {display:'block'} : {display:'none'}}>
 						<div className="sv-col-md-2">
 							<p>
 								{this.props.savedStates[0].time}

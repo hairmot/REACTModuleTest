@@ -32,4 +32,11 @@ export function retrieveState() {
 	}
 }
 
+export function updateLearningHours(learningHoursItem) {
+	return {
+		type: 'updateLearningHours',
+		learningHoursItem
+	}
+}
+
 
