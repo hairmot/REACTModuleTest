@@ -1,6 +1,7 @@
 import React from 'react'
 import Circle from './circle';
-import RecordsOverview from './RecordsOverview'
+import RecordsOverview from './RecordsOverview';
+import SavePanel from './SavePanel';
 
 export default class OverviewPanel extends React.Component {
 	render() {
@@ -12,50 +13,59 @@ export default class OverviewPanel extends React.Component {
 				<div className="sv-panel-body" className="">
 					<table className="sv-table-striped sv-table" style={{ marginBottom: '0' }}>
 						<tbody>
-							<tr>
-								<th className="sv-text-center">
-									Module Info
-									</th>
-							</tr>
-							<tr>
-								<td className="sv-text-center">
-									<Circle amount={this.props.moduleProgress} /></td>
-							</tr>
 
 							<tr>
-								<th className="sv-text-center">
-									Learning Hours
-									</th>
-							</tr>
-							<tr>
-								<td className="sv-text-center">
-									<Circle amount={this.props.learningHours} /></td>
-							</tr>
-
-							<tr>
-								<th className="sv-text-center">
-									Assessments
-									</th>
-							</tr>
-							<tr>
-								<td className="sv-text-center">
-									<RecordsOverview records={this.props.assessments} />
+								<td className="">
+									<SavePanel validPerc={this.props.overallPercentage} valid={this.props.overallValid} />
 								</td>
-							</tr>
-							<tr>
-								<th className="sv-text-center">
-									Learning Outcomes
-									</th>
-							</tr>
-							<tr>
-								<td className="sv-text-center">
+						</tr>
 
-									<RecordsOverview records={this.props.learningOutcomes} /></td>
-							</tr>
+						<tr>
+							<th className="sv-text-center">
+								Module Info
+									</th>
+						</tr>
+						<tr>
+							<td className="sv-text-center">
+								<Circle amount={this.props.moduleProgress} /></td>
+						</tr>
+
+						<tr>
+							<th className="sv-text-center">
+								Learning Hours
+									</th>
+						</tr>
+						<tr>
+							<td className="sv-text-center">
+								<Circle amount={this.props.learningHours} /></td>
+						</tr>
+
+						<tr>
+							<th className="sv-text-center">
+								Assessments
+									</th>
+						</tr>
+						<tr>
+							<td className="sv-text-center">
+								<RecordsOverview records={this.props.assessments} />
+							</td>
+						</tr>
+						<tr>
+							<th className="sv-text-center">
+								Learning Outcomes
+									</th>
+						</tr>
+						<tr>
+							<td className="sv-text-center">
+
+								<RecordsOverview records={this.props.learningOutcomes} /></td>
+						</tr>
+
+
 						</tbody>
 					</table>
-				</div>
 			</div>
+			</div >
 		)
 	}
 
