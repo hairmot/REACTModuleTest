@@ -21,6 +21,12 @@ export default class TextInput extends React.Component {
 			case 'link':
 				input = <a href={templateItem.formatting ? templateItem.formatting(this.props.value) : this.props.value} style={{wordBreak:'break-all'}}>{value}</a>
 				break;
+			case 'dropdown':
+				input = <select className="sv-form-control">
+					{
+						templateItem.validation.map(a => <option value={a}>{a}</option>)
+					}
+				</select>
 		}
 
 		return (

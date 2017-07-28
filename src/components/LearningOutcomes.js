@@ -9,19 +9,22 @@ export default class LearningOutcomes extends React.Component {
 
 	addLearningOutcome = () => {
 		var newLO = [...this.state.learningOutcomes, { ID: '', outcome: '' }];
-		this.setState({ learningOutcomes: newLO }, this.props.updateLearningOutcomes(newLO));
+		this.setState({ learningOutcomes: newLO });
+		 this.props.updateLearningOutcomes(newLO)
 	}
 
 	delete = (ev) => {
 		var newLO = [...this.state.learningOutcomes];
 		newLO.splice(ev.target.name, 1);
-		this.setState({ learningOutcomes: newLO }, this.props.updateLearningOutcomes(newLO));
+		this.setState({ learningOutcomes: newLO })
+		 this.props.updateLearningOutcomes(newLO)
 	}
 
 	update = (ev, index, field) => {
 		var newLO = [...this.state.learningOutcomes];
 		newLO[index][field] = ev.target.value;
-		this.setState({ learningOutcomes: newLO }, this.props.updateLearningOutcomes(newLO));
+		this.setState({ learningOutcomes: newLO });
+		this.props.updateLearningOutcomes(newLO)
 	}
 
 	render() {

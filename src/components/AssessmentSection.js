@@ -60,14 +60,14 @@ export default class AssessmentSection extends React.Component {
 					<table className="sv-table sv-table-striped sv-table-bordered">
 						<thead>
 							<tr>
-								<th>Info</th>
+								<th>Task Data</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
 						<tbody>
 							{assessments}
 							<tr>
-								<td colSpan="7"><button type="button" onClick={this.addAssessment} className="sv-btn sv-btn-default sv-btn-block">Add New Module</button></td>
+								<td colSpan="2"><button type="button" onClick={this.addAssessment} className="sv-btn sv-btn-default sv-btn-block">Add New Module</button></td>
 							</tr>
 						</tbody>
 					</table>
