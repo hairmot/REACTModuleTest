@@ -16,6 +16,10 @@ export default class Module extends React.Component {
 		this.saved = true;
 	}
 
+	componentDidMount () {
+		this.props.updateModuleProgress(this.state.inputs);
+	}
+
 	deleteVersion = ev => {
 		if (ev.target.id !== '0') {
 
@@ -101,10 +105,9 @@ export default class Module extends React.Component {
 
 
 		return (
-			<div>
-				<div className="sv-col-md-5">
 
-					<div className="">
+
+
 						<div className="sv-panel sv-panel-default">
 							<div className="sv-panel-heading">
 								Module Info
@@ -124,15 +127,10 @@ export default class Module extends React.Component {
 									<div >{inputs}</div>
 
 								</div>
-							</div></div>
-					</div>
-	<PreviousVersions valid={this.props.moduleProgress === 100} versions={versions.reverse()} showVersion={this.showVersion} visibleVersion={this.state.visibleVersion} savedStates={this.state.savedStates} />
+							</div>
+								<PreviousVersions valid={this.props.moduleProgress === 100} versions={versions.reverse()} showVersion={this.showVersion} visibleVersion={this.state.visibleVersion} savedStates={this.state.savedStates} />
 
-				</div>
-
-			</div>
-
-
+							</div>
 		)
 	}
 }

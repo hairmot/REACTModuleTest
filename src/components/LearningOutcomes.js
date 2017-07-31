@@ -1,48 +1,19 @@
 import React from 'react'
 import ValidTick from './validTick';
+import LearningOutcome from './learningOutcome';
 
 export default class LearningOutcomes extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { learningOutcomes: this.props.learningOutcomes, expanded:false }
-	}
-
-	addLearningOutcome = () => {
-		var newLO = [...this.state.learningOutcomes, { ID: '', outcome: '' }];
-		this.setState({ learningOutcomes: newLO });
-		 this.props.updateLearningOutcomes(newLO)
-	}
-
-	delete = (ev) => {
-		var newLO = [...this.state.learningOutcomes];
-		newLO.splice(ev.target.name, 1);
-		this.setState({ learningOutcomes: newLO })
-		 this.props.updateLearningOutcomes(newLO)
-	}
-
-	update = (ev, index, field) => {
-		var newLO = [...this.state.learningOutcomes];
-		newLO[index][field] = ev.target.value;
-		this.setState({ learningOutcomes: newLO });
-		this.props.updateLearningOutcomes(newLO)
+		this.state = { expanded:true }
 	}
 
 	render() {
 		var outcomes = <tr></tr>;
-		if (this.state.learningOutcomes) {
-			outcomes = this.state.learningOutcomes.map((a, b) => {
+		if (this.props.learningOutcomes) {
+			outcomes = this.props.learningOutcomes.map((a, b) => {
 				return (
-					<tr key={b}>
-						<td className="sv-col-md-2">
-							<input className="sv-form-control" onChange={(e) => this.update(e, b, 'ID')} type="text" value={a.ID} />
-						</td>
-						<td className="sv-col-md-10">
-							<input className="sv-form-control" onChange={(e) => this.update(e, b, 'outcome')} type="text" value={a.outcome} />
-						</td>
-						<td>
-							<button type="button" className="sv-btn sv-alert-danger" name={b} onClick={this.delete}>Delete</button>
-						</td>
-					</tr>
+					<LearningOutcome key={a.GUID} deleteLearningOutcome={this.props.deleteLearningOutcome} saveLearningOutcome={this.props.saveLearningOutcome} learningOutcome={a} />
 				)
 			});
 		}
@@ -50,8 +21,8 @@ export default class LearningOutcomes extends React.Component {
 		return (
 			<div className="">
 				<div className={this.props.valid ? 'sv-panel sv-panel-default' : 'sv-panel sv-panel-danger'}>
-					<div className="sv-panel-heading" onClick={() => this.setState({expanded: !this.state.expanded})}>
-						Learning Outcomes {!this.state.expanded ? '(click to expand)' : ''} <ValidTick valid={this.props.valid} />
+					<div className="sv-panel-heading" style={{cursor:'pointer'}} onClick={() => this.setState({expanded: !this.state.expanded})}>
+						Learning Outcomes {!this.state.expanded ? '(click to expand)' : '(click to hide)'} <ValidTick valid={this.props.valid} />
 					</div>
 					<div className="sv-panel-body" style={this.state.expanded ? {display:'block'} : {display:'none'}}>
 						<table className="sv-table sv-table-striped sv-table-bordered">
@@ -66,7 +37,7 @@ export default class LearningOutcomes extends React.Component {
 								{outcomes}
 								<tr>
 
-									<td colSpan="3"><button type="button" onClick={this.addLearningOutcome} className="sv-btn sv-btn-default sv-btn-block">Add Learning Outcome</button></td>
+									<td colSpan="3"><button type="button" onClick={this.props.addNewLearningOutcome} className="sv-btn sv-btn-default sv-btn-block">Add Learning Outcome</button></td>
 								</tr>
 							</tbody>
 						</table>
