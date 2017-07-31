@@ -16,6 +16,10 @@ export default class Module extends React.Component {
 		this.saved = true;
 	}
 
+	componentDidMount () {
+		this.props.updateModuleProgress(this.state.inputs);
+	}
+
 	deleteVersion = ev => {
 		if (ev.target.id !== '0') {
 

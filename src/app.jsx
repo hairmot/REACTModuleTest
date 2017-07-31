@@ -34,7 +34,6 @@ class App extends React.Component {
 		  (Math.floor(this.props.moduleProgress * .55));
 
 
-
 		return (
 			<div>
 				<div className="sv-col-md-2">

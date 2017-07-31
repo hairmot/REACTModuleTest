@@ -38,11 +38,11 @@ export default class SavePanel extends React.Component {
 		return (
 
 
-			<div>
+			<div style={{minHeight:'51px'}}>
 				{this.props.validPerc === 100 ?
 					<button type="button" className={this.props.valid ? "sv-btn sv-btn-block sv-alert-success" : "sv-btn sv-btn-block sv-alert-default"} disabled={!this.props.valid}>Complete</button>
 					:
-					<div style={{ paddingLeft: '4px', width: this.state.value + '%', backgroundColor: 'hsl(' + this.state.value + ', 70%, 70%)' }}>{this.state.value}%</div>
+					<div style={{ fontWeight:'bold',borderRadius:'4px',padding: '6px 12px',height:'34px', width: this.state.value + '%', backgroundColor: 'hsl(' + this.state.value + ', 70%, 70%)' }}>{this.state.value}%</div>
 				}
 			</div>
 
