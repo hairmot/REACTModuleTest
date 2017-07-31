@@ -10,10 +10,6 @@ function Reducer(state = defaultData, action) {
 			var newState = Object.assign({}, state, action.state);
 			persistState(newState);
 			return newState;
-		case 'updateAssessments':
-			var newState = Object.assign({}, state, { assessments: action.assessments });
-			persistState(newState);
-			return newState
 
 		case 'updateModuleProgress':
 			var inputArray = Object.keys(action.inputs);
@@ -28,6 +24,7 @@ function Reducer(state = defaultData, action) {
 			var newLearningHours = Object.assign({}, state.learningHours, updatedItem);
 			var newState = Object.assign({}, state, { learningHours: newLearningHours });
 			return persistState(newState);
+
 		default:
 			if (retrieveState()) {
 				var newState = JSON.parse(retrieveState());

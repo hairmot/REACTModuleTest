@@ -9,7 +9,7 @@ import LearningOutcomes from './components/LearningOutcomes'
 import OverviewPanel from './components/OverviewPanel'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
-import * as actionCreators from './Actions/ActionCreators.js';
+import * as actionCreators from './Actions/actionCreators';
 import LearningHours from './components/LearningHours';
 import { numberOfValid, numberOfValidObj, countValidInObj } from './util/countFunctions';
 
@@ -47,7 +47,7 @@ class App extends React.Component {
 				</div>
 
 				<div className="sv-col-md-5">
-					<AssessmentSection learningOutcomes={this.props.learningOutcomes} valid={numberOfValid(this.props.assessments)} updateAssessments={this.props.actions.updateAssessments} key={1} saveAssessments={this.props.actions.updateAssessments} removeAssessment={this.removeAssessment} addAssessment={this.addAssessment} assessments={this.props.assessments} />
+					<AssessmentSection learningOutcomes={this.props.learningOutcomes} valid={numberOfValid(this.props.assessments)} updateAssessments={this.props.actions.updateAssessments} key={1} saveAssessment={this.props.actions.saveAssessment} removeAssessment={this.props.actions.deleteAssessment} addNewAssessment={this.props.actions.addNewAssessment} assessments={this.props.assessments} />
 					<LearningOutcomes saveLearningOutcome={this.props.actions.saveLearningOutcome} deleteLearningOutcome={this.props.actions.deleteLearningOutcome} addNewLearningOutcome={this.props.actions.addNewLearningOutcome} valid={numberOfValid(this.props.learningOutcomes)} updateLearningOutcomes={this.props.actions.updateLearningOutcomes} learningOutcomes={this.props.learningOutcomes} />
 				</div>
 			</div>
@@ -61,12 +61,12 @@ const mapDispatchToProps = function (dispatch, ownProps) {
 
 const mapStateToProps = function (store, ownProps) {
 	return {
-		assessments: store.reducer.assessments,
-		learningOutcomes: store.learningOutcomesReducer.learningOutcomes,
-		moduleProgress: store.reducer.moduleProgress,
-		inputs: store.reducer.inputs,
-		savedStates: store.reducer.savedStates,
-		learningHours: store.reducer.learningHours
+		assessments: store.assessments,
+		learningOutcomes: store.learningOutcomes,
+		moduleProgress: store.moduleProgress,
+		inputs: store.inputs,
+		savedStates: store.savedStates,
+		learningHours: store.learningHours
 	};
 }
 

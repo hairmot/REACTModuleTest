@@ -27,14 +27,12 @@ export default class Assessment extends React.Component {
 
 		if (flag) {
 			if (flag(e.target.value, this.props.learningOutcomes) || e.target.value == '') {
-				//this.props.updateVal(e)
 				var newVal = Object.assign({}, this.state.values);
 				newVal[e.target.name] = e.target.value;
 				this.setState({ values: newVal }, () => { this.updateCompletion() });
 			}
 		}
 		else {
-			//this.props.updateVal(e)
 			var newVal = Object.assign({}, this.state.values);
 			newVal[e.target.name] = e.target.value;
 			this.setState({ values: newVal }, () => { this.updateCompletion() });
@@ -45,7 +43,7 @@ export default class Assessment extends React.Component {
 	toggleSave = (e) => {
 		if (!this.state.saved) {
 			//not currently saved so we must be saving!
-			this.props.updateVal(e, this.state.values);
+			this.props.saveAssessment(this.state.values);
 		}
 
 		this.setState({ saved: !this.state.saved });
@@ -54,10 +52,9 @@ export default class Assessment extends React.Component {
 
 	render() {
 		var _this = this;
-		var inputs = Object.keys(this.state.values).map((a, b) => {
+		var inputs = Object.keys(this.state.values).filter(a => a !== 'GUID').map((a, b) => {
 			var template = assessmentsTemplate.find(c => c.fieldName === a);
 			var mandatory = '';
-
 			var flag = template.formatting && !template.formatting(_this.state.values[a], _this.props.learningOutcomes);
 			if (flag) {
 				mandatory = 'sv-mandatory';
@@ -96,7 +93,7 @@ export default class Assessment extends React.Component {
 				</td>
 				<td className="sv-col-md-3" style={{ verticalAlign: 'middle' }}>
 					<button type="button" onClick={this.toggleSave} id={this.props.index} className={this.isComplete() ? "sv-btn sv-alert-success sv-btn-block" : 'sv-hidden'}>{this.state.saved ? 'View/Edit' : 'Save'}</button>
-					<button type="button" onClick={this.props.removeAssessment} id={this.props.index} className="sv-btn sv-alert-danger sv-btn-block">Delete</button>
+					<button type="button" onClick={() => this.props.removeAssessment(this.props.values['GUID'])} id={this.props.index} className="sv-btn sv-alert-danger sv-btn-block">Delete</button>
 				</td>
 			</tr>
 		)

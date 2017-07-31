@@ -6,6 +6,10 @@ export default class LearningOutcome extends React.Component {
 		this.state = { saved: true, ID: this.props.learningOutcome.ID, outcome: this.props.learningOutcome.outcome  }
 	}
 
+	componentWillReceiveProps = (a,b) => {
+		this.setState({ID: a.learningOutcome.ID, outcome: a.learningOutcome.outcome})
+	}
+
 	updateID = (e) => {
 		this.setState({ saved: false, ID: e.target.value});
 	}

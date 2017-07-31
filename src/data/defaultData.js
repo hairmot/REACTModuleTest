@@ -104,6 +104,9 @@ export var assessmentsTemplate = [
 	{
 		fieldName: 'description',
 		validate
+	},{
+		fieldName:'GUID',
+		hidden:true
 	},
 	{
 		fieldName: 'Assessment_Task_Type',
