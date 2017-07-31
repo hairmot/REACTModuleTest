@@ -7,7 +7,7 @@ import ValidTick from './validTick';
 export default class LearningHours extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {expanded:false}
+		this.state = {expanded:true}
 	}
 	render() {
 		var totalLearningHours = Object.keys(this.props.learningHours).map(a => { return {name: a, value: this.props.learningHours[a]}});
@@ -22,9 +22,9 @@ export default class LearningHours extends React.Component {
 
 		return (
 			<div className={this.props.valid ? 'sv-panel sv-panel-default' : 'sv-panel sv-panel-danger'}>
-				<div className="sv-panel-heading" onClick={() => this.setState({expanded: !this.state.expanded})}>
+				<div className="sv-panel-heading" style={{cursor:'pointer'}} onClick={() => this.setState({expanded: !this.state.expanded})}>
 
-					Learning Activities {!this.state.expanded ? '(click to expand)' : ''} <ValidTick valid={this.props.valid} />
+					Learning Activities {!this.state.expanded ? '(click to expand)' : '(click to hide)'} <ValidTick valid={this.props.valid} />
 				</div>
 				<div className="sv-panel-body" style={this.state.expanded ? {display:'block'} : {display:'none'}}>
 

@@ -9,6 +9,7 @@ export default function(state, item = 'reactState') {
 	else {
 		localStorage.setItem(item, JSON.stringify(state));
 	}
+	return state;
 }
 
 function updateLearningActivities(learningHours) {

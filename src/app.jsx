@@ -38,16 +38,17 @@ class App extends React.Component {
 			<div>
 				<div className="sv-col-md-2">
 					<OverviewPanel overallPercentage={Math.ceil(overallPercentage)} overallValid={overallValid} valid={overallValid} moduleProgress={this.props.moduleProgress} learningHours={learningHoursPercentage} assessments={this.props.assessments} learningOutcomes={this.props.learningOutcomes} />
+				</div>
 
+				<div className="sv-col-md-5">
+					{moduleElement}
+					<LearningHours valid={numberOfValidObj(this.props.learningHours)} update={this.props.actions.updateLearningHours} learningHours={this.props.learningHours}></LearningHours>
 
 				</div>
-				{moduleElement}
-
 
 				<div className="sv-col-md-5">
 					<AssessmentSection learningOutcomes={this.props.learningOutcomes} valid={numberOfValid(this.props.assessments)} updateAssessments={this.props.actions.updateAssessments} key={1} saveAssessments={this.props.actions.updateAssessments} removeAssessment={this.removeAssessment} addAssessment={this.addAssessment} assessments={this.props.assessments} />
-					<LearningHours valid={numberOfValidObj(this.props.learningHours)} update={this.props.actions.updateLearningHours} learningHours={this.props.learningHours}></LearningHours>
-					<LearningOutcomes valid={numberOfValid(this.props.learningOutcomes)} updateLearningOutcomes={this.props.actions.updateLearningOutcomes} learningOutcomes={this.props.learningOutcomes} />
+					<LearningOutcomes saveLearningOutcome={this.props.actions.saveLearningOutcome} deleteLearningOutcome={this.props.actions.deleteLearningOutcome} addNewLearningOutcome={this.props.actions.addNewLearningOutcome} valid={numberOfValid(this.props.learningOutcomes)} updateLearningOutcomes={this.props.actions.updateLearningOutcomes} learningOutcomes={this.props.learningOutcomes} />
 				</div>
 			</div>
 		)
@@ -60,12 +61,12 @@ const mapDispatchToProps = function (dispatch, ownProps) {
 
 const mapStateToProps = function (store, ownProps) {
 	return {
-		assessments: store.assessments,
-		learningOutcomes: store.learningOutcomes,
-		moduleProgress: store.moduleProgress,
-		inputs: store.inputs,
-		savedStates: store.savedStates,
-		learningHours: store.learningHours
+		assessments: store.reducer.assessments,
+		learningOutcomes: store.learningOutcomes.learningOutcomes,
+		moduleProgress: store.reducer.moduleProgress,
+		inputs: store.reducer.inputs,
+		savedStates: store.reducer.savedStates,
+		learningHours: store.reducer.learningHours
 	};
 }
 

@@ -39,4 +39,27 @@ export function updateLearningHours(learningHoursItem) {
 	}
 }
 
+export function addNewLearningOutcome() {
+	return {
+		type: 'addNewLearningOutcome'
+	}
+}
+
+export function deleteLearningOutcome(GUID) {
+	return {
+		type: 'deleteLearningOutcome',
+		GUID
+	}
+}
+
+export function saveLearningOutcome(learningOutcome) {
+	return {
+		type: 'saveLearningOutcome',
+		learningOutcome
+	}
+}
+
+
+
+
 

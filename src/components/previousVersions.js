@@ -14,9 +14,9 @@ export default class PreviousVersions extends React.Component {
 	render() {
 		return (
 			<div className="">
-				<div className="sv-panel sv-panel-default">
-					<div className="sv-panel-heading" onClick={() => this.setState({expanded: !this.state.expanded})}>
-						Edit Timeline  {!this.state.expanded ? '(click to expand)' : ''}
+
+					<div className="sv-panel-heading" style={{cursor:'pointer'}} onClick={() => this.setState({expanded: !this.state.expanded})}>
+						<strong>Edit Timeline </strong>  {!this.state.expanded ? '(click to expand)' : '(click to hide)'}
 						</div>
 					<div className="sv-panel-body" style={this.state.expanded ? {display:'block'} : {display:'none'}}>
 						<div className="sv-col-md-2">
@@ -59,7 +59,7 @@ export default class PreviousVersions extends React.Component {
 						</div>
 
 					</div>
-				</div>
+
 			</div>
 		)
 	}
