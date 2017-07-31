@@ -62,7 +62,7 @@ const mapDispatchToProps = function (dispatch, ownProps) {
 const mapStateToProps = function (store, ownProps) {
 	return {
 		assessments: store.reducer.assessments,
-		learningOutcomes: store.learningOutcomes.learningOutcomes,
+		learningOutcomes: store.learningOutcomesReducer.learningOutcomes,
 		moduleProgress: store.reducer.moduleProgress,
 		inputs: store.reducer.inputs,
 		savedStates: store.reducer.savedStates,

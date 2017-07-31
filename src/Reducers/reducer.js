@@ -27,8 +27,7 @@ function Reducer(state = defaultData, action) {
 			updatedItem[action.learningHoursItem.name] = action.learningHoursItem.value;
 			var newLearningHours = Object.assign({}, state.learningHours, updatedItem);
 			var newState = Object.assign({}, state, { learningHours: newLearningHours });
-			persistState(newState);
-			return newState
+			return persistState(newState);
 		default:
 			if (retrieveState()) {
 				var newState = JSON.parse(retrieveState());

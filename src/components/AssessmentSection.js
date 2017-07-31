@@ -1,17 +1,17 @@
 import React from 'react';
 import Assessment from './Assessment';
 import update from 'immutability-helper'
-import ValidTick from './validTick';
+import CollapsiblePanel from './CollapsiblePanel';
 
 
 export default class AssessmentSection extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { assessments: this.props.assessments, expanded:true }
+		this.state = { assessments: this.props.assessments }
 	}
 
 	updateVal = (ev, assessment) => {
-		let newAssess =this.state.assessments.slice(0);
+		let newAssess = this.state.assessments.slice(0);
 		newAssess[ev.target.id] = assessment;
 		this.setState({ assessments: newAssess }, () => this.props.saveAssessments(this.state.assessments));
 	}
@@ -52,27 +52,22 @@ export default class AssessmentSection extends React.Component {
 		}
 
 		return (
-			<div className={this.props.valid ? 'sv-panel sv-panel-default' : 'sv-panel sv-panel-danger'}>
-				<div className="sv-panel-heading" style={{cursor:'pointer'}} onClick={() => this.setState({expanded: !this.state.expanded})}>
-					Assessments {!this.state.expanded ? '(click to expand)' : '(click to hide)'} <ValidTick valid={this.props.valid}/>
-							</div>
-				<div className="sv-panel-body" style={this.state.expanded ? {display:'block'} : {display:'none'}}>
-					<table className="sv-table sv-table-striped sv-table-bordered">
-						<thead>
-							<tr>
-								<th>Task Data</th>
-								<th>Actions</th>
-							</tr>
-						</thead>
-						<tbody>
-							{assessments}
-							<tr>
-								<td colSpan="2"><button type="button" onClick={this.addAssessment} className="sv-btn sv-btn-default sv-btn-block">Add New Module</button></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
+			<CollapsiblePanel valid={this.props.valid} title="Assessments">
+				<table className="sv-table sv-table-striped sv-table-bordered">
+					<thead>
+						<tr>
+							<th>Task Data</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{assessments}
+						<tr>
+							<td colSpan="2"><button type="button" onClick={this.addAssessment} className="sv-btn sv-btn-default sv-btn-block">Add New Module</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</CollapsiblePanel>
 		)
 	}
 }
