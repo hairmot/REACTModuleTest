@@ -27,9 +27,9 @@ export default class AssessmentSection extends React.Component {
 					</thead>
 					<tbody>
 						{assessments}
-						<tr>
+						{/*<tr>
 							<td colSpan="2"><button type="button" onClick={this.props.addNewAssessment} className="sv-btn sv-btn-default sv-btn-block">Add New Assessment</button></td>
-						</tr>
+						</tr>*/}
 					</tbody>
 				</table>
 			</CollapsiblePanel>

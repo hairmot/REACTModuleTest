@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import * as actionCreators from './Actions/actionCreators';
 import LearningHours from './components/LearningHours';
-import { numberOfValid, numberOfValidObj, countValidInObj } from './util/countFunctions';
+import { validAssessments, numberOfValid, numberOfValidObj, countValidInObj } from './util/countFunctions';
 
 class App extends React.Component {
 
@@ -51,7 +51,7 @@ class App extends React.Component {
 				</div>
 
 				<div className="sv-col-md-5">
-					<AssessmentSection learningOutcomes={this.props.learningOutcomes} valid={numberOfValid(this.props.assessments)} updateAssessments={this.props.actions.updateAssessments} key={1} saveAssessment={this.props.actions.saveAssessment} removeAssessment={this.props.actions.deleteAssessment} addNewAssessment={this.props.actions.addNewAssessment} assessments={this.props.assessments} />
+					<AssessmentSection learningOutcomes={this.props.learningOutcomes} valid={validAssessments(this.props.assessments, this.props.learningOutcomes) === this.props.assessments.length} updateAssessments={this.props.actions.updateAssessments} key={1} saveAssessment={this.props.actions.saveAssessment} removeAssessment={this.props.actions.deleteAssessment} addNewAssessment={this.props.actions.addNewAssessment} assessments={this.props.assessments} />
 
 					<LearningOutcomes saveLearningOutcome={this.props.actions.saveLearningOutcome} deleteLearningOutcome={this.props.actions.deleteLearningOutcome} addNewLearningOutcome={this.props.actions.addNewLearningOutcome} valid={numberOfValid(this.props.learningOutcomes)} updateLearningOutcomes={this.props.actions.updateLearningOutcomes} learningOutcomes={this.props.learningOutcomes} />
 				</div>

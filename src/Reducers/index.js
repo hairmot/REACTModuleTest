@@ -6,6 +6,8 @@ import {saveLearningOutcome, deleteLearningOutcome} from '../storeFunctions/lear
 import learningActivities from '../storeFunctions/learningActivities';
 import {summaries} from '../storeFunctions/moduleInputs';
 import savedStates from '../storeFunctions/savedStates';
+import updateAssessment from '../storeFunctions/assessment';
+
 
 function Reducer(state = defaultData, action) {
 	switch (action.type) {
@@ -79,7 +81,8 @@ function Reducer(state = defaultData, action) {
 			var newArr = newState.assessments.slice(0);
 			newArr[assess] = action.assessment;
 			newState.assessments = newArr;
-			return persistState(newState);
+			updateAssessment(action.assessment);
+			return newState;
 
 
 		default:
@@ -87,6 +90,7 @@ function Reducer(state = defaultData, action) {
 				var newState = JSON.parse(retrieveState());
 				//clean up blank learning outcome
 				newState.learningOutcomes = newState.learningOutcomes.filter(a => Object.keys(a).length ===3);
+				newState.assessments = newState.assessments.filter(a => Object.keys(a).length ===6);
 				return newState
 			}
 			else {

@@ -60,21 +60,21 @@ export default class Assessment extends React.Component {
 				mandatory = 'sv-mandatory';
 			}
 			var name = a.replace(/_/g, ' ').replace(/(\w)(\w*)/g, (_, i, r) => i.toUpperCase() + (r != null ? r : ""));
-			var value = <span className="sv-row" style={this.state.complete && this.state.saved && a !== 'task_no' ? { display: 'none' } : {}}>
+			var value = <span className="sv-row">
+				{/*// style={this.state.complete && this.state.saved && a !== 'task_no' ? { display: 'none' } : {}}>*/}
 				<label className="sv-col-md-4">{translateName(a)}</label>
 				<div className="sv-col-md-8">
 					<div className="sv-input-group">
 						{name === 'LO Ref' ?
 							(<select id={this.props.index} name={a} onChange={(e) => this.updateVal(e, template.formatting)} value={this.state.values[a]} className="sv-form-control">
-								<option>Please select</option>{this.props.learningOutcomes.map(c => <option key={c.GUID}>{c.ID}</option>)}
+								<option></option>{this.props.learningOutcomes.map(c => <option key={c.GUID}>{c.ID}</option>)}
 							</select> )
 						:
-						<input type="text" onChange={(e) => this.updateVal(e, template.formatting)} className={'sv-form-control'} id={this.props.index} name={a} value={this.state.values[a]} />
+						<input type="text" onChange={(e) => this.updateVal(e, template.formatting)} className={'sv-form-control'} id={this.props.index} name={a} disabled={template.readOnly} value={this.state.values[a]} />
 						}
 						{mandatory || this.state.values[a] == '' ?
-						<span className="sv-input-group-addon sv-alert-danger" style={{ cursor: 'default' }}>✘</span>:
-						<span className="sv-input-group-addon sv-alert-success" style={{ cursor: 'default' }}>✔</span>
-
+							<span className="sv-input-group-addon sv-alert-danger" style={{ cursor: 'default' }}>✘</span>:
+							<span className="sv-input-group-addon sv-alert-success" style={{ cursor: 'default' }}>✔</span>
 						}
 					</div>
 				</div>
@@ -92,8 +92,11 @@ export default class Assessment extends React.Component {
 					{inputs}
 				</td>
 				<td className="sv-col-md-3" style={{ verticalAlign: 'middle' }}>
-					<button type="button" onClick={this.toggleSave} id={this.props.index} className={this.isComplete() ? "sv-btn sv-alert-success sv-btn-block" : 'sv-hidden'}>{this.state.saved ? 'View/Edit' : 'Save'}</button>
-					<button type="button" onClick={() => this.props.removeAssessment(this.props.values['GUID'])} id={this.props.index} className="sv-btn sv-alert-danger sv-btn-block">Delete</button>
+						<button type="button" onClick={this.toggleSave} id={this.props.index} className={this.isComplete() && !this.state.saved ? "sv-btn sv-alert-success sv-btn-block" : 'sv-hidden'}>Save</button>
+
+					{/*<button type="button" onClick={this.toggleSave} id={this.props.index} className={this.isComplete() ? "sv-btn sv-alert-success sv-btn-block" : 'sv-hidden'}>{this.state.saved ? 'View/Edit' : 'Save'}</button>
+					{/*<button type="button" onClick={() => this.props.removeAssessment(this.props.values['GUID'])} id={this.props.index} className="sv-btn sv-alert-danger sv-btn-block">Delete</button>*/}
+
 				</td>
 			</tr>
 		)

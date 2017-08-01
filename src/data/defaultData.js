@@ -98,7 +98,8 @@ export var inputsTemplate = [
 export var assessmentsTemplate = [
 	{
 		fieldName: 'task_no',
-		validate
+		validate,
+		readOnly:true
 	},
 	{
 		fieldName: 'LO_Ref',
@@ -110,22 +111,25 @@ export var assessmentsTemplate = [
 	},
 	{
 		fieldName: 'description',
-		validate
+		validate,
+		readOnly:true
 	},{
 		fieldName:'GUID',
 		hidden:true
 	},
 	{
 		fieldName: 'Assessment_Task_Type',
-		validate
+		validate,
+		readOnly:true
 	},
-	{
-		fieldName: 'word_count',
-		validate
-	},
+	// {
+	// 	fieldName: 'word_count',
+	// 	validate
+	// },
 	{
 		fieldName: 'task_weighting',
-		validate
+		validate,
+		readOnly:true
 	}
 ]
 

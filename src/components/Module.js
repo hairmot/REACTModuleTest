@@ -34,7 +34,7 @@ export default class Module extends React.Component {
 	showVersion = ev => {
 		this.setState({ inputs: this.state.savedStates[ev.target.value || ev.target.name].inputs, visibleVersion: ev.target.value || ev.target.name },
 			() => {
-				this.props.updateModuleProgress(this.state.inputs)
+				//this.props.updateModuleProgress(this.state.inputs)
 			});
 	}
 
@@ -57,7 +57,7 @@ export default class Module extends React.Component {
 			var lastState = this.snapshots.pop();
 			this.setState({ inputs: lastState });
 			this.snapshots = [...this.snapshots];
-			this.props.updateModuleProgress(lastState);
+			//this.props.updateModuleProgress(lastState);
 		}
 	}
 
@@ -66,21 +66,23 @@ export default class Module extends React.Component {
 		var newInputs = Object.assign({}, this.state.inputs);
 		Object.keys(newInputs).map(a => newInputs[a] = '');
 		this.setState({ inputs: newInputs });
-		this.props.updateModuleProgress(newInputs);
+		//this.props.updateModuleProgress(newInputs);
 	}
 
-	updateValue = (event) => {
+	updateValue = (e, val = '', name = '') => {
 		this.saved = false;
 		var newInputs = Object.assign({}, this.state.inputs);
-		newInputs[event.target.name] = event.target.value;
-		this.props.updateModuleProgress(newInputs);
+		if (e) {
+				newInputs[e.target.name] = e.target.value;
+		}
+		else {
+					newInputs[name] = val;
+		}
+
+		//this.props.updateModuleProgress(newInputs);
 		this.snapshots.push(this.state.inputs);
 		this.setState({ inputs: newInputs });
 	}
-
-
-
-
 
 	render() {
 		var inputs = Object.keys(this.state.inputs).filter(a => typeof (this.state.inputs[a]) === 'string').map(a => {

@@ -3,6 +3,12 @@ export function numberOfValid  (arr)  {
 	return res;
 };
 
+export function validAssessments(arr, outcomes) {
+
+
+		var valid = arr.filter(a => outcomes.find(b => b.ID === a.LO_Ref)).length;
+	return valid
+}
 
 export function numberOfValidObj (obje) {
 		return  countValidInObj(obje) === 0
