@@ -40,7 +40,7 @@ export default class OverviewPanel extends React.Component {
 								<Circle amount={this.props.learningHours} /></td>
 						</tr>
 
-						<tr>
+						{/*<tr>
 							<th className="sv-text-center">
 								Assessments
 									</th>
@@ -49,7 +49,7 @@ export default class OverviewPanel extends React.Component {
 							<td className="sv-text-center">
 								<RecordsOverview records={this.props.assessments} />
 							</td>
-						</tr>
+						</tr>*/}
 						<tr>
 							<th className="sv-text-center">
 								Learning Outcomes

@@ -33,7 +33,6 @@ export default function assessmentsReducer(state = defaultData, action) {
 				var newArr = newState.assessments.slice(0);
 				newArr[assess] = action.assessment;
 				newState.assessments = newArr;
-				console.log('saved it');
 				return persistState(newState);
 
 			default:

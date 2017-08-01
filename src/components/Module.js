@@ -113,7 +113,7 @@ export default class Module extends React.Component {
 								Module Info
 									<div className="sv-btn-group " style={{ marginLeft: '20px' }}>
 
-									<button type="button" onClick={this.clear} className="sv-btn sv-btn-default " disabled={Object.keys(this.state.inputs).filter(a => this.state.inputs[a] !== '').length === 0}>Clear</button>
+									{/*<button type="button" onClick={this.clear} className="sv-btn sv-btn-default " disabled={Object.keys(this.state.inputs).filter(a => this.state.inputs[a] !== '').length === 0}>Clear</button>*/}
 
 									<button type="button" onClick={this.undo} className="sv-btn sv-btn-default " disabled={this.snapshots.length === 1}>Undo</button>
 

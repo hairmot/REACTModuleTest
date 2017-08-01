@@ -15,6 +15,10 @@ import { numberOfValid, numberOfValidObj, countValidInObj } from './util/countFu
 
 class App extends React.Component {
 
+	componentWillReceiveProps(a) {
+		console.log(a)
+	}
+
 
 	render() {
 		var moduleElement = '';
@@ -28,8 +32,8 @@ class App extends React.Component {
 		var overallValid = this.props.moduleProgress === 100 && numberOfValid(this.props.assessments) && numberOfValid(this.props.learningOutcomes) && numberOfValidObj(this.props.learningHours);
 
 		var overallPercentage =
-			(numberOfValid(this.props.learningOutcomes) ? 10 : 0) +
-			(numberOfValid(this.props.assessments) ? 10 : 0) +
+			(numberOfValid(this.props.learningOutcomes) ? 20 : 0) +
+			// (numberOfValid(this.props.assessments) ? 10 : 0) +
 			(Math.floor(learningHoursPercentage * .25)) +
 		  (Math.floor(this.props.moduleProgress * .55));
 
@@ -42,12 +46,13 @@ class App extends React.Component {
 
 				<div className="sv-col-md-5">
 					{moduleElement}
-					<LearningHours valid={numberOfValidObj(this.props.learningHours)} update={this.props.actions.updateLearningHours} learningHours={this.props.learningHours}></LearningHours>
+	<LearningHours valid={numberOfValidObj(this.props.learningHours)} update={this.props.actions.updateLearningHours} learningHours={this.props.learningHours}></LearningHours>
 
 				</div>
 
 				<div className="sv-col-md-5">
 					<AssessmentSection learningOutcomes={this.props.learningOutcomes} valid={numberOfValid(this.props.assessments)} updateAssessments={this.props.actions.updateAssessments} key={1} saveAssessment={this.props.actions.saveAssessment} removeAssessment={this.props.actions.deleteAssessment} addNewAssessment={this.props.actions.addNewAssessment} assessments={this.props.assessments} />
+
 					<LearningOutcomes saveLearningOutcome={this.props.actions.saveLearningOutcome} deleteLearningOutcome={this.props.actions.deleteLearningOutcome} addNewLearningOutcome={this.props.actions.addNewLearningOutcome} valid={numberOfValid(this.props.learningOutcomes)} updateLearningOutcomes={this.props.actions.updateLearningOutcomes} learningOutcomes={this.props.learningOutcomes} />
 				</div>
 			</div>

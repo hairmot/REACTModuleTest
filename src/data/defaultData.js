@@ -12,28 +12,32 @@ export var inputsTemplate = [
 		type: 'text',
 		maxLength: 100,
 		minLength: 1,
-		validate
+		validate,
+		readOnly:true
 	},
 	{
 		fieldName: 'module_code',
 		type: 'text',
 		maxLength: 12,
 		minLength: 1,
-		validate
+		validate,
+		readOnly:true
 	},
 	{
 		fieldName: 'level',
 		type: 'text',
 		maxLength: 6,
 		minLength: 1,
-		validate
+		validate,
+		readOnly:true
 	},
 	{
 		fieldName: 'credits',
 		type: 'number',
 		maxLength: 6,
 		minLength: 1,
-		validate
+		validate,
+		readOnly:true
 	},
 	// {
 	// 	fieldName: 'ects_credits_value',
@@ -51,19 +55,22 @@ export var inputsTemplate = [
 		type: 'text',
 		validation: ['Computing', 'Business'],
 		maxLength: 6,
-		validate
+		validate,
+		readOnly:true
 	},
 	{
 		fieldName: 'department',
 		type: 'text',
 		maxLength: 12,
-		validate
+		validate,
+		readOnly:true
 	},
 	{
 		fieldName: 'subject_group',
 		type: 'text',
 		maxLength: 100,
-		validate
+		validate,
+		readOnly:true
 	},
 	{
 		fieldName: 'module_summary',
