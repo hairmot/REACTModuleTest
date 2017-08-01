@@ -3,7 +3,7 @@ import currentTime from '../util/currentTime';
 var validate = (value, item) => {
 
 	var templateItem = inputsTemplate.concat(learningHoursTemplate).find(b => b.fieldName === item);
-	return value.length >= (templateItem.hasOwnProperty('minLength') ? templateItem.minLength : 0) && value.length <= (templateItem.hasOwnProperty('maxLength') ? templateItem.maxLength : 9999) && value != '';
+	return value.length >= (templateItem.hasOwnProperty('minLength') ? templateItem.minLength : 0) && value.length <= (templateItem.hasOwnProperty('maxLength') ? templateItem.maxLength : 9999) && (value != '' && value != '<p></p>' && value != '<p><br></p>');
 }
 
 export var inputsTemplate = [
