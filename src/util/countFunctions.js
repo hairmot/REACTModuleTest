@@ -1,6 +1,14 @@
 export function numberOfValid  (arr)  {
-		return arr.length > 0 && arr.filter(a => Object.keys(a).map(b => a[b]).filter(a => a === '').length).length === 0;
-	};
+	var res = arr.length > 0 && arr.filter(a => Object.keys(a).map(b => a[b]).filter(a => a === '').length).length === 0;
+	return res;
+};
+
+export function validAssessments(arr, outcomes) {
+
+
+		var valid = arr.filter(a => outcomes.find(b => b.ID === a.LO_Ref)).length;
+	return valid
+}
 
 export function numberOfValidObj (obje) {
 		return  countValidInObj(obje) === 0

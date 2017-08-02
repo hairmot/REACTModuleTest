@@ -59,6 +59,25 @@ export function saveLearningOutcome(learningOutcome) {
 	}
 }
 
+export function addNewAssessment() {
+	return {
+		type: 'addNewAssessment'
+	}
+}
+
+export function deleteAssessment(GUID) {
+	return {
+		type: 'deleteAssessment',
+		GUID
+	}
+}
+
+export function saveAssessment(assessment) {
+	return {
+		type: 'saveAssessment',
+		assessment
+	}
+}
 
 
 

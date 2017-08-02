@@ -18,9 +18,11 @@ export default function learningOutcomesReducer(state =defaultData, action) {
 
 			case 'saveLearningOutcome':
 				var newState = Object.assign({}, state);
-				var lo = newState.learningOutcomes.find(a => a.GUID == action.learningOutcome.GUID);
-				lo.ID = action.learningOutcome.ID;
-				lo.outcome = action.learningOutcome.outcome;
+
+				var lo = newState.learningOutcomes.findIndex(a => a.GUID == action.learningOutcome.GUID);
+				var newArr = newState.learningOutcomes.slice(0);
+				newArr[lo] = action.learningOutcome;
+				newState.learningOutcomes = newArr;
 				return persistState(newState);
 
 			default:

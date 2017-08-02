@@ -17,11 +17,16 @@
   "license": "MIT",
   "homepage": "https://github.com/alicoding/react-webpack-babel#readme",
   "dependencies": {
+    "draft-js": "^0.10.1",
     "immutability-helper": "^2.3.0",
+    "immutable": "^3.8.1",
     "node-sass": "^4.3.0",
     "react": "^15.6.1",
     "react-dom": "15.4.2",
+    "react-draft-wysiwyg": "^1.10.7",
+    "react-quill": "^1.0.0",
     "react-redux": "^5.0.5",
+    "react-rte": "^0.14.1",
     "redux": "^3.7.2",
     "sass-loader": "^6.0.2",
     "serve": "^6.0.2"

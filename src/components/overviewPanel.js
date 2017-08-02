@@ -47,7 +47,7 @@ export default class OverviewPanel extends React.Component {
 						</tr>
 						<tr>
 							<td className="sv-text-center">
-								<RecordsOverview records={this.props.assessments} />
+								<RecordsOverview learningOutcomes={this.props.learningOutcomes} records={this.props.assessments} />
 							</td>
 						</tr>
 						<tr>

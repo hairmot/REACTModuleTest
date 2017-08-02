@@ -3,7 +3,7 @@ import currentTime from '../util/currentTime';
 var validate = (value, item) => {
 
 	var templateItem = inputsTemplate.concat(learningHoursTemplate).find(b => b.fieldName === item);
-	return value.length >= (templateItem.hasOwnProperty('minLength') ? templateItem.minLength : 0) && value.length <= (templateItem.hasOwnProperty('maxLength') ? templateItem.maxLength : 9999) && value != '';
+	return value.length >= (templateItem.hasOwnProperty('minLength') ? templateItem.minLength : 0) && value.length <= (templateItem.hasOwnProperty('maxLength') ? templateItem.maxLength : 9999) && (value != '' && value != '<p></p>' && value != '<p><br></p>');
 }
 
 export var inputsTemplate = [
@@ -12,28 +12,32 @@ export var inputsTemplate = [
 		type: 'text',
 		maxLength: 100,
 		minLength: 1,
-		validate
+		validate,
+		readOnly:true
 	},
 	{
 		fieldName: 'module_code',
 		type: 'text',
 		maxLength: 12,
 		minLength: 1,
-		validate
+		validate,
+		readOnly:true
 	},
 	{
 		fieldName: 'level',
 		type: 'text',
 		maxLength: 6,
 		minLength: 1,
-		validate
+		validate,
+		readOnly:true
 	},
 	{
 		fieldName: 'credits',
 		type: 'number',
 		maxLength: 6,
 		minLength: 1,
-		validate
+		validate,
+		readOnly:true
 	},
 	// {
 	// 	fieldName: 'ects_credits_value',
@@ -51,19 +55,22 @@ export var inputsTemplate = [
 		type: 'text',
 		validation: ['Computing', 'Business'],
 		maxLength: 6,
-		validate
+		validate,
+		readOnly:true
 	},
 	{
 		fieldName: 'department',
 		type: 'text',
 		maxLength: 12,
-		validate
+		validate,
+		readOnly:true
 	},
 	{
 		fieldName: 'subject_group',
 		type: 'text',
 		maxLength: 100,
-		validate
+		validate,
+		readOnly:true
 	},
 	{
 		fieldName: 'module_summary',
@@ -91,7 +98,8 @@ export var inputsTemplate = [
 export var assessmentsTemplate = [
 	{
 		fieldName: 'task_no',
-		validate
+		validate,
+		readOnly:true
 	},
 	{
 		fieldName: 'LO_Ref',
@@ -103,19 +111,25 @@ export var assessmentsTemplate = [
 	},
 	{
 		fieldName: 'description',
-		validate
+		validate,
+		readOnly:true
+	},{
+		fieldName:'GUID',
+		hidden:true
 	},
 	{
 		fieldName: 'Assessment_Task_Type',
-		validate
+		validate,
+		readOnly:true
 	},
-	{
-		fieldName: 'word_count',
-		validate
-	},
+	// {
+	// 	fieldName: 'word_count',
+	// 	validate
+	// },
 	{
 		fieldName: 'task_weighting',
-		validate
+		validate,
+		readOnly:true
 	}
 ]
 
