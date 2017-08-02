@@ -15,7 +15,7 @@ export default class LearningOutcome extends React.Component {
 	}
 
 	updateOutcome = (e) => {
-		this.setState({ saved: false, outcome: e.target.value });
+		this.setState({ saved: false, outcome: e.target.value.replace(/"/g, '¨') });
 	}
 
 	saveLearningOutcome = () => {
@@ -46,12 +46,12 @@ render() {
 				<input className="sv-form-control" onChange={(e) => this.updateID(e)} type="text" value={this.state.ID} />
 			</td>
 			<td className="sv-col-md-10">
-				<input className="sv-form-control" onChange={(e) => this.updateOutcome(e)} type="text" value={this.state.outcome} />
+				<input className="sv-form-control" onChange={(e) => this.updateOutcome(e)} type="text" value={this.state.outcome.replace(/¨/g, '"')} />
 			</td>
 			<td>
 				{this.state.saved ?
 					this.state.confirmDelete === 0 ? <button type="button" className="sv-btn sv-alert-success" onClick={() => this.confirmDelete(5)}>Delete</button> :
-						<button type="button" className="sv-btn sv-alert-warning" onClick={this.deleteLearningOutcome}>Click to confirm delete ({this.state.confirmDelete})</button> :
+						<button type="button" className="sv-btn sv-alert-warning" onClick={this.deleteLearningOutcome}>Click again to confirm delete ({this.state.confirmDelete})</button> :
 					<button type="button" onClick={this.saveLearningOutcome} className="sv-btn sv-alert-danger" >Save</button>
 				}
 			</td>
