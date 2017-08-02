@@ -2,9 +2,9 @@ import defaultData, { inputsTemplate } from '../data/defaultData';
 import retrieveState from '../util/retrieveState';
 import persistState from '../util/persistState';
 import generateId from '../util/generateId';
-import {saveLearningOutcome, deleteLearningOutcome} from '../storeFunctions/learningOutcomes';
+import { saveLearningOutcome, deleteLearningOutcome } from '../storeFunctions/learningOutcomes';
 import learningActivities from '../storeFunctions/learningActivities';
-import {summaries} from '../storeFunctions/moduleInputs';
+import { summaries } from '../storeFunctions/moduleInputs';
 import savedStates from '../storeFunctions/savedStates';
 import updateAssessment from '../storeFunctions/assessment';
 
@@ -40,10 +40,10 @@ function Reducer(state = defaultData, action) {
 			return newState
 
 		case 'deleteLearningOutcome':
-			var newState = Object.assign({}, state);
-			newState.learningOutcomes = newState.learningOutcomes.filter(a => a.GUID != action.GUID);
-			deleteLearningOutcome(action.GUID);
-			return newState;
+				var newState = Object.assign({}, state);
+				newState.learningOutcomes = newState.learningOutcomes.filter(a => a.GUID != action.GUID);
+				deleteLearningOutcome(action.GUID);
+				return newState;
 
 		case 'saveLearningOutcome':
 			var newState = Object.assign({}, state);
@@ -89,8 +89,8 @@ function Reducer(state = defaultData, action) {
 			if (retrieveState()) {
 				var newState = JSON.parse(retrieveState());
 				//clean up blank learning outcome
-				newState.learningOutcomes = newState.learningOutcomes.filter(a => Object.keys(a).length ===3);
-				newState.assessments = newState.assessments.filter(a => Object.keys(a).length ===6);
+				newState.learningOutcomes = newState.learningOutcomes.filter(a => Object.keys(a).length === 3);
+				newState.assessments = newState.assessments.filter(a => Object.keys(a).length === 6);
 				return newState
 			}
 			else {

@@ -3,9 +3,10 @@ import Quill from 'react-quill';
 
 export default class TextInput extends React.Component {
 
+
 	render() {
 		var templateItem = this.props.inputsTemplate.find(a => a.fieldName === this.props.propertyname);
-		Object.keys(CKEDITOR.instances).map(a => CKEDITOR.instances[a].destroy())
+
 		var input = '';
 		var value = templateItem.formatting ? templateItem.formatting(this.props.value) : this.props.value;
 		switch (templateItem.type) {
@@ -13,10 +14,8 @@ export default class TextInput extends React.Component {
 				input = <input className="sv-form-control" type="text" onChange={this.props.update} name={this.props.propertyname} value={value} disabled={templateItem.readOnly ? 'disabled' : ''} />
 				break;
 			case 'textarea':
-
 			//	input = <textArea style={{ resize: 'none' }} className="sv-form-control" onChange={this.props.update} name={this.props.propertyname} value={value}></textArea>
-
-				input = <Quill value={value} onChange={(val) => {this.props.update(null, val, this.props.propertyname)}} className=""/>
+				input = <Quill value={value.replace(/~]/g, '"')} onChange={(val) => {this.props.update(null, val, this.props.propertyname)}} className=""/>
 				break;
 			case 'number':
 				input = <input className="sv-form-control" type="number" onChange={this.props.update} name={this.props.propertyname} value={value} disabled={templateItem.readOnly ? 'disabled' : ''} />
@@ -34,10 +33,10 @@ export default class TextInput extends React.Component {
 
 		return (
 			<div className="sv-form-group sv-col-md-12">
-				<div className={this.props.biglabels ? 'sv-col-md-9' : 'sv-col-md-4'}>
+				<div className={this.props.biglabels ? 'sv-col-md-9' : 'sv-col-md-4'} >
 					<label className="">{this.props.name}</label>
 				</div>
-				<div className={this.props.biglabels ? 'sv-col-md-3' : 'sv-col-md-8'}>
+				<div className={this.props.biglabels ? 'sv-col-md-3 ' : 'sv-col-md-8  ' + templateItem.type}>
 
 					<div className="sv-input-group">
 						{

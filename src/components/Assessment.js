@@ -9,8 +9,6 @@ export default class Assessment extends React.Component {
 		this.state = { complete: true, values: this.props.values }
 	}
 
-
-
 	componentDidMount() {
 		this.setState({ complete: this.isComplete(), saved: this.isComplete() })
 	}
@@ -37,7 +35,6 @@ export default class Assessment extends React.Component {
 			newVal[e.target.name] = e.target.value;
 			this.setState({ values: newVal }, () => { this.updateCompletion() });
 		}
-
 	}
 
 	toggleSave = (e) => {
@@ -45,9 +42,7 @@ export default class Assessment extends React.Component {
 			//not currently saved so we must be saving!
 			this.props.saveAssessment(this.state.values);
 		}
-
 		this.setState({ saved: !this.state.saved });
-
 	}
 
 	render() {
@@ -67,13 +62,13 @@ export default class Assessment extends React.Component {
 					<div className="sv-input-group">
 						{name === 'LO Ref' ?
 							(<select id={this.props.index} name={a} onChange={(e) => this.updateVal(e, template.formatting)} value={this.state.values[a]} className="sv-form-control">
-								<option></option>{this.props.learningOutcomes.map(c => <option key={c.GUID}>{c.ID}</option>)}
-							</select> )
-						:
-						<input type="text" onChange={(e) => this.updateVal(e, template.formatting)} className={'sv-form-control'} id={this.props.index} name={a} disabled={template.readOnly} value={this.state.values[a]} />
+								<option></option>{this.props.learningOutcomes.map(c => <option value={c.ID} key={c.GUID}>{c.ID + ' - ' + c.outcome.substring(0, 15)}</option>)}
+							</select>)
+							:
+							<input type="text" onChange={(e) => this.updateVal(e, template.formatting)} className={'sv-form-control'} id={this.props.index} name={a} disabled={template.readOnly} value={this.state.values[a]} />
 						}
 						{mandatory || this.state.values[a] == '' ?
-							<span className="sv-input-group-addon sv-alert-danger" style={{ cursor: 'default' }}>✘</span>:
+							<span className="sv-input-group-addon sv-alert-danger" style={{ cursor: 'default' }}>✘</span> :
 							<span className="sv-input-group-addon sv-alert-success" style={{ cursor: 'default' }}>✔</span>
 						}
 					</div>
@@ -92,11 +87,10 @@ export default class Assessment extends React.Component {
 					{inputs}
 				</td>
 				<td className="sv-col-md-3" style={{ verticalAlign: 'middle' }}>
-						<button type="button" onClick={this.toggleSave} id={this.props.index} className={this.isComplete() && !this.state.saved ? "sv-btn sv-alert-success sv-btn-block" : 'sv-hidden'}>Save</button>
-
+					{/*<button type="button" onClick={this.toggleSave} id={this.props.index} className={this.isComplete() && !this.state.saved ? "sv-btn sv-alert-success sv-btn-block" : 'sv-hidden'}>Save</button>*/}
+					<button type="button" onClick={this.toggleSave} id={this.props.index} className={!this.state.saved ? "sv-btn sv-alert-success sv-btn-block" : 'sv-hidden'}>Save</button>
 					{/*<button type="button" onClick={this.toggleSave} id={this.props.index} className={this.isComplete() ? "sv-btn sv-alert-success sv-btn-block" : 'sv-hidden'}>{this.state.saved ? 'View/Edit' : 'Save'}</button>
 					{/*<button type="button" onClick={() => this.props.removeAssessment(this.props.values['GUID'])} id={this.props.index} className="sv-btn sv-alert-danger sv-btn-block">Delete</button>*/}
-
 				</td>
 			</tr>
 		)

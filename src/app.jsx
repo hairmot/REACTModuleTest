@@ -15,11 +15,6 @@ import { validAssessments, numberOfValid, numberOfValidObj, countValidInObj } fr
 
 class App extends React.Component {
 
-	componentWillReceiveProps(a) {
-		console.log(a)
-	}
-
-
 	render() {
 		var moduleElement = '';
 		if (this.props.savedStates) {

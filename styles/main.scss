@@ -936,3 +936,12 @@
 .ql-container.ql-snow {
   border: 1px solid #ccc;
 }
+
+.quill {
+  background-color:white;
+}
+.textarea:hover .sv-input-group {
+  background-color:white;
+  position:relative;
+  z-index:10;
+}

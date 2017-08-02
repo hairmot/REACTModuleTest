@@ -76,7 +76,7 @@ export default class Module extends React.Component {
 				newInputs[e.target.name] = e.target.value;
 		}
 		else {
-					newInputs[name] = val;
+					newInputs[name] = val.replace(/"/g, '~]');
 		}
 
 		//this.props.updateModuleProgress(newInputs);
