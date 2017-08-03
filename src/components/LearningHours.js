@@ -18,7 +18,7 @@ export default class LearningHours extends React.Component {
 
 
 		return (
-			<CollapsiblePanel valid={this.props.valid} title="Learning Activities">
+			<CollapsiblePanel valid={this.props.valid} title="Study Hours">
 				{render}
 			</CollapsiblePanel>
 		)
