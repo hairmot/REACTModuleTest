@@ -19,7 +19,7 @@ export default class LearningOutcome extends React.Component {
 	}
 
 	saveLearningOutcome = () => {
-		this.props.saveLearningOutcome({ GUID: this.props.learningOutcome.GUID, ID: this.state.ID, outcome: this.state.outcome })
+		this.props.saveLearningOutcome({ GUID: this.props.learningOutcome.GUID, ID: this.state.ID, outcome: this.state.outcome.replace(/"/g, '¨') })
 		this.setState({ saved: true });
 	}
 
