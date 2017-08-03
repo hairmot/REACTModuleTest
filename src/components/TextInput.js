@@ -15,7 +15,7 @@ export default class TextInput extends React.Component {
 				break;
 			case 'textarea':
 			//	input = <textArea style={{ resize: 'none' }} className="sv-form-control" onChange={this.props.update} name={this.props.propertyname} value={value}></textArea>
-				input = <Quill value={value.replace(/~]/g, '"')} onChange={(val) => {this.props.update(null, val, this.props.propertyname)}} className=""/>
+				input = <Quill value={value.replace(/¨/g, '"')} onChange={(val) => {this.props.update(null, val, this.props.propertyname)}} className=""/>
 				break;
 			case 'number':
 				input = <input className="sv-form-control" type="number" onChange={this.props.update} name={this.props.propertyname} value={value} disabled={templateItem.readOnly ? 'disabled' : ''} />
