@@ -940,8 +940,36 @@
 .quill {
   background-color:white;
 }
-.textarea:hover .sv-input-group {
-  background-color:white;
-  position:relative;
-  z-index:10;
+
+.enlarged {
+    position: fixed;
+    left:0;
+    top:10px;
+    right:0;
+    margin-left:auto;
+    margin-right:auto;
+    display:inline !important;
+    z-index: 100;
+    padding:0;
+    width:90%;
+
+    box-shadow: 0px 0px 0px 2000px rgba(0,0,0,.7);
+}
+
+.enlarged .sv-col-md-4 {
+  display:none;
+}
+
+.enlarged .sv-input-group {
+  width:100%;
+
+}
+.enlarged .sv-col-md-8 {
+  width:auto;
+  margin-left:-40px;
+  padding:0;
+}
+
+.enlarged .ql-container {
+  height:700px;
 }
