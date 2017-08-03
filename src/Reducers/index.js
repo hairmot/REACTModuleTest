@@ -8,6 +8,28 @@ import { summaries } from '../storeFunctions/moduleInputs';
 import savedStates from '../storeFunctions/savedStates';
 import updateAssessment from '../storeFunctions/assessment';
 
+if (!Array.prototype.findIndex) {
+  Array.prototype.findIndex = function (predicate) {
+    if (this === null) {
+      throw new TypeError('Array.prototype.findIndex called on null or undefined');
+    }
+    if (typeof predicate !== 'function') {
+      throw new TypeError('predicate must be a function');
+    }
+    const list = Object(this);
+    const length = list.length >>> 0;
+    const thisArg = arguments[1];
+    let value;
+
+    for (let i = 0; i < length; i++) {
+      value = list[i];
+      if (predicate.call(thisArg, value, i, list)) {
+        return i;
+      }
+    }
+    return -1;
+  };
+}
 
 function Reducer(state = defaultData, action) {
 	switch (action.type) {
@@ -40,14 +62,16 @@ function Reducer(state = defaultData, action) {
 			return newState
 
 		case 'deleteLearningOutcome':
-				var newState = Object.assign({}, state);
-				newState.learningOutcomes = newState.learningOutcomes.filter(a => a.GUID != action.GUID);
-				deleteLearningOutcome(action.GUID);
-				return newState;
+			var newState = Object.assign({}, state);
+			newState.learningOutcomes = newState.learningOutcomes.filter(a => a.GUID != action.GUID);
+			deleteLearningOutcome(action.GUID);
+			return newState;
 
 		case 'saveLearningOutcome':
 			var newState = Object.assign({}, state);
-			var lo = newState.learningOutcomes.findIndex(a => a.GUID == action.learningOutcome.GUID);
+			var lo = newState.learningOutcomes.findIndex(function (a) {
+				return a.GUID == action.learningOutcome.GUID;
+			});
 			var newArr = newState.learningOutcomes.slice(0);
 			newArr[lo] = action.learningOutcome;
 			newState.learningOutcomes = newArr;
@@ -77,7 +101,9 @@ function Reducer(state = defaultData, action) {
 
 		case 'saveAssessment':
 			var newState = Object.assign({}, state);
-			var assess = newState.assessments.findIndex(a => a.GUID == action.assessment.GUID);
+			var assess = newState.assessments.findIndex(function (a) {
+				return a.GUID == action.assessment.GUID;
+			});
 			var newArr = newState.assessments.slice(0);
 			newArr[assess] = action.assessment;
 			newState.assessments = newArr;

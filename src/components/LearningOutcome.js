@@ -19,7 +19,7 @@ export default class LearningOutcome extends React.Component {
 	}
 
 	saveLearningOutcome = () => {
-		this.props.saveLearningOutcome({ GUID: this.props.learningOutcome.GUID, ID: this.state.ID, outcome: this.state.outcome.replace(/"/g, '¨') })
+		this.props.saveLearningOutcome({ GUID: this.props.learningOutcome.GUID, ID: this.state.ID.replace(/"/g, '¨'), outcome: this.state.outcome.replace(/"/g, '¨') })
 		this.setState({ saved: true });
 	}
 
@@ -43,7 +43,7 @@ render() {
 	return (
 		<tr>
 			<td className="sv-col-md-2">
-				<input className="sv-form-control" onChange={(e) => this.updateID(e)} type="text" value={this.state.ID} />
+				<input className="sv-form-control" onChange={(e) => this.updateID(e)} type="text" value={this.state.ID.replace(/¨/g, '"')} />
 			</td>
 			<td className="sv-col-md-10">
 				<input className="sv-form-control" onChange={(e) => this.updateOutcome(e)} type="text" value={this.state.outcome.replace(/¨/g, '"')} />
