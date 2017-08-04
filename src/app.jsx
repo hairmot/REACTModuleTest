@@ -14,6 +14,10 @@ import LearningHours from './components/LearningHours';
 import { validAssessments, numberOfValid, numberOfValidObj, countValidInObj } from './util/countFunctions';
 
 class App extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {toggle:false};
+	}
 
 	render() {
 		var moduleElement = '';
@@ -32,20 +36,18 @@ class App extends React.Component {
 			(Math.floor(learningHoursPercentage * .25)) +
 		  (Math.floor(this.props.moduleProgress * .55));
 
-
 		return (
 			<div>
-				<div className="sv-col-md-2">
+				<div className="sv-col-md-2" >
 					<OverviewPanel overallPercentage={Math.ceil(overallPercentage)} overallValid={overallValid} valid={overallValid} moduleProgress={this.props.moduleProgress} learningHours={learningHoursPercentage} assessments={this.props.assessments} learningOutcomes={this.props.learningOutcomes} />
+					<p onClick={() => this.setState({toggle:!this.state.toggle})}>.</p>
 				</div>
 
-				<div className="sv-col-md-5">
+				<div className={this.state.toggle ? 'sv-col-md-5' : 'sv-col-md-10'}>
 					{moduleElement}
 	<LearningHours valid={numberOfValidObj(this.props.learningHours)} update={this.props.actions.updateLearningHours} learningHours={this.props.learningHours}></LearningHours>
-
 				</div>
-
-				<div className="sv-col-md-5">
+								<div className={this.state.toggle ? 'sv-col-md-5' : 'sv-col-md-10 sv-col-md-offset-2'}>
 					<AssessmentSection learningOutcomes={this.props.learningOutcomes} valid={validAssessments(this.props.assessments, this.props.learningOutcomes) === this.props.assessments.length} updateAssessments={this.props.actions.updateAssessments} key={1} saveAssessment={this.props.actions.saveAssessment} removeAssessment={this.props.actions.deleteAssessment} addNewAssessment={this.props.actions.addNewAssessment} assessments={this.props.assessments} />
 
 					<LearningOutcomes saveLearningOutcome={this.props.actions.saveLearningOutcome} deleteLearningOutcome={this.props.actions.deleteLearningOutcome} addNewLearningOutcome={this.props.actions.addNewLearningOutcome} valid={numberOfValid(this.props.learningOutcomes)} updateLearningOutcomes={this.props.actions.updateLearningOutcomes} learningOutcomes={this.props.learningOutcomes} />
