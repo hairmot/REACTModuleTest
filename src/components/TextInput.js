@@ -4,9 +4,8 @@ import Quill from 'react-quill';
 export default class TextInput extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {enlarged:''};
+		this.state = {enlarged:'notEnlarged'};
 	}
-
 
 	render() {
 		var templateItem = this.props.inputsTemplate.find(a => a.fieldName === this.props.propertyname);
@@ -37,7 +36,7 @@ export default class TextInput extends React.Component {
 
 		return (
 
-			<div onFocus={() => this.setState({enlarged:'enlarged'})} onBlur={() => this.setState({enlarged:''})} tabIndex="0"  className={'sv-form-group sv-col-md-12 ' + this.state.enlarged}>
+			<div onFocus={() => templateItem.type === 'textarea' ? this.setState({enlarged:'enlarged'}) : ''} onBlur={() => templateItem.type === 'textarea' ? this.setState({enlarged:'notEnlarged'}) : ''} tabIndex="0"  className={'sv-form-group sv-col-md-12 ' + this.state.enlarged}>
 				<div className={this.props.biglabels ? 'sv-col-md-9' : 'sv-col-md-4'} >
 					<label className="">{this.props.name}</label>
 				</div>
