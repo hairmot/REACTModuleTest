@@ -55,7 +55,7 @@ export default class Assessment extends React.Component {
 				mandatory = 'sv-mandatory';
 			}
 			var name = a.replace(/_/g, ' ').replace(/(\w)(\w*)/g, (_, i, r) => i.toUpperCase() + (r != null ? r : ""));
-			var value = <div className="sv-row">
+			var value = <div className="sv-row" style={{marginBottom:'10px'}}>
 				{/*// style={this.state.complete && this.state.saved && a !== 'task_no' ? { display: 'none' } : {}}>*/}
 				<label className="sv-col-md-4">{translateName(a)}</label>
 				<div className="sv-col-md-8">
