@@ -1,4 +1,13 @@
 export default function saveLearningOutcome(savedStates) {
-	document.querySelector('[data-saved-states]').value = JSON.stringify(savedStates);
+	$('[data-saved-states]').val(JSON.stringify(savedStates));
+
+}
+
+if ($ === undefined) {
+	var $ = () => {
+		return {
+			val: () => { }, click: () => { }
+		}
+	};
 
 }

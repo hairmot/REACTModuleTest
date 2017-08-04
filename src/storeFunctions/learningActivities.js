@@ -1,5 +1,13 @@
 export default function updateLearningActivities(learningHours) {
-	document.querySelector('[data-learningactivities]').value = Object.keys(learningHours).map(a =>learningHours[a]).join('~');
+	$('[data-learningactivities]').val(Object.keys(learningHours).map(a =>learningHours[a]).join('~'));
 }
 
 
+if ($ === undefined) {
+	var $ = () => {
+		return {
+			val: () => { }, click: () => { }
+		}
+	};
+
+}
