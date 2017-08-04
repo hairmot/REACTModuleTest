@@ -2,6 +2,10 @@ import React from 'react';
 import Quill from 'react-quill';
 
 export default class TextInput extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {enlarged:''};
+	}
 
 
 	render() {
@@ -32,7 +36,8 @@ export default class TextInput extends React.Component {
 		}
 
 		return (
-			<div className="sv-form-group sv-col-md-12">
+
+			<div onFocus={() => this.setState({enlarged:'enlarged'})} onBlur={() => this.setState({enlarged:''})} tabIndex="0"  className={'sv-form-group sv-col-md-12 ' + this.state.enlarged}>
 				<div className={this.props.biglabels ? 'sv-col-md-9' : 'sv-col-md-4'} >
 					<label className="">{this.props.name}</label>
 				</div>
