@@ -3,11 +3,3 @@ export default function updateLearningActivities(learningHours) {
 }
 
 
-if ($ === undefined) {
-	var $ = () => {
-		return {
-			val: () => { }, click: () => { }
-		}
-	};
-
-}

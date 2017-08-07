@@ -1,4 +1,5 @@
 import currentTime from '../util/currentTime';
+import guid from '../util/generateId';
 
 var validate = (value, item) => {
 
@@ -105,7 +106,7 @@ export var assessmentsTemplate = [
 		fieldName: 'LO_Ref',
 		formatting: (a, b) => {
 
-			return b.find(d => d.ID === a);
+			return b.find(d => d.GUID === a);
 		},
 		validate
 	},
@@ -170,6 +171,17 @@ var newInputs = inputsTemplate.reduce((a, b, i) => { a[inputsTemplate[i].fieldNa
 
 var newLearningHours = learningHoursTemplate.reduce((a, b, i) => { a[learningHoursTemplate[i].fieldName] = ''; return a }, {});
 
+var outcomes = [];
+for (var i = 0; i < 3; i++) {
+	var GUID = guid();
+	console.log(GUID);
+	outcomes.push({
+		GUID,
+		ID: i+1 + '',
+		outcome: ''
+	});
+}
+
 
 export default {
 	savedStates: [
@@ -181,8 +193,9 @@ export default {
 	inputs: newInputs,
 	assessments: [
 	],
-	learningOutcomes: [
-	],
+	learningOutcomes:
+		outcomes
+	,
 	moduleProgress: 0,
 	learningHours: newLearningHours
 }

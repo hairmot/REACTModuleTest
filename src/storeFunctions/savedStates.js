@@ -3,11 +3,3 @@ export default function saveLearningOutcome(savedStates) {
 
 }
 
-if ($ === undefined) {
-	var $ = () => {
-		return {
-			val: () => { }, click: () => { }
-		}
-	};
-
-}

@@ -62,7 +62,7 @@ export default class Assessment extends React.Component {
 					<div className="sv-input-group">
 						{name === 'LO Ref' ?
 							(<select id={this.props.index} name={a} onChange={(e) => this.updateVal(e, template.formatting)} value={this.state.values[a]} className="sv-form-control">
-								<option></option>{this.props.learningOutcomes.map(c => <option value={c.ID} key={c.GUID}>{c.ID + ' - ' + c.outcome.substring(0, 15)}</option>)}
+								<option></option>{this.props.learningOutcomes.map(c => <option value={c.GUID} key={c.GUID}>{c.ID + ' - ' + c.outcome.substring(0, 15)}</option>)}
 							</select>)
 							:
 							<input type="text" onChange={(e) => this.updateVal(e, template.formatting)} className={'sv-form-control'} id={this.props.index} name={a} disabled={template.readOnly} value={this.state.values[a]} />

@@ -1205,6 +1205,16 @@
   left: 0;
 }
 
+.enlarged:after {
+  content: 'Click outside of the box to exit';
+  bottom: 5px;
+  left: -30px;
+  display: block;
+  color: #888;
+  z-index: 20;
+  position: absolute;
+}
+
 .redBg {
   background-color: red;
   border-radius: 51px;
