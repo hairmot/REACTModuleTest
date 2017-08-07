@@ -16,7 +16,7 @@ import { validAssessments, numberOfValid, numberOfValidObj, countValidInObj } fr
 class App extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {toggle:false};
+		this.state = {toggle:true};
 	}
 
 	render() {
@@ -40,10 +40,10 @@ class App extends React.Component {
 			<div>
 				<div className="sv-col-md-2" >
 					<OverviewPanel overallPercentage={Math.ceil(overallPercentage)} overallValid={overallValid} valid={overallValid} moduleProgress={this.props.moduleProgress} learningHours={learningHoursPercentage} assessments={this.props.assessments} learningOutcomes={this.props.learningOutcomes} />
-					<p onClick={() => this.setState({toggle:!this.state.toggle})}>.</p>
+					<p onClick={() => this.setState({toggle:!this.state.toggle})} style={{cursor:'pointer'}}>Toggle layout</p>
 				</div>
 
-				<div className={this.state.toggle ? 'sv-col-md-5' : 'sv-col-md-10'}>
+				<div style={{transition:"width 1s"}} className={this.state.toggle ? 'sv-col-md-5' : 'sv-col-md-10'}>
 					{moduleElement}
 	<LearningHours valid={numberOfValidObj(this.props.learningHours)} update={this.props.actions.updateLearningHours} learningHours={this.props.learningHours}></LearningHours>
 				</div>

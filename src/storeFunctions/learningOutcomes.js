@@ -13,11 +13,3 @@ function triggerAsync(selector) {
 	$(selector).click();
 }
 
-if ($ === undefined) {
-	var $ = () => {
-		return {
-			val: () => { }, click: () => { }
-		}
-	};
-
-}

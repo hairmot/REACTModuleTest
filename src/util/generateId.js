@@ -3,5 +3,5 @@ function S4() {
 }
 
 export default function guid() {
-	return S4() + S4() + '-'  + S4() + '-'  + S4() + '-'  + S4() + '-' + S4() + S4() + S4();
+	return (S4() + S4() + '-'  + S4() + '-'  + S4() + '-'  + S4() + '-' + S4() + S4() + S4()).toUpperCase();
 }
