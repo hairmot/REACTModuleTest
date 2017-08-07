@@ -6,7 +6,7 @@ export function numberOfValid  (arr)  {
 export function validAssessments(arr, outcomes) {
 
 
-		var valid = arr.filter(a => outcomes.find(b => b.ID === a.LO_Ref)).length;
+		var valid = arr.filter(a => outcomes.find(b => b.GUID === a.LO_Ref)).length;
 	return valid
 }
 
