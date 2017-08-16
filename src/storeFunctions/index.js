@@ -10,4 +10,5 @@ export {saveLearningOutcome}
 export {	summaries}
 export {	savedStates}
 export {	updateAssessment}
+export {learningActivities}
 

@@ -40,7 +40,7 @@ class App extends React.Component {
 			<div>
 				<div className="sv-col-md-2" >
 					<OverviewPanel overallPercentage={Math.ceil(overallPercentage)} overallValid={overallValid} valid={overallValid} moduleProgress={this.props.moduleProgress} learningHours={learningHoursPercentage} assessments={this.props.assessments} learningOutcomes={this.props.learningOutcomes} />
-
+				  <p style={{cursor:'pointer', textDecoration:'underline'}} onClick={() => {this.setState({toggle: !this.state.toggle})}}>Toggle Layout</p>
 				</div>
 
 				<div style={{transition:"width 1s"}} className={this.state.toggle ? 'sv-col-md-5' : 'sv-col-md-10'}>

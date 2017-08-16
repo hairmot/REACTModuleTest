@@ -55,14 +55,14 @@ export var inputsTemplate = [
 		fieldName: 'faculty',
 		type: 'text',
 		validation: ['Computing', 'Business'],
-		maxLength: 6,
+		maxLength: 60,
 		validate,
 		readOnly: true
 	},
 	{
 		fieldName: 'department',
 		type: 'text',
-		maxLength: 12,
+		maxLength: 60,
 		validate,
 		readOnly: true
 	},
