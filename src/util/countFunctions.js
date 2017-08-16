@@ -5,9 +5,8 @@ export function numberOfValid  (arr)  {
 
 export function validAssessments(arr, outcomes) {
 
-
-		var valid = arr.filter(a => outcomes.find(b => b.GUID === a.LO_Ref)).length;
-	return valid
+	var valid = arr.map(a => a.LO_Ref.map(c => outcomes.some(d => d.GUID === c)).length > 0	).filter(c => c);
+	return valid.length
 }
 
 export function numberOfValidObj (obje) {

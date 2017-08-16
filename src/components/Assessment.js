@@ -45,29 +45,49 @@ export default class Assessment extends React.Component {
 		this.setState({ saved: !this.state.saved });
 	}
 
+	toggleLO_Ref = (val) => {
+		var newArr = [...this.state.values.LO_Ref];
+
+			if(newArr.find(a => a === val)) {
+				newArr.splice(newArr.indexOf(val), 1);
+				newArr = [...newArr];
+			}
+			else {
+				newArr = [...newArr, val];
+			}
+			var newValues = Object.assign({}, this.state.values, {LO_Ref: newArr});
+			this.setState({values:newValues, saved: false});
+	}
+
 	render() {
 		var _this = this;
 		var inputs = Object.keys(this.state.values).filter(a => a !== 'GUID').map((a, b) => {
 			var template = assessmentsTemplate.find(c => c.fieldName === a);
 			var mandatory = '';
+
 			var flag = template.formatting && !template.formatting(_this.state.values[a], _this.props.learningOutcomes);
-			if (flag) {
-				mandatory = 'sv-mandatory';
-			}
+
 			var name = a.replace(/_/g, ' ').replace(/(\w)(\w*)/g, (_, i, r) => i.toUpperCase() + (r != null ? r : ""));
-			var value = <div className="sv-row" style={{marginBottom:'10px'}}>
+			var value = <div className="sv-row" style={{ marginBottom: '10px' }}>
 				{/*// style={this.state.complete && this.state.saved && a !== 'task_no' ? { display: 'none' } : {}}>*/}
 				<label className="sv-col-md-4">{translateName(a)}</label>
 				<div className="sv-col-md-8">
-					<div className="sv-input-group">
+					<div className="sv-input-group" style={{backgroundColor:'white', border:'1px solid #ccc', borderBottomLeftRadius:'4px', borderTopLeftRadius:'4px'}}>
 						{name === 'LO Ref' ?
-							(<select id={this.props.index} name={a} onChange={(e) => this.updateVal(e, template.formatting)} value={this.state.values[a]} className="sv-form-control">
-								<option></option>{this.props.learningOutcomes.map(c => <option value={c.GUID} key={c.GUID}>{c.ID + ' - ' + c.outcome.substring(0, 15)}</option>)}
-							</select>)
+							(
+								<div>
+									{this.props.learningOutcomes.map(b =>
+										<div key={b.GUID} className="sv-col-md-4">
+											<button type="button" style={{margin:'5px'}} onClick={() => this.toggleLO_Ref(b.GUID)} className={this.state.values[a].find(c => c == b.GUID) ? 'sv-btn sv-btn-block sv-btn-success' : 'sv-btn-block sv-btn sv-btn-default'} >
+												{b.ID}
+											</button>
+										</div>)}
+								</div>
+							)
 							:
 							<input type="text" onChange={(e) => this.updateVal(e, template.formatting)} className={'sv-form-control'} id={this.props.index} name={a} disabled={template.readOnly} value={this.state.values[a]} />
 						}
-						{mandatory || this.state.values[a] == '' ?
+						{this.state.values[a].length === 0 ?
 							<span className="sv-input-group-addon sv-alert-danger" style={{ cursor: 'default' }}>✘</span> :
 							<span className="sv-input-group-addon sv-alert-success" style={{ cursor: 'default' }}>✔</span>
 						}

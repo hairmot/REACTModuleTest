@@ -13,3 +13,4 @@ function triggerAsync(selector) {
 	$(selector).click();
 }
 
+

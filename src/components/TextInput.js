@@ -36,7 +36,7 @@ export default class TextInput extends React.Component {
 
 		return (
 
-			<div onFocus={() => templateItem.type === 'textarea' ? this.setState({enlarged:'enlarged'}) : ''} onBlur={() => templateItem.type === 'textarea' ? this.setState({enlarged:'notEnlarged'}) : ''} tabIndex="0"  className={'sv-form-group sv-col-md-12 ' + this.state.enlarged}>
+			<div onFocus={() => templateItem.type === 'textarea' ? this.setState({enlarged:'enlarged'}) : ''} onBlur={() => templateItem.type === 'textarea' ? this.setState({enlarged:'notEnlarged'}) : ''} tabIndex={templateItem.type === 'textarea' ? '0' : '-1'} className={'sv-form-group sv-col-md-12 ' + this.state.enlarged}>
 				<div className={this.props.biglabels ? 'sv-col-md-9' : 'sv-col-md-4'} >
 					<label className="">{this.props.name}</label>
 				</div>

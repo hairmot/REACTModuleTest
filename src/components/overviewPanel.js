@@ -32,7 +32,7 @@ export default class OverviewPanel extends React.Component {
 
 						<tr>
 							<th className="sv-text-center">
-								Learning Activities
+								Study Hours
 									</th>
 						</tr>
 						<tr>

@@ -39,6 +39,12 @@ export function updateLearningHours(learningHoursItem) {
 	}
 }
 
+export function logState() {
+	return {
+		type: 'logState'
+	}
+}
+
 export function addNewLearningOutcome() {
 	return {
 		type: 'addNewLearningOutcome'

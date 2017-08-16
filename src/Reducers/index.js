@@ -51,12 +51,13 @@ function Reducer(state = defaultData, action) {
 			return Object.assign({}, state, { moduleProgress: mod });
 
 		case 'updateLearningHours':
-			var updatedItem = {};
-			updatedItem[action.learningHoursItem.name] = action.learningHoursItem.value;
-			var newLearningHours = Object.assign({}, state.learningHours, updatedItem);
-			var newState = Object.assign({}, state, { learningHours: newLearningHours });
+			var newState = Object.assign({}, state, { learningHours: action.learningHoursItem });
 			learningActivities(newState.learningHours);
 			return persistState(newState);
+
+		case 'logState':
+			console.log(state);
+			return state
 
 		case 'addNewLearningOutcome':
 			var newState = Object.assign({}, state);
@@ -119,6 +120,15 @@ function Reducer(state = defaultData, action) {
 				//clean up blank learning outcome
 				newState.learningOutcomes = newState.learningOutcomes.filter(a => Object.keys(a).length === 3);
 				newState.assessments = newState.assessments.filter(a => Object.keys(a).length === 6);
+				newState.assessments = newState.assessments.map(a => {
+					if(a.LO_Ref !== '') {
+					a.LO_Ref = a.LO_Ref.split(',')
+				}
+				else {
+					a.LO_Ref = []
+				}
+					return a
+				});
 				return newState
 			}
 			else {

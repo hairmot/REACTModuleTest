@@ -14,7 +14,7 @@ export var inputsTemplate = [
 		maxLength: 100,
 		minLength: 1,
 		validate,
-		readOnly:true
+		readOnly: true
 	},
 	{
 		fieldName: 'module_code',
@@ -22,7 +22,7 @@ export var inputsTemplate = [
 		maxLength: 12,
 		minLength: 1,
 		validate,
-		readOnly:true
+		readOnly: true
 	},
 	{
 		fieldName: 'level',
@@ -30,7 +30,7 @@ export var inputsTemplate = [
 		maxLength: 6,
 		minLength: 1,
 		validate,
-		readOnly:true
+		readOnly: true
 	},
 	{
 		fieldName: 'credits',
@@ -38,7 +38,7 @@ export var inputsTemplate = [
 		maxLength: 6,
 		minLength: 1,
 		validate,
-		readOnly:true
+		readOnly: true
 	},
 	// {
 	// 	fieldName: 'ects_credits_value',
@@ -57,21 +57,21 @@ export var inputsTemplate = [
 		validation: ['Computing', 'Business'],
 		maxLength: 6,
 		validate,
-		readOnly:true
+		readOnly: true
 	},
 	{
 		fieldName: 'department',
 		type: 'text',
 		maxLength: 12,
 		validate,
-		readOnly:true
+		readOnly: true
 	},
 	{
 		fieldName: 'subject_group',
 		type: 'text',
 		maxLength: 100,
 		validate,
-		readOnly:true
+		readOnly: true
 	},
 	{
 		fieldName: 'module_summary',
@@ -100,28 +100,28 @@ export var assessmentsTemplate = [
 	{
 		fieldName: 'task_no',
 		validate,
-		readOnly:true
+		readOnly: true
 	},
 	{
 		fieldName: 'LO_Ref',
 		formatting: (a, b) => {
 
-			return b.find(d => d.GUID === a);
+			return a.length > 0;
 		},
 		validate
 	},
 	{
 		fieldName: 'description',
 		validate,
-		readOnly:true
-	},{
-		fieldName:'GUID',
-		hidden:true
+		readOnly: true
+	}, {
+		fieldName: 'GUID',
+		hidden: true
 	},
 	{
 		fieldName: 'Assessment_Task_Type',
 		validate,
-		readOnly:true
+		readOnly: true
 	},
 	// {
 	// 	fieldName: 'word_count',
@@ -130,7 +130,7 @@ export var assessmentsTemplate = [
 	{
 		fieldName: 'task_weighting',
 		validate,
-		readOnly:true
+		readOnly: true
 	}
 ]
 
@@ -174,10 +174,9 @@ var newLearningHours = learningHoursTemplate.reduce((a, b, i) => { a[learningHou
 var outcomes = [];
 for (var i = 0; i < 3; i++) {
 	var GUID = guid();
-	console.log(GUID);
 	outcomes.push({
 		GUID,
-		ID: i+1 + '',
+		ID: i + 1 + '',
 		outcome: ''
 	});
 }
@@ -191,10 +190,16 @@ export default {
 		}
 	],
 	inputs: newInputs,
-	assessments: [
+	assessments: [{
+		"Assessment_Task_Type":"CWK",
+		GUID:"CW100~001",
+		description:"COURSEWORK",
+		task_no:"001",
+		task_weighting:"100",
+			LO_Ref:[]}
 	],
 	learningOutcomes:
-		outcomes
+	[...outcomes, {GUID:'330002C0-ED82-C000-C2FF-A96673D927F9', ID:'P', outcome:'yes'}]
 	,
 	moduleProgress: 0,
 	learningHours: newLearningHours
