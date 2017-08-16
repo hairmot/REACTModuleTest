@@ -37,7 +37,7 @@ class App extends React.Component {
 		  (Math.floor(this.props.moduleProgress * .55));
 
 		return (
-			<div><p onClick={this.props.actions.logState}>y</p>
+			<div>
 				<div className="sv-col-md-2" >
 					<OverviewPanel overallPercentage={Math.ceil(overallPercentage)} overallValid={overallValid} valid={overallValid} moduleProgress={this.props.moduleProgress} learningHours={learningHoursPercentage} assessments={this.props.assessments} learningOutcomes={this.props.learningOutcomes} />
 

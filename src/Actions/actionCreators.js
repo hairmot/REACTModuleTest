@@ -39,12 +39,6 @@ export function updateLearningHours(learningHoursItem) {
 	}
 }
 
-export function logState() {
-	return {
-		type: 'logState'
-	}
-}
-
 export function addNewLearningOutcome() {
 	return {
 		type: 'addNewLearningOutcome'
@@ -84,7 +78,22 @@ export function saveAssessment(assessment) {
 		assessment
 	}
 }
+function getServerStateJSON() {
+	return fetch(document.querySelector('[data-checkstate]').getAttribute('href'), {credentials: "same-origin"});
+}
 
 
+export function getServerState() {
+	return function(dispatch) {
+		return getServerStateJSON().then(response => response.json()).then(json => dispatch(validateStateFromServer(json)));
+	}
+}
+
+export function validateStateFromServer(serverState) {
+		return {
+			type: 'validateServerState',
+			serverState
+		}
+}
 
 
