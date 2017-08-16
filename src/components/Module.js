@@ -117,9 +117,9 @@ export default class Module extends React.Component {
 
 									{/*<button type="button" onClick={this.clear} className="sv-btn sv-btn-default " disabled={Object.keys(this.state.inputs).filter(a => this.state.inputs[a] !== '').length === 0}>Clear</button>*/}
 
-									<button type="button" onClick={this.undo} className="sv-btn sv-btn-default " disabled={this.snapshots.length === 1}>Undo</button>
+									{/*<button type="button" onClick={this.undo} className="sv-btn sv-btn-default " disabled={this.snapshots.length === 1}>Undo</button>
 
-									<button type="button" onClick={this.save} className="sv-btn sv-btn-primary " disabled={this.saved}>Save</button>
+									<button type="button" onClick={this.save} className="sv-btn sv-btn-primary " disabled={this.saved}>Save</button>*/}
 
 								</div>
 								<ValidTick valid={this.props.moduleProgress == 100} />
@@ -127,7 +127,10 @@ export default class Module extends React.Component {
 							<div className="sv-panel-body">
 								<div className="">
 									<div >{inputs}</div>
-
+									<div className="sv-col-md-12">
+										<div className="sv-col-md-4 sv-col-md-offset-8">
+											<button type="button" onClick={this.save} className={this.saved ? 'sv-btn sv-alert-success sv-btn-block' : 'sv-btn sv-alert-danger sv-btn sv-btn-block'} disabled={this.saved}>{this.saved ? 'Saved' : 'Save'}</button></div>
+											</div>
 								</div>
 							</div>
 								<PreviousVersions valid={this.props.moduleProgress === 100} versions={versions.reverse()} showVersion={this.showVersion} visibleVersion={this.state.visibleVersion} savedStates={this.state.savedStates} />

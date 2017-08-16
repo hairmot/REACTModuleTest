@@ -40,7 +40,7 @@ class App extends React.Component {
 			<div>
 				<div className="sv-col-md-2" >
 					<OverviewPanel overallPercentage={Math.ceil(overallPercentage)} overallValid={overallValid} valid={overallValid} moduleProgress={this.props.moduleProgress} learningHours={learningHoursPercentage} assessments={this.props.assessments} learningOutcomes={this.props.learningOutcomes} />
-					<p onClick={() => this.setState({toggle:!this.state.toggle})} style={{cursor:'pointer'}}>Toggle layout</p>
+				  <p style={{cursor:'pointer', textDecoration:'underline'}} onClick={() => {this.setState({toggle: !this.state.toggle})}}>Toggle Layout</p>
 				</div>
 
 				<div style={{transition:"width 1s"}} className={this.state.toggle ? 'sv-col-md-5' : 'sv-col-md-10'}>
@@ -48,10 +48,12 @@ class App extends React.Component {
 	<LearningHours valid={numberOfValidObj(this.props.learningHours)} update={this.props.actions.updateLearningHours} learningHours={this.props.learningHours}></LearningHours>
 				</div>
 								<div className={this.state.toggle ? 'sv-col-md-5' : 'sv-col-md-10 sv-col-md-offset-2'}>
-					<AssessmentSection learningOutcomes={this.props.learningOutcomes} valid={validAssessments(this.props.assessments, this.props.learningOutcomes) === this.props.assessments.length} updateAssessments={this.props.actions.updateAssessments} key={1} saveAssessment={this.props.actions.saveAssessment} removeAssessment={this.props.actions.deleteAssessment} addNewAssessment={this.props.actions.addNewAssessment} assessments={this.props.assessments} />
 
 					<LearningOutcomes saveLearningOutcome={this.props.actions.saveLearningOutcome} deleteLearningOutcome={this.props.actions.deleteLearningOutcome} addNewLearningOutcome={this.props.actions.addNewLearningOutcome} valid={numberOfValid(this.props.learningOutcomes)} updateLearningOutcomes={this.props.actions.updateLearningOutcomes} learningOutcomes={this.props.learningOutcomes} />
-				</div>
+
+					<AssessmentSection learningOutcomes={this.props.learningOutcomes} valid={validAssessments(this.props.assessments, this.props.learningOutcomes) === this.props.assessments.length} updateAssessments={this.props.actions.updateAssessments} key={1} saveAssessment={this.props.actions.saveAssessment} removeAssessment={this.props.actions.deleteAssessment} addNewAssessment={this.props.actions.addNewAssessment} assessments={this.props.assessments} />
+
+						</div>
 			</div>
 		)
 	}
