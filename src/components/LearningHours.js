@@ -7,7 +7,7 @@ import CollapsiblePanel from './CollapsiblePanel';
 export default class LearningHours extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {learningHours: this.props.learningHours, saved:false}
+		this.state = {learningHours: this.props.learningHours, saved:true}
 	}
 
 	updateLearningHours = (learningHoursItem)  => {
