@@ -68,7 +68,7 @@ export default class Assessment extends React.Component {
 			var flag = template.formatting && !template.formatting(_this.state.values[a], _this.props.learningOutcomes);
 
 			var name = a.replace(/_/g, ' ').replace(/(\w)(\w*)/g, (_, i, r) => i.toUpperCase() + (r != null ? r : ""));
-			var value = <div className="sv-row" style={{ marginBottom: '10px' }}>
+			var value = <div key={b} className="sv-row" style={{ marginBottom: '10px' }}>
 				{/*// style={this.state.complete && this.state.saved && a !== 'task_no' ? { display: 'none' } : {}}>*/}
 				<label className="sv-col-md-4">{translateName(a)}</label>
 				<div className="sv-col-md-8">
@@ -78,7 +78,7 @@ export default class Assessment extends React.Component {
 								<div>
 									{this.props.learningOutcomes.map(b =>
 										<div key={b.GUID} className="sv-col-md-4">
-											<button type="button" style={{margin:'5px'}} onClick={() => this.toggleLO_Ref(b.GUID)} className={this.state.values[a].find(c => c == b.GUID) ? 'sv-btn sv-btn-block sv-btn-success' : 'sv-btn-block sv-btn sv-btn-default'} >
+											<button key={b.GUID} type="button" style={{margin:'5px'}} onClick={() => this.toggleLO_Ref(b.GUID)} className={this.state.values[a].find(c => c == b.GUID) ? 'sv-btn sv-btn-block sv-btn-success' : 'sv-btn-block sv-btn sv-btn-default'} >
 												{b.ID}
 											</button>
 										</div>)}

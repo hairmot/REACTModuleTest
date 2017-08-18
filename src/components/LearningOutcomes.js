@@ -7,9 +7,9 @@ export default class LearningOutcomes extends React.Component {
 	render() {
 		var outcomes = <tr></tr>;
 		if (this.props.learningOutcomes) {
-			outcomes = this.props.learningOutcomes.filter(a => Object.keys(a).length === 3).map((a, b) => {
+			outcomes = this.props.learningOutcomes.filter(a => Object.keys(a).length >= 3  ).map((a, b) => {
 				return (
-					<LearningOutcome key={a.GUID} deleteLearningOutcome={this.props.deleteLearningOutcome} saveLearningOutcome={this.props.saveLearningOutcome} learningOutcome={a} />
+					<LearningOutcome key={a.GUID} updateLearningOutcome={this.props.updateLearningOutcome} deleteLearningOutcome={this.props.deleteLearningOutcome} saveLearningOutcome={this.props.startSaveLearningOutcome} learningOutcome={a} />
 				)
 			});
 		}

@@ -49,7 +49,7 @@ class App extends React.Component {
 				</div>
 								<div className={this.state.toggle ? 'sv-col-md-5' : 'sv-col-md-10 sv-col-md-offset-2'}>
 
-					<LearningOutcomes saveLearningOutcome={this.props.actions.saveLearningOutcome} deleteLearningOutcome={this.props.actions.deleteLearningOutcome} addNewLearningOutcome={this.props.actions.addNewLearningOutcome} valid={numberOfValid(this.props.learningOutcomes)} updateLearningOutcomes={this.props.actions.updateLearningOutcomes} learningOutcomes={this.props.learningOutcomes} />
+					<LearningOutcomes updateLearningOutcome={this.props.actions.updateLearningOutcome} loading={this.props.learningOutcomesLoading} startSaveLearningOutcome={this.props.actions.startSaveLearningOutcome} deleteLearningOutcome={this.props.actions.deleteLearningOutcome} addNewLearningOutcome={this.props.actions.addNewLearningOutcome} valid={numberOfValid(this.props.learningOutcomes)} learningOutcomes={this.props.learningOutcomes} />
 
 					<AssessmentSection learningOutcomes={this.props.learningOutcomes} valid={validAssessments(this.props.assessments, this.props.learningOutcomes) === this.props.assessments.length} updateAssessments={this.props.actions.updateAssessments} key={1} saveAssessment={this.props.actions.saveAssessment} removeAssessment={this.props.actions.deleteAssessment} addNewAssessment={this.props.actions.addNewAssessment} assessments={this.props.assessments} />
 

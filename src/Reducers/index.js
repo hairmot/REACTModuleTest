@@ -61,15 +61,22 @@ function Reducer(state = defaultData, action) {
 			return newState;
 
 		case 'saveLearningOutcome':
-			var newState = Object.assign({}, state);
-			var lo = newState.learningOutcomes.findIndex(function (a) {
-				return a.GUID == action.learningOutcome.GUID;
-			});
-			var newArr = newState.learningOutcomes.slice(0);
-			newArr[lo] = action.learningOutcome;
-			newState.learningOutcomes = newArr;
-			saveLearningOutcome(action.learningOutcome.GUID, action.learningOutcome.ID, action.learningOutcome.outcome);
-			return newState;
+
+			return Object.assign({}, state, {learningOutcomes : action.learningOutcomes, learningOutcomesLoading:false})
+
+		case 'savingLearningOutcomesStarted' :
+			var newLearningOutcomes = state.learningOutcomes.slice();
+			var index = state.learningOutcomes.findIndex(a => a.GUID === action.GUID);
+			newLearningOutcomes[index] = Object.assign({}, newLearningOutcomes[index], {loading:true});
+			var ns = Object.assign({}, state, {learningOutcomes: newLearningOutcomes})
+			return ns
+
+		case 'updateLearningOutcome':
+
+			var newLearningOutcomes = state.learningOutcomes.slice();
+			var index = state.learningOutcomes.findIndex(a => a.GUID === action.GUID);
+			newLearningOutcomes[index] = {GUID: action.GUID, ID: action.ID, outcome: action.outcome, loading:action.loading, saved: action.saved}
+			return Object.assign({}, state, {learningOutcomes: newLearningOutcomes});
 
 		case 'addNewAssessment':
 			var newState = Object.assign({}, state);

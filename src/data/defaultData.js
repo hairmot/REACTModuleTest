@@ -199,7 +199,8 @@ export default {
 			LO_Ref:[]}
 	],
 	learningOutcomes:
-	[...outcomes, {GUID:'330002C0-ED82-C000-C2FF-A96673D927F9', ID:'P', outcome:'yes'}]
+	[...outcomes, {GUID:'330002C0-ED82-C000-C2FF-A96673D927F9', ID:'P', outcome:'yes'}],
+	learningOutcomesLoading: false
 	,
 	moduleProgress: 0,
 	learningHours: newLearningHours
