@@ -4,7 +4,6 @@ import App from './app.jsx';
 import {createStore, applyMiddleware, combineReducers} from 'redux';
 import reducer from './Reducers';
 import { Provider } from 'react-redux';
-import persistState from './util/persistState';
 import thunk from 'redux-thunk';
 
 

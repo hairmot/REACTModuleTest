@@ -44,6 +44,14 @@ export function addNewLearningOutcome() {
 }
 
 export function deleteLearningOutcome(GUID) {
+	return function (dispatch) {
+		$('[data-learningoutcome]').val(GUID);
+		dispatch(deleteLearningOutcomeFinished(GUID));
+		triggerAsync('[data-delete-learning-outcome]')
+	}
+}
+
+export function deleteLearningOutcomeFinished(GUID) {
 	return {
 		type: 'deleteLearningOutcome',
 		GUID

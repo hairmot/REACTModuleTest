@@ -3,18 +3,17 @@ import translateName from '../util/translateName';
 import TextInput from './TextInput';
 import { learningHoursTemplate } from '../data/defaultData';
 import CollapsiblePanel from './CollapsiblePanel';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as learningHoursActions from '../Actions/learningHoursActions';
 
-export default class LearningHours extends React.Component {
-
-
+class LearningHours extends React.Component {
 	updateLearningHours = (learningHoursItem)  => {
 			var updatedItem = {};
 			updatedItem[learningHoursItem.name] = learningHoursItem.value;
 			var newLearningHours = Object.assign({}, this.props.learningHours, updatedItem);
-			this.props.update(newLearningHours);
+			this.props.actions.updateLearningHours(newLearningHours);
 	}
-
-
 	render() {
 		var totalLearningHours = Object.keys(this.props.learningHours).map(a => { return { name: a, value: this.props.learningHours[a] } });
 
@@ -23,9 +22,6 @@ export default class LearningHours extends React.Component {
 				<TextInput biglabels={true} inputsTemplate={learningHoursTemplate} name={translateName(a.name)} key={a.name} update={(e) => this.updateLearningHours({ name: a.name, value: e.target.value })} propertyname={a.name} value={a.value} />
 			)
 		})
-
-
-
 		return (
 			<CollapsiblePanel valid={this.props.valid} title="Study Hours">
 				{render}
@@ -34,7 +30,7 @@ export default class LearningHours extends React.Component {
 						{
 							this.props.saved ? 		<button className="sv-btn sv-alert-success sv-btn-block" type="button" disabled >Saved</button> :
 							this.props.loading ?  <button className="sv-btn sv-alert-warning sv-btn-block" type="button"  disabled>Saving</button> :
-																		<button onClick={() => this.props.save(this.props.learningHours)} className="sv-btn sv-alert-danger sv-btn-block" type="button">Save</button>
+																		<button onClick={() => this.props.actions.startSavingLearningHours(this.props.learningHours)} className="sv-btn sv-alert-danger sv-btn-block" type="button">Save</button>
 						}
 					</div>
 				</div>
@@ -42,3 +38,17 @@ export default class LearningHours extends React.Component {
 		)
 	}
 }
+
+const mapDispatchToProps = function (dispatch, ownProps) {
+	return { actions: bindActionCreators(learningHoursActions, dispatch) }
+}
+
+const mapStateToProps = function (store, ownProps) {
+	return {
+		learningHours: store.learningHours,
+		saved: store.learningHoursSaved,
+		loading: store.learningHoursLoading
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LearningHours);

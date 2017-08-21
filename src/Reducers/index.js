@@ -1,13 +1,44 @@
 import defaultData, { inputsTemplate } from '../data/defaultData';
 import retrieveState from '../util/retrieveState';
-import persistState from '../util/persistState';
 import generateId from '../util/generateId';
-import { saveLearningOutcome, deleteLearningOutcome, learningActivities, summaries, savedStates, updateAssessment } from '../storeFunctions/';
-import {cleanServerState} from './shared';
 
 
 function Reducer(state = defaultData, action) {
 	switch (action.type) {
+		case 'updateAssessment' :
+			var assessmentIndex = state.assessments.findIndex(a => a.GUID === action.values.GUID);
+			var newAssessments = state.assessments.slice(0);
+			newAssessments[assessmentIndex] = Object.assign({}, action.values, {saved:false});
+			var newState = Object.assign({}, state, {assessments : newAssessments});
+			return newState;
+
+		case 'savingAssessment' :
+			var assessmentIndex = state.assessments.findIndex(a => a.GUID === action.GUID);
+			var newAssessments = state.assessments.slice(0);
+			newAssessments[assessmentIndex] = Object.assign({}, newAssessments[assessmentIndex], {loading: true});
+			var newState = Object.assign({}, state, {assessments : newAssessments});
+			return newState;
+
+		case 'assessmentSaved' :
+			var assessmentIndex = state.assessments.findIndex(a => a.GUID === action.GUID);
+			var newAssessments = state.assessments.slice(0);
+			newAssessments[assessmentIndex] = Object.assign({}, newAssessments[assessmentIndex], {loading: false, saved: action.result});
+			var newState = Object.assign({}, state, {assessments : newAssessments});
+			return newState;
+
+		case 'updateModuleInputs' :
+
+			var newState = Object.assign({}, state, {inputs: action.inputs, moduleInputsSaved: false});
+			return newState;
+
+		case 'savingModuleInputsStarted' :
+			var newState = Object.assign({}, state, {moduleInputsLoading: true});
+			return newState;
+
+
+		case 'moduleInputsSaved':
+			var newState = Object.assign({}, state,{moduleInputsLoading: false, moduleInputsSaved:action.saved})
+			return newState;
 
 		case 'updateLearningHours':
 			var newState = Object.assign({}, state, { learningHoursSaved: false, learningHours: action.learningHours });
@@ -24,12 +55,12 @@ function Reducer(state = defaultData, action) {
 
 
 
-		case 'saveState':
-			var newState = Object.assign({}, state, action.state);
-			savedStates(newState.savedStates);
-			summaries(newState.inputs);
-			persistState(newState);
-			return newState;
+
+
+
+
+
+
 
 
 
@@ -50,7 +81,6 @@ function Reducer(state = defaultData, action) {
 		case 'deleteLearningOutcome':
 			var newState = Object.assign({}, state);
 			newState.learningOutcomes = newState.learningOutcomes.filter(a => a.GUID != action.GUID);
-			deleteLearningOutcome(action.GUID);
 			return newState;
 
 		case 'saveLearningOutcome':
@@ -120,3 +150,19 @@ if (!Array.prototype.findIndex) {
 }
 
 export default Reducer;
+
+function cleanServerState(state) {
+	var newState = state;
+	newState.learningOutcomes = newState.learningOutcomes.filter(a => Object.keys(a).length === 3);
+	newState.assessments = newState.assessments.filter(a => Object.keys(a).length === 8);
+	newState.assessments = newState.assessments.map(a => {
+		if (a.LO_Ref !== '') {
+			a.LO_Ref = a.LO_Ref.split(',')
+		}
+		else {
+			a.LO_Ref = []
+		}
+		return a
+	});
+	return newState
+}

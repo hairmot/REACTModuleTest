@@ -103,6 +103,14 @@ export var assessmentsTemplate = [
 		readOnly: true
 	},
 	{
+	fieldName: 'loading',
+		hidden:true,
+	},
+	{
+		fieldName: 'saved',
+		hidden:true
+	},
+	{
 		fieldName: 'LO_Ref',
 		formatting: (a, b) => {
 
