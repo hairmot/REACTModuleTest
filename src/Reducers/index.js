@@ -3,32 +3,26 @@ import retrieveState from '../util/retrieveState';
 import persistState from '../util/persistState';
 import generateId from '../util/generateId';
 import { saveLearningOutcome, deleteLearningOutcome, learningActivities, summaries, savedStates, updateAssessment } from '../storeFunctions/';
+import {cleanServerState} from './shared';
 
-if (!Array.prototype.findIndex) {
-	Array.prototype.findIndex = function (predicate) {
-		if (this === null) {
-			throw new TypeError('Array.prototype.findIndex called on null or undefined');
-		}
-		if (typeof predicate !== 'function') {
-			throw new TypeError('predicate must be a function');
-		}
-		const list = Object(this);
-		const length = list.length >>> 0;
-		const thisArg = arguments[1];
-		let value;
-
-		for (let i = 0; i < length; i++) {
-			value = list[i];
-			if (predicate.call(thisArg, value, i, list)) {
-				return i;
-			}
-		}
-		return -1;
-	};
-}
 
 function Reducer(state = defaultData, action) {
 	switch (action.type) {
+
+		case 'updateLearningHours':
+			var newState = Object.assign({}, state, { learningHoursSaved: false, learningHours: action.learningHours });
+			return newState;
+
+		case 'updatingLearningHours':
+			var newstate = Object.assign({}, state, {learningHoursLoading: true})
+			return newstate;
+
+		case 'learningHoursSaved':
+			var newState = Object.assign({}, state,{learningHoursLoading: false, learningHoursSaved:action.saved})
+			return newState;
+
+
+
 
 		case 'saveState':
 			var newState = Object.assign({}, state, action.state);
@@ -37,6 +31,8 @@ function Reducer(state = defaultData, action) {
 			persistState(newState);
 			return newState;
 
+
+
 		case 'updateModuleProgress':
 			var inputArray = Object.keys(action.inputs);
 			var eligible = inputArray.filter(a => !inputsTemplate.find(b => b.fieldName === a).omitFromProgress);
@@ -44,10 +40,7 @@ function Reducer(state = defaultData, action) {
 			var mod = Math.floor((100 / eligible.length) * validInputs.length);
 			return Object.assign({}, state, { moduleProgress: mod });
 
-		case 'updateLearningHours':
-			var newState = Object.assign({}, state, { learningHours: action.learningHoursItem });
-			learningActivities(newState.learningHours);
-			return persistState(newState);
+
 
 		case 'addNewLearningOutcome':
 			var newState = Object.assign({}, state);
@@ -78,26 +71,7 @@ function Reducer(state = defaultData, action) {
 			newLearningOutcomes[index] = {GUID: action.GUID, ID: action.ID, outcome: action.outcome, loading:action.loading, saved: action.saved}
 			return Object.assign({}, state, {learningOutcomes: newLearningOutcomes});
 
-		case 'addNewAssessment':
-			var newState = Object.assign({}, state);
 
-			newState.assessments = [...newState.assessments,
-			{
-				"GUID": generateId(),
-				"task_no": "",
-				"LO_Ref": "",
-				"description": "",
-				"Assessment_Task_Type": "",
-				"word_count": "",
-				"task_weighting": ""
-			}];
-
-			return newState;
-
-		case 'deleteAssessment':
-			var newState = Object.assign({}, state);
-			newState.assessments = newState.assessments.filter(a => a.GUID != action.GUID);
-			return persistState(newState);
 
 		case 'saveAssessment':
 			var newState = Object.assign({}, state);
@@ -110,14 +84,6 @@ function Reducer(state = defaultData, action) {
 			updateAssessment(action.assessment);
 			return newState;
 
-		case 'validateServerState':
-			console.log('server state:')
-			console.log(cleanServerState(action.serverState));
-			console.log('client state:')
-			console.log(state);
-			return state;
-
-
 		default:
 			if (retrieveState()) {
 				var newState = cleanServerState(JSON.parse(retrieveState()));
@@ -129,20 +95,28 @@ function Reducer(state = defaultData, action) {
 	}
 }
 
-export default Reducer;
 
-function cleanServerState(state) {
-	var newState = state;
-	newState.learningOutcomes = newState.learningOutcomes.filter(a => Object.keys(a).length === 3);
-	newState.assessments = newState.assessments.filter(a => Object.keys(a).length === 6);
-	newState.assessments = newState.assessments.map(a => {
-		if (a.LO_Ref !== '') {
-			a.LO_Ref = a.LO_Ref.split(',')
+if (!Array.prototype.findIndex) {
+	Array.prototype.findIndex = function (predicate) {
+		if (this === null) {
+			throw new TypeError('Array.prototype.findIndex called on null or undefined');
 		}
-		else {
-			a.LO_Ref = []
+		if (typeof predicate !== 'function') {
+			throw new TypeError('predicate must be a function');
 		}
-		return a
-	});
-	return newState
+		const list = Object(this);
+		const length = list.length >>> 0;
+		const thisArg = arguments[1];
+		let value;
+
+		for (let i = 0; i < length; i++) {
+			value = list[i];
+			if (predicate.call(thisArg, value, i, list)) {
+				return i;
+			}
+		}
+		return -1;
+	};
 }
+
+export default Reducer;

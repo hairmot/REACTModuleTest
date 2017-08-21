@@ -5,25 +5,18 @@ import { learningHoursTemplate } from '../data/defaultData';
 import CollapsiblePanel from './CollapsiblePanel';
 
 export default class LearningHours extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {learningHours: this.props.learningHours, saved:true}
-	}
+
 
 	updateLearningHours = (learningHoursItem)  => {
 			var updatedItem = {};
 			updatedItem[learningHoursItem.name] = learningHoursItem.value;
-			var newLearningHours = Object.assign({}, this.state.learningHours, updatedItem);
-			this.setState({learningHours: newLearningHours, saved:false})
+			var newLearningHours = Object.assign({}, this.props.learningHours, updatedItem);
+			this.props.update(newLearningHours);
 	}
 
-	save = () => {
-		this.setState({saved:true})
-		this.props.update(this.state.learningHours);
-	}
 
 	render() {
-		var totalLearningHours = Object.keys(this.state.learningHours).map(a => { return { name: a, value: this.state.learningHours[a] } });
+		var totalLearningHours = Object.keys(this.props.learningHours).map(a => { return { name: a, value: this.props.learningHours[a] } });
 
 		var render = totalLearningHours.map(a => {
 			return (
@@ -38,7 +31,11 @@ export default class LearningHours extends React.Component {
 				{render}
 				<div className="sv-form-group sv-col-md-12">
 					<div className="sv-col-md-3 sv-col-md-offset-9">
-						<button onClick={this.save} className={this.state.saved ? 'sv-btn sv-alert-success sv-btn-block' : 'sv-btn sv-alert-danger sv-btn-block'} disabled={this.state.saved}>{this.state.saved ? 'Saved' : 'Save'}</button>
+						{
+							this.props.saved ? 		<button className="sv-btn sv-alert-success sv-btn-block" type="button" disabled >Saved</button> :
+							this.props.loading ?  <button className="sv-btn sv-alert-warning sv-btn-block" type="button"  disabled>Saving</button> :
+																		<button onClick={() => this.props.save(this.props.learningHours)} className="sv-btn sv-alert-danger sv-btn-block" type="button">Save</button>
+						}
 					</div>
 				</div>
 			</CollapsiblePanel>

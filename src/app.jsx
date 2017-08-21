@@ -12,6 +12,8 @@ import { bindActionCreators } from 'redux'
 import * as actionCreators from './Actions/actionCreators';
 import LearningHours from './components/LearningHours';
 import { validAssessments, numberOfValid, numberOfValidObj, countValidInObj } from './util/countFunctions';
+import * as learningOutcomesActions from './Actions/learningOutcomes';
+import * as learningHoursActions from './Actions/learningHoursActions';
 
 class App extends React.Component {
 	constructor(props) {
@@ -45,7 +47,7 @@ class App extends React.Component {
 
 				<div style={{transition:"width 1s"}} className={this.state.toggle ? 'sv-col-md-5' : 'sv-col-md-10'}>
 					{moduleElement}
-	<LearningHours valid={numberOfValidObj(this.props.learningHours)} update={this.props.actions.updateLearningHours} learningHours={this.props.learningHours}></LearningHours>
+	<LearningHours saved={this.props.learningHoursSaved} loading={this.props.learningHoursLoading} valid={numberOfValidObj(this.props.learningHours)} update={this.props.actions.updateLearningHours} save={this.props.actions.startSavingLearningHours} learningHours={this.props.learningHours}></LearningHours>
 				</div>
 								<div className={this.state.toggle ? 'sv-col-md-5' : 'sv-col-md-10 sv-col-md-offset-2'}>
 
@@ -60,18 +62,11 @@ class App extends React.Component {
 }
 
 const mapDispatchToProps = function (dispatch, ownProps) {
-	return { actions: bindActionCreators(actionCreators, dispatch) }
+	return { actions: bindActionCreators(Object.assign({}, actionCreators, learningOutcomesActions, learningHoursActions), dispatch) }
 }
 
 const mapStateToProps = function (store, ownProps) {
-	return {
-		assessments: store.assessments,
-		learningOutcomes: store.learningOutcomes,
-		moduleProgress: store.moduleProgress,
-		inputs: store.inputs,
-		savedStates: store.savedStates,
-		learningHours: store.learningHours
-	};
+	return store;
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
