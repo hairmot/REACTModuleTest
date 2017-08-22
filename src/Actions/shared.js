@@ -16,3 +16,11 @@ export function triggerAsync(selector) {
 export function getServerStateJSON() {
 	return fetch(document.querySelector('[data-checkstate]').getAttribute('href'), { credentials: "same-origin" });
 }
+
+export function verifySaved(clientSide, serverSide) {
+		var length = Object.keys(clientSide)
+		if (length.length === Object.keys(serverSide).length) {
+			return length.map(a => clientSide[a] === serverSide[a]).reduce((a,b) => a && b);
+		}
+		return false
+}

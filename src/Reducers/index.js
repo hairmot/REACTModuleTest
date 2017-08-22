@@ -1,9 +1,10 @@
 import defaultData, { inputsTemplate } from '../data/defaultData';
 import retrieveState from '../util/retrieveState';
 import generateId from '../util/generateId';
+import calculateModuleProgress from '../util/calculateModuleProgress';
 
 
-function Reducer(state = defaultData, action) {
+function Reducer(state = {}, action) {
 	switch (action.type) {
 		case 'updateAssessment' :
 			var assessmentIndex = state.assessments.findIndex(a => a.GUID === action.values.GUID);
@@ -65,17 +66,19 @@ function Reducer(state = defaultData, action) {
 
 
 		case 'updateModuleProgress':
-			var inputArray = Object.keys(action.inputs);
-			var eligible = inputArray.filter(a => !inputsTemplate.find(b => b.fieldName === a).omitFromProgress);
-			var validInputs = eligible.filter(a => inputsTemplate.find(b => b.fieldName === a).validate(action.inputs[a], a));
-			var mod = Math.floor((100 / eligible.length) * validInputs.length);
-			return Object.assign({}, state, { moduleProgress: mod });
-
-
+			return Object.assign({}, state, { moduleProgress:  calculateModuleProgress(action.inputs) });
 
 		case 'addNewLearningOutcome':
 			var newState = Object.assign({}, state);
-			newState.learningOutcomes = [...newState.learningOutcomes, { GUID: generateId(), ID: '', outcome: '' }]
+			var ids = newState.learningOutcomes.map(a => a.ID).sort();
+					var	newId = '' + (ids.indexOf(ids.filter((a,b) => ids[b] !== '' + (b + 1))[0]) + 1);
+			if (newId === '0') {
+				newId = '' + (ids.length + 1);
+			}
+
+
+
+			newState.learningOutcomes = [...newState.learningOutcomes, { GUID: generateId(), ID: newId, outcome: '' }]
 			return newState
 
 		case 'deleteLearningOutcome':
@@ -164,5 +167,6 @@ function cleanServerState(state) {
 		}
 		return a
 	});
+	newState.moduleProgress = calculateModuleProgress(newState.inputs);
 	return newState
 }

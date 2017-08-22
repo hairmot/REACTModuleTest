@@ -1,5 +1,4 @@
-import {triggerAsync, getServerStateJSON} from './shared.js';
-
+import {triggerAsync, getServerStateJSON, verifySaved} from './shared.js';
 
 export function startSavingLearningHours(learningHours) {
 		return function (dispatch) {
@@ -30,12 +29,4 @@ export function updateLearningHours(learningHours) {
 		type: 'updateLearningHours',
 		learningHours
 	}
-}
-
-function verifySaved(clientSide, serverSide) {
-		var length = Object.keys(clientSide)
-		if (length.length === Object.keys(serverSide).length) {
-			return length.map(a => clientSide[a] === serverSide[a]).reduce((a,b) => a && b);
-		}
-		return false
 }

@@ -6,10 +6,6 @@ export default class LearningOutcome extends React.Component {
 		this.state = { confirmDelete: 0,timeout: {} }
 	}
 
-	componentWillReceiveProps(a) {
-
-	}
-
 	updateID = (e) => {
 		this.props.updateLearningOutcome(this.props.learningOutcome.GUID, e.target.value, this.props.learningOutcome.outcome )
 
@@ -43,10 +39,10 @@ render() {
 	return (
 		<tr>
 			<td className="sv-col-md-2">
-				<input className="sv-form-control" onChange={(e) => this.updateID(e)} type="text" value={this.props.learningOutcome.ID.replace(/¨/g, '"')} />
+				<input disabled className="sv-form-control" onChange={(e) => this.updateID(e)} type="text" value={this.props.learningOutcome.ID.replace(/¨/g, '"')} />
 			</td>
 			<td className="sv-col-md-10">
-				<input className="sv-form-control" onChange={(e) => this.updateOutcome(e)} type="text" value={this.props.learningOutcome.outcome.replace(/¨/g, '"')} />
+				<textarea className="sv-form-control" onChange={(e) => this.updateOutcome(e)} type="text" value={this.props.learningOutcome.outcome.replace(/¨/g, '"')} />
 			</td>
 			<td>
 				{
