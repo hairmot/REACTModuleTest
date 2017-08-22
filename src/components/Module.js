@@ -73,7 +73,7 @@ class Module extends React.Component {
 						</div>
 					</div>
 				</div>
-				<PreviousVersions valid={this.props.moduleProgress === 100} versions={versions.reverse()} showVersion={this.showVersion} visibleVersion={0} savedStates={this.props.savedStates} />
+				{/*<PreviousVersions valid={this.props.moduleProgress === 100} versions={versions.reverse()} showVersion={this.showVersion} visibleVersion={0} savedStates={this.props.savedStates} />*/}
 			</div>
 		)
 	}
@@ -88,7 +88,8 @@ const mapStateToProps = function (store, ownProps) {
 		inputs: store.inputs,
 		savedStates: store.savedStates,
 		saved: store.moduleInputsSaved,
-		loading: store.moduleInputsLoading
+		loading: store.moduleInputsLoading,
+		moduleProgress: store.moduleProgress
 	}
 }
 
