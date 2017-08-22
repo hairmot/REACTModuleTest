@@ -1,15 +1,10 @@
-export function updateAssessments(assessments) {
-    return {
-        type: "updateAssessments",
-        assessments
-    }
-}
+import {verifySaved, triggerAsync, getServerStateJSON} from './shared.js';
 
-export function updateLearningOutcomes(learningOutcomes) {
-    return {
-        type: "updateLearningOutcomes",
-        learningOutcomes
-    }
+export function updateAssessments(assessments) {
+	return {
+		type: "updateAssessments",
+		assessments
+	}
 }
 
 export function updateModuleProgress(inputs) {
@@ -32,68 +27,9 @@ export function retrieveState() {
 	}
 }
 
-export function updateLearningHours(learningHoursItem) {
-	return {
-		type: 'updateLearningHours',
-		learningHoursItem
-	}
-}
-
-export function addNewLearningOutcome() {
-	return {
-		type: 'addNewLearningOutcome'
-	}
-}
-
-export function deleteLearningOutcome(GUID) {
-	return {
-		type: 'deleteLearningOutcome',
-		GUID
-	}
-}
-
-export function saveLearningOutcome(learningOutcome) {
-	return {
-		type: 'saveLearningOutcome',
-		learningOutcome
-	}
-}
-
-export function addNewAssessment() {
-	return {
-		type: 'addNewAssessment'
-	}
-}
-
-export function deleteAssessment(GUID) {
-	return {
-		type: 'deleteAssessment',
-		GUID
-	}
-}
-
 export function saveAssessment(assessment) {
 	return {
 		type: 'saveAssessment',
 		assessment
 	}
 }
-function getServerStateJSON() {
-	return fetch(document.querySelector('[data-checkstate]').getAttribute('href'), {credentials: "same-origin"});
-}
-
-
-export function getServerState() {
-	return function(dispatch) {
-		return getServerStateJSON().then(response => response.json()).then(json => dispatch(validateStateFromServer(json)));
-	}
-}
-
-export function validateStateFromServer(serverState) {
-		return {
-			type: 'validateServerState',
-			serverState
-		}
-}
-
-

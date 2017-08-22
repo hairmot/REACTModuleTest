@@ -76,13 +76,13 @@ export var inputsTemplate = [
 	{
 		fieldName: 'module_summary',
 		type: 'textarea',
-		maxLength: 500,
+		maxLength: 9999,
 		validate
 	},
 	{
 		fieldName: 'learning_teaching_and_assessment_summary',
 		type: 'textarea',
-		maxLength: 400,
+		maxLength: 9999,
 		validate
 	}
 	// {
@@ -103,6 +103,14 @@ export var assessmentsTemplate = [
 		readOnly: true
 	},
 	{
+	fieldName: 'loading',
+		hidden:true,
+	},
+	{
+		fieldName: 'saved',
+		hidden:true
+	},
+	{
 		fieldName: 'LO_Ref',
 		formatting: (a, b) => {
 
@@ -111,7 +119,7 @@ export var assessmentsTemplate = [
 		validate
 	},
 	{
-		fieldName: 'description',
+		fieldName: 'assessment_task_description',
 		validate,
 		readOnly: true
 	}, {
@@ -190,16 +198,11 @@ export default {
 		}
 	],
 	inputs: newInputs,
-	assessments: [{
-		"Assessment_Task_Type":"CWK",
-		GUID:"CW100~001",
-		description:"COURSEWORK",
-		task_no:"001",
-		task_weighting:"100",
-			LO_Ref:[]}
+	assessments: [
 	],
 	learningOutcomes:
-	[...outcomes, {GUID:'330002C0-ED82-C000-C2FF-A96673D927F9', ID:'P', outcome:'yes'}]
+	[...outcomes],
+	learningOutcomesLoading: false
 	,
 	moduleProgress: 0,
 	learningHours: newLearningHours

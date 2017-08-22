@@ -3,45 +3,52 @@ import translateName from '../util/translateName';
 import TextInput from './TextInput';
 import { learningHoursTemplate } from '../data/defaultData';
 import CollapsiblePanel from './CollapsiblePanel';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as learningHoursActions from '../Actions/learningHoursActions';
 
-export default class LearningHours extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {learningHours: this.props.learningHours, saved:true}
-	}
-
+class LearningHours extends React.Component {
 	updateLearningHours = (learningHoursItem)  => {
 			var updatedItem = {};
 			updatedItem[learningHoursItem.name] = learningHoursItem.value;
-			var newLearningHours = Object.assign({}, this.state.learningHours, updatedItem);
-			this.setState({learningHours: newLearningHours, saved:false})
+			var newLearningHours = Object.assign({}, this.props.learningHours, updatedItem);
+			this.props.actions.updateLearningHours(newLearningHours);
 	}
-
-	save = () => {
-		this.setState({saved:true})
-		this.props.update(this.state.learningHours);
-	}
-
 	render() {
-		var totalLearningHours = Object.keys(this.state.learningHours).map(a => { return { name: a, value: this.state.learningHours[a] } });
+		var totalLearningHours = Object.keys(this.props.learningHours).map(a => { return { name: a, value: this.props.learningHours[a] } });
 
 		var render = totalLearningHours.map(a => {
 			return (
 				<TextInput biglabels={true} inputsTemplate={learningHoursTemplate} name={translateName(a.name)} key={a.name} update={(e) => this.updateLearningHours({ name: a.name, value: e.target.value })} propertyname={a.name} value={a.value} />
 			)
 		})
-
-
-
 		return (
 			<CollapsiblePanel valid={this.props.valid} title="Study Hours">
 				{render}
 				<div className="sv-form-group sv-col-md-12">
 					<div className="sv-col-md-3 sv-col-md-offset-9">
-						<button onClick={this.save} className={this.state.saved ? 'sv-btn sv-alert-success sv-btn-block' : 'sv-btn sv-alert-danger sv-btn-block'} disabled={this.state.saved}>{this.state.saved ? 'Saved' : 'Save'}</button>
+						{
+							this.props.saved ? 		<button className="sv-btn sv-alert-success sv-btn-block" type="button" disabled >Saved</button> :
+							this.props.loading ?  <button className="sv-btn sv-alert-warning sv-btn-block" type="button"  disabled>Saving</button> :
+																		<button onClick={() => this.props.actions.startSavingLearningHours(this.props.learningHours)} className="sv-btn sv-alert-danger sv-btn-block" type="button">Save</button>
+						}
 					</div>
 				</div>
 			</CollapsiblePanel>
 		)
 	}
 }
+
+const mapDispatchToProps = function (dispatch, ownProps) {
+	return { actions: bindActionCreators(learningHoursActions, dispatch) }
+}
+
+const mapStateToProps = function (store, ownProps) {
+	return {
+		learningHours: store.learningHours,
+		saved: store.learningHoursSaved,
+		loading: store.learningHoursLoading
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LearningHours);
