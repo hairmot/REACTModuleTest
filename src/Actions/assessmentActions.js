@@ -1,4 +1,4 @@
-import { triggerAsync, getServerStateJSON } from './shared.js';
+import {triggerAsync, getServerStateJSON, verifySaved} from './shared.js';
 
 export function updateAssessment(values) {
 	return {
@@ -33,12 +33,4 @@ export function savingAssessment(GUID) {
 		type: 'savingAssessment',
 		GUID
 	}
-}
-
-function verifySaved(clientSide, serverSide) {
-		var length = Object.keys(clientSide)
-		if (length.length === Object.keys(serverSide).length) {
-			return length.map(a => clientSide[a] === serverSide[a]).reduce((a,b) => a && b);
-		}
-		return false
 }

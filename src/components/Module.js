@@ -23,11 +23,6 @@ class Module extends React.Component {
 		this.props.actions.updateModuleInputs(newInputs);
 	}
 
-	componentDidMount() {
-		this.props.actions.updateModuleProgress(this.props.inputs);
-	}
-
-
 	render() {
 		var inputs = Object.keys(this.props.inputs).filter(a => typeof (this.props.inputs[a]) === 'string').map(a => {
 			var name = translateName(a);
