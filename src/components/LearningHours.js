@@ -15,6 +15,7 @@ class LearningHours extends React.Component {
 			this.props.actions.updateLearningHours(newLearningHours);
 	}
 	render() {
+
 		var totalLearningHours = Object.keys(this.props.learningHours).map(a => { return { name: a, value: this.props.learningHours[a] } });
 
 		var render = totalLearningHours.map(a => {

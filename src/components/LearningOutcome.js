@@ -15,7 +15,8 @@ export default class LearningOutcome extends React.Component {
 		this.props.updateLearningOutcome(this.props.learningOutcome.GUID, this.props.learningOutcome.ID, e.target.value, false, false)
 	}
 
-	saveLearningOutcome = () => {
+	saveLearningOutcome = (e) => {
+		e.preventDefault();
 		this.props.saveLearningOutcome({ GUID: this.props.learningOutcome.GUID, ID: this.props.learningOutcome.ID, outcome: this.props.learningOutcome.outcome })
 	}
 

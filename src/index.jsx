@@ -5,6 +5,13 @@ import {createStore, applyMiddleware, combineReducers} from 'redux';
 import reducer from './Reducers';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import 'whatwg-fetch';
+import Promise from 'promise-polyfill';
+
+// To add to window
+if (!window.Promise) {
+  window.Promise = Promise;
+}
 
 
 let store = createStore(reducer, applyMiddleware(thunk));
