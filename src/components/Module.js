@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as learningHoursActions from '../Actions/learningHoursActions';
 import * as  moduleInputsActions from '../Actions/moduleInputsActions';
+import SaveButton from './saveButton';
 
 class Module extends React.Component {
 
@@ -21,6 +22,10 @@ class Module extends React.Component {
 			newInputs[name] = val.replace(/"/g, '¨').replace(/\t/g, "&nbsp;");
 		}
 		this.props.actions.updateModuleInputs(newInputs);
+	}
+
+	save = () => {
+		this.props.actions.startSavingModuleInputs(this.props.inputs);
 	}
 
 	render() {
@@ -57,13 +62,8 @@ class Module extends React.Component {
 						<div className="sv-col-md-12">
 							<div className="sv-col-md-4 sv-col-md-offset-8">
 
-								{/*<button type="button" onClick={this.save} className={this.saved ? 'sv-btn sv-alert-success sv-btn-block' : 'sv-btn sv-alert-danger sv-btn sv-btn-block'} disabled={this.saved}>{this.saved ? 'Saved' : 'Save'}</button>*/}
+								<SaveButton loading={this.props.loading} saved={this.props.saved} save={this.save} />
 
-								{
-										this.props.saved ? 		<button className="sv-btn sv-alert-success sv-btn-block" type="button" disabled >Saved</button> :
-										this.props.loading ? 	<button className="sv-btn sv-alert-warning sv-btn-block" type="button" disabled>Saving</button> :
-																					<button onClick={() => this.props.actions.startSavingModuleInputs(this.props.inputs)} className="sv-btn sv-alert-danger sv-btn-block" type="button">Save</button>
-								}
 							</div>
 						</div>
 					</div>

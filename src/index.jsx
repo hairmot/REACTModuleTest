@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import App from './app.jsx';
-import {createStore, applyMiddleware, combineReducers} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import reducer from './Reducers';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -16,7 +16,7 @@ if (!window.Promise) {
 
 let store = createStore(reducer, applyMiddleware(thunk));
 
-render(
+render (
 	<Provider store={store}>
 		<App />
 	</Provider>, document.querySelector("#app")

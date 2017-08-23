@@ -11,7 +11,7 @@ class LearningOutcomes extends React.Component {
 	render() {
 		var outcomes = <tr></tr>;
 		if (this.props.learningOutcomes) {
-			outcomes = this.props.learningOutcomes.filter(a => Object.keys(a).length >= 3  ).sort((a,b) => parseInt(a.ID) > parseInt(b.ID)).map((a, b) => {
+			outcomes = this.props.learningOutcomes.filter(a => Object.keys(a).length >= 3  ).sort((a,b) => parseInt(a.ID) - parseInt(b.ID)).map((a, b) => {
 				return (
 					<LearningOutcome key={a.GUID} updateLearningOutcome={this.props.actions.updateLearningOutcome} deleteLearningOutcome={this.props.actions.deleteLearningOutcome} saveLearningOutcome={this.props.actions.startSaveLearningOutcome} learningOutcome={a} />
 				)

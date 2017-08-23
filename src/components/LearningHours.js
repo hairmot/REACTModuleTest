@@ -6,6 +6,7 @@ import CollapsiblePanel from './CollapsiblePanel';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as learningHoursActions from '../Actions/learningHoursActions';
+import SaveButton from './saveButton';
 
 class LearningHours extends React.Component {
 	updateLearningHours = (learningHoursItem)  => {
@@ -13,6 +14,10 @@ class LearningHours extends React.Component {
 			updatedItem[learningHoursItem.name] = learningHoursItem.value;
 			var newLearningHours = Object.assign({}, this.props.learningHours, updatedItem);
 			this.props.actions.updateLearningHours(newLearningHours);
+	}
+
+	save = () => {
+		this.props.actions.startSavingLearningHours(this.props.learningHours);
 	}
 	render() {
 
@@ -28,11 +33,10 @@ class LearningHours extends React.Component {
 				{render}
 				<div className="sv-form-group sv-col-md-12">
 					<div className="sv-col-md-3 sv-col-md-offset-9">
-						{
-							this.props.saved ? 		<button className="sv-btn sv-alert-success sv-btn-block" type="button" disabled >Saved</button> :
-							this.props.loading ?  <button className="sv-btn sv-alert-warning sv-btn-block" type="button"  disabled>Saving</button> :
-																		<button onClick={() => this.props.actions.startSavingLearningHours(this.props.learningHours)} className="sv-btn sv-alert-danger sv-btn-block" type="button">Save</button>
-						}
+
+							<SaveButton loading={this.props.loading} saved={this.props.saved} save={this.save} />
+
+
 					</div>
 				</div>
 			</CollapsiblePanel>

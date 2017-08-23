@@ -5,6 +5,7 @@ import translateName from '../util/translateName';
 import * as assessmentActions from '../Actions/assessmentActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import SaveButton from './saveButton';
 
 class Assessment extends React.Component {
 	constructor(props) {
@@ -26,6 +27,10 @@ class Assessment extends React.Component {
 			}
 			var newValues = Object.assign({}, this.props.values, {LO_Ref: newArr});
 			this.props.actions.updateAssessment(newValues);
+	}
+
+	save = () => {
+		this.props.actions.startSavingAssessment(this.props.values);
 	}
 
 	render() {
@@ -78,13 +83,9 @@ class Assessment extends React.Component {
 					{inputs}
 				</td>
 				<td className="sv-col-md-3" style={{ verticalAlign: 'middle' }}>
-					{/*<button type="button" onClick={this.toggleSave} id={this.props.index} className={!this.state.saved ? "sv-btn sv-alert-success sv-btn-block" : 'sv-hidden'}>Save</button>
-					*/}
-								{
-										this.props.values.saved ? 		<button className="sv-btn sv-alert-success sv-btn-block" type="button" disabled >Saved</button> :
-										this.props.values.loading ? 	<button className="sv-btn sv-alert-warning sv-btn-block" type="button" disabled>Saving</button> :
-																					<button onClick={() => this.props.actions.startSavingAssessment(this.props.values)} className="sv-btn sv-alert-danger sv-btn-block" type="button">Save</button>
-								}
+
+					<SaveButton saved={this.props.values.saved} loading={this.props.values.loading} save={this.save} />
+
 					</td>
 			</tr>
 		)
