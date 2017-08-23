@@ -47,7 +47,7 @@ class Assessment extends React.Component {
 						{name === 'LO Ref' ?
 							(
 								<div>
-									{this.props.learningOutcomes.map(b =>
+									{this.props.learningOutcomes.sort((a,b) => parseInt(a.ID) - parseInt(b.ID)).map(b =>
 										<div key={b.GUID} className="sv-col-md-4">
 											<button key={b.GUID} type="button" style={{margin:'5px'}} onClick={() => this.toggleLO_Ref(b.GUID)} className={this.props.values[a].find(c => c == b.GUID) ? 'sv-btn sv-btn-block sv-btn-success' : 'sv-btn-block sv-btn sv-btn-default'} >
 												{b.ID}

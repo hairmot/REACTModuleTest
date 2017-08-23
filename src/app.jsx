@@ -40,7 +40,7 @@ class App extends React.Component {
 
 				<div style={{ transition: "width 1s" }} className={this.state.toggle ? 'sv-col-md-5' : 'sv-col-md-10'}>
 
-					<Module />;
+					<Module />
 
 					<LearningHours valid={numberOfValidObj(this.props.learningHours)}></LearningHours>
 
