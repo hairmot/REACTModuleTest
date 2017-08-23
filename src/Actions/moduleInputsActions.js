@@ -27,7 +27,9 @@ export function startSavingModuleInputs(inputs) {
 
 				if(saved)
 					dispatch(updateModuleProgress(inputs));
-		}));
+		})).catch(function(err) {
+			moduleInputsSaved(false);
+		});
 	}
 }
 

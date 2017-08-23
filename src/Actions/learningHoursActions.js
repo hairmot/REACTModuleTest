@@ -7,7 +7,9 @@ export function startSavingLearningHours(learningHours) {
 		triggerAsync('[data-save-learning-hours]').then(response => getServerStateJSON().then(response => response.json()).then(json => {
 			var response = json.learningHours;
 				dispatch(learningHoursSaved(verifySaved(learningHours, response)))
-		}));
+		})).catch(function() {
+			dispatch(learningHoursSaved(false))
+		});
 	}
 }
 

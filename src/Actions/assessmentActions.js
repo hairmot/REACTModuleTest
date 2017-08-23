@@ -16,7 +16,9 @@ export function startSavingAssessment(assessment) {
 			var response = json.assessments.find(a => a.GUID === assessment.GUID);
 			var clientSide = Object.assign({}, assessment, {saved:true, loading:false, LO_Ref: assessment.LO_Ref.join(',')});
 			dispatch(assessmentSaved(assessment.GUID, verifySaved(clientSide, response)))
-		}));
+		})).catch(function() {
+				dispatch(assessmentSaved(assessment.GUID, false));
+		});
 	}
 }
 
