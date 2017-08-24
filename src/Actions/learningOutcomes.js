@@ -26,6 +26,7 @@ export function startSaveLearningOutcome(learningOutcome) {
 		$('[data-learningoutcome]').val(learningOutcome.GUID + '~' + learningOutcome.ID + '~' + learningOutcome.outcome.replace(/\r?\n|\r/g, ' '));
 		triggerAsync('[data-save-learning-outcome]').then(response => getServerStateJSON().then(response => response.json()).then(json => {
 			var response = json.learningOutcomes.find(a => a.GUID === learningOutcome.GUID);
+			response.outcome = decodeURIComponent(response.outcome);
 				dispatch(updateLearningOutcome(GUID, ID, outcome, false, verifySaved(learningOutcome, response)))
 		})).catch(function(err) {
 			updateLearningOutcome(GUID, ID, outcome, false, false);
