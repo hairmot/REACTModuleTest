@@ -1,4 +1,4 @@
 # purpose	
 Proof of concept
 
-[go](https://hairmot.github.io/REACTModuleTest/public/index.html)
+[See a demo!](https://hairmot.github.io/reactSitsDemo/)
